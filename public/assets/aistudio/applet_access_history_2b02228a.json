@@ -1,0 +1,25 @@
+{
+  "applets": [{
+    "lastAccessTime": "2026-11-11T21:43:27.823956Z",
+    "firstAccessTime": "2026-11-10T22:41:04.365822Z",
+    "source": {
+      "sourceType": "SPANNER",
+      "spanner": {
+        "id": "9edd4ba7-bd6a-407a-b685-1d397dca9ac6"
+      }
+    },
+    "name": "Untitled"
+  }, {
+    "lastAccessTime": "2026-11-10T22:43:01.695782Z",
+    "firstAccessTime": "2026-11-10T21:58:21.422665Z",
+    "source": {
+      "sourceType": "SPANNER",
+      "spanner": {
+        "id": "d17281c5-ae8c-47f9-937f-e1a6cd36297b"
+      }
+    },
+    "name": "QABS Unified Workspace",
+    "description": "A centralized, integrated platform for efficient workspace management, file organization, and streamlined digital productivity.",
+    "runtimeType": 1
+  }]
+}

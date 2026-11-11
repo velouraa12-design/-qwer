@@ -1,0 +1,6 @@
+{
+  "name": "QABS — قبس الرقمية Master Template",
+  "description": "منصة قبس الرقمية المتكاملة لتأسيس الشركات، إدارة المتاجر المتعددة، بوابات الدفع، وخدمات الأعمال الرقمية.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
