@@ -1,0 +1,58 @@
+# QABS UNIFIED PLATFORM — MASTER CLOUDFLARE WRANGLER CONFIGURATION
+# 11 Active Workers · D1 Databases · R2 Storage Buckets · Service Bindings
+
+name = "qabs-stores"
+main = "src/worker.ts"
+compatibility_date = "2026-11-08"
+compatibility_flags = ["nodejs_compat"]
+
+# Production Custom Domains
+routes = [
+  { pattern = "portal.qabs1.store/*", zone_name = "qabs1.store" },
+  { pattern = "qabs1.store/*", zone_name = "qabs1.store" }
+]
+
+# D1 Database Bindings
+[[d1_databases]]
+binding = "DB"
+database_name = "qabs-stores-db"
+database_id = "d1-qabs-stores-db-master"
+
+[[d1_databases]]
+binding = "PORTAL_DB"
+database_name = "qabs-digital-portal-staging-db"
+database_id = "d1-portal-staging-db"
+
+# R2 Storage Bucket Bindings
+[[r2_buckets]]
+binding = "STORE_IMAGES"
+bucket_name = "qabs-stores-images"
+
+[[r2_buckets]]
+binding = "STATUTORY_DOCS"
+bucket_name = "qabs-formation-private-staging"
+
+# Microservices Cross-Worker RPC Bindings
+[[services]]
+binding = "FORMATION"
+service = "qabs-company-formation-page"
+environment = "production"
+
+[[services]]
+binding = "STUDIO"
+service = "qabs-digital-portal-staging"
+environment = "production"
+
+[[services]]
+binding = "COMMERCE"
+service = "qabs-stores"
+environment = "production"
+
+# Environment Variables & Feature Flags
+[vars]
+ENVIRONMENT = "production"
+DEFAULT_LOCALE = "ar"
+ENABLE_TENANT_ISOLATION = "true"
+ALLOWED_ORIGINS = "https://qabs1.store,https://portal.qabs1.store"
+PRIMARY_COLOR = "#14243e"
+ACCENT_COLOR = "#d5b46b"

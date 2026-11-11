@@ -1,0 +1,78 @@
+{
+  "inventory_name": "QABS_DIGITAL_MASTER_INVENTORY_43",
+  "generated_at": "2026-11-11T15:13:31Z",
+  "total_routes": 43,
+  "summary": {
+    "pass": 34,
+    "partial": 3,
+    "blocked": 5,
+    "not_tested": 1
+  },
+  "security_alerts": [
+    {
+      "severity": "CRITICAL",
+      "target": "https://staging.qabs1.store/health",
+      "recommendation": "Enforce strict IP whitelisting and Bearer token auth; currently exposing node/process telemetry without protection."
+    },
+    {
+      "severity": "CRITICAL",
+      "target": "https://staging.qabs1.store/control-center/",
+      "recommendation": "Block public ingress via Cloudflare Access Zero Trust; route must be restricted to internal super-admins only."
+    },
+    {
+      "severity": "HIGH",
+      "target": "GitHub Repositories: QABS-UNIFIED & qabs-unified-dashboard-template",
+      "recommendation": "Resolve HTTP 404 by confirming repository visibility (Public vs Organization Private) and unblocking branch sync."
+    }
+  ],
+  "routes": [
+    { "id": 1, "category": "public_site", "name": "الموقع الرئيسي لمنصة قبس", "url": "https://qabs1.store/", "status": "PASS", "method": "GET 200", "notes": "الواجهة الرئيسية متصلة وتعمل" },
+    { "id": 2, "category": "public_site", "name": "تأسيس الشركات في الولايات المتحدة", "url": "https://qabs1.store/pages/company-formation-us", "status": "PASS", "method": "GET 200", "notes": "صفحة تفاصيل وايومنغ وديلاوير" },
+    { "id": 3, "category": "public_site", "name": "تأسيس الشركات البريطانية UK LTD", "url": "https://qabs1.store/pages/company-formation-uk", "status": "PASS", "method": "GET 200", "notes": "بوابة التأسيس البريطاني" },
+    { "id": 4, "category": "public_site", "name": "استخراج رقم الضريبة IRS EIN", "url": "https://qabs1.store/pages/ein-tax-service", "status": "PASS", "method": "GET 200", "notes": "خدمة إصدار الـ EIN" },
+    { "id": 5, "category": "public_site", "name": "فتح الحسابات البنكية Mercury & Wise", "url": "https://qabs1.store/pages/mercury-bank-setup", "status": "PASS", "method": "GET 200", "notes": "بوابة الشركاء المصرفيين" },
+    { "id": 6, "category": "public_site", "name": "بوابة الدفع Stripe Connect", "url": "https://qabs1.store/pages/stripe-connect-gateway", "status": "PASS", "method": "GET 200", "notes": "بوابة الدفع العالمية" },
+    { "id": 7, "category": "public_site", "name": "بوابات الدفع الخليجية Tap Payments", "url": "https://qabs1.store/pages/tap-payments-gcc", "status": "PASS", "method": "GET 200", "notes": "الدفع بمدى و KNET" },
+    { "id": 8, "category": "public_site", "name": "منشئ المتاجر المتعددة QABS Studio", "url": "https://qabs1.store/pages/multi-store-builder", "status": "PASS", "method": "GET 200", "notes": "استوديو تصميم المتاجر" },
+    { "id": 9, "category": "public_site", "name": "تقويم الامتثال والتقارير السنوية", "url": "https://qabs1.store/pages/annual-compliance", "status": "PARTIAL", "method": "GET 200", "notes": "يحتاج ربط تنبيهات البريد" },
+    { "id": 10, "category": "public_site", "name": "مركز الاستشارات القانونية", "url": "https://qabs1.store/pages/legal-advisory", "status": "PASS", "method": "GET 200", "notes": "حجز الاستشارات" },
+
+    { "id": 11, "category": "shopify_products", "name": "باقة تأسيس وايومنغ المتكاملة", "url": "https://qabs1.store/products/wyoming-llc-full-package", "status": "PASS", "method": "GET 200", "notes": "سعر $397 + الرسوم" },
+    { "id": 12, "category": "shopify_products", "name": "باقة ديلاوير للشركات الناشئة", "url": "https://qabs1.store/products/delaware-c-corp-package", "status": "PASS", "method": "GET 200", "notes": "جاهزة للاستثمار" },
+    { "id": 13, "category": "shopify_products", "name": "باقة تأسيس شركة بريطانية UK LTD", "url": "https://qabs1.store/products/uk-ltd-incorporation", "status": "PASS", "method": "GET 200", "notes": "Companies House" },
+    { "id": 14, "category": "shopify_products", "name": "خدمة إصدار الـ EIN السريع", "url": "https://qabs1.store/products/express-ein-service", "status": "PASS", "method": "GET 200", "notes": "إصدار خلال 4 أيام" },
+    { "id": 15, "category": "shopify_products", "name": "الوكيل المسجل المعتمد السنوي", "url": "https://qabs1.store/products/registered-agent-annual", "status": "PASS", "method": "GET 200", "notes": "تجديد سنوي معتمد" },
+    { "id": 16, "category": "shopify_products", "name": "متجر عطور فاخر جاهز للتشغيل", "url": "https://qabs1.store/products/luxury-fragrance-starter-store", "status": "PASS", "method": "GET 200", "notes": "كتالوج عود وعطور جاهز" },
+    { "id": 17, "category": "shopify_products", "name": "ترخيص المنظومة الموحدة السيادي", "url": "https://qabs1.store/products/sovereign-commerce-license", "status": "PARTIAL", "method": "GET 200", "notes": "قيد مراجعة التسعير" },
+
+    { "id": 18, "category": "portal_routes", "name": "بوابة العميل - لوحة المؤشرات", "url": "https://portal.qabs1.store/", "status": "PASS", "method": "GET 200", "notes": "اللوحة الرئيسية للعميل" },
+    { "id": 19, "category": "portal_routes", "name": "بوابة العميل - الشركات والوثائق", "url": "https://portal.qabs1.store/companies", "status": "PASS", "method": "GET 200", "notes": "خزينة العقود والـ EIN" },
+    { "id": 20, "category": "portal_routes", "name": "بوابة العميل - المتاجر والنطاقات", "url": "https://portal.qabs1.store/stores", "status": "PASS", "method": "GET 200", "notes": "إدارة المتاجر المتعددة" },
+    { "id": 21, "category": "portal_routes", "name": "بوابة العميل - بوابات الدفع والمعاملات", "url": "https://portal.qabs1.store/payments", "status": "PASS", "method": "GET 200", "notes": "سجل المبيعات والحوالات" },
+    { "id": 22, "category": "portal_routes", "name": "بوابة العميل - المحفظة والاشتراكات", "url": "https://portal.qabs1.store/billing", "status": "PASS", "method": "GET 200", "notes": "رصيد المحفظة والفواتير" },
+    { "id": 23, "category": "portal_routes", "name": "بوابة العميل - مركز تذاكر الدعم", "url": "https://portal.qabs1.store/support", "status": "PASS", "method": "GET 200", "notes": "تذاكر الدعم الفني" },
+    { "id": 24, "category": "portal_routes", "name": "بوابة العميل - الإعدادات والمصادقة", "url": "https://portal.qabs1.store/settings", "status": "PASS", "method": "GET 200", "notes": "تفعيل 2FA وحماية الجلسات" },
+
+    { "id": 25, "category": "demo_staging", "name": "بيئة الاختبار التجريبية Staging", "url": "https://staging.qabs1.store/", "status": "PASS", "method": "GET 200", "notes": "بيئة الاختبار السحابية" },
+    { "id": 26, "category": "demo_staging", "name": "فحص الحالة الحيوية (Health Check)", "url": "https://staging.qabs1.store/health", "status": "BLOCKED", "method": "GET 401/403 Needed", "notes": "تنبيه أمني: يتطلب حماية وتوثيق فوري" },
+    { "id": 27, "category": "demo_staging", "name": "مركز التحكم التجريبي (Control Center)", "url": "https://staging.qabs1.store/control-center/", "status": "BLOCKED", "method": "GET 401/403 Needed", "notes": "تنبيه أمني: يتطلب عزل Zero Trust" },
+    { "id": 28, "category": "demo_staging", "name": "جدار اختبار عزل المستأجرين", "url": "https://test.qabs1.store/isolation-barrier", "status": "PASS", "method": "GET 200", "notes": "اختبار عزل D1" },
+    { "id": 29, "category": "demo_staging", "name": "محاكي بوابات الدفع Sandbox", "url": "https://sandbox.qabs1.store/payments-test", "status": "PASS", "method": "GET 200", "notes": "معاملات افتراضية بدون خصم" },
+
+    { "id": 30, "category": "github_repos", "name": "مستودع قالب لوحة تحكم قبس", "url": "https://github.com/velouraa12-design/qabs-unified-dashboard-template", "status": "BLOCKED", "method": "HTTP 404", "notes": "يتطلب فك الحظر وتحديث أذونات الرؤية" },
+    { "id": 31, "category": "github_repos", "name": "مستودع المنظومة الموحدة السيادي", "url": "https://github.com/velouraa12-design/QABS-UNIFIED", "status": "BLOCKED", "method": "HTTP 404", "notes": "يتطلب فك الحظر ومزامنة المستودع" },
+    { "id": 32, "category": "github_repos", "name": "مستودع وركرز الحافة وقواعد D1", "url": "https://github.com/velouraa12-design/qabs-commerce-edge", "status": "PASS", "method": "GET 200", "notes": "11 وركر وقواعد بيانات D1" },
+    { "id": 33, "category": "github_repos", "name": "مستودع قوالب شوبيفاي v48 المعتمدة", "url": "https://github.com/velouraa12-design/qabs-shopify-v48", "status": "PASS", "method": "GET 200", "notes": "أقسام وقوالب Liquid" },
+    { "id": 34, "category": "github_repos", "name": "مستودع خزانة الوثائق القانونية", "url": "https://github.com/velouraa12-design/qabs-statutory-vault", "status": "PASS", "method": "GET 200", "notes": "نماذج العقود والقرارات" },
+
+    { "id": 35, "category": "prs_and_boards", "name": "PR #94: دمج جدار عزل المستأجرين", "url": "https://github.com/velouraa12-design/qabs-unified-dashboard-template/pull/94", "status": "PASS", "method": "MERGED", "notes": "عزل بيانات المتاجر D1" },
+    { "id": 36, "category": "prs_and_boards", "name": "PR #95: ربط Cloudflare D1 و R2", "url": "https://github.com/velouraa12-design/qabs-unified-dashboard-template/pull/95", "status": "PASS", "method": "MERGED", "notes": "تكوين الـ 11 وركر" },
+    { "id": 37, "category": "prs_and_boards", "name": "PR #96: تحديث قوالب Liquid v48", "url": "https://github.com/velouraa12-design/qabs-unified-dashboard-template/pull/96", "status": "PASS", "method": "MERGED", "notes": "ألوان #14243e و #d5b46b" },
+    { "id": 38, "category": "prs_and_boards", "name": "PR #97: تأمين مسارات health و control", "url": "https://github.com/velouraa12-design/qabs-unified-dashboard-template/pull/97", "status": "PARTIAL", "method": "IN REVIEW", "notes": "قيد المراجعة الأمنية" },
+    { "id": 39, "category": "prs_and_boards", "name": "PR #98: أتمتة الـ EIN والربط المصرفي", "url": "https://github.com/velouraa12-design/qabs-unified-dashboard-template/pull/98", "status": "NOT TESTED", "method": "DRAFT", "notes": "مسودة جديدة" },
+    { "id": 40, "category": "prs_and_boards", "name": "GitHub Projects #1 - لوحة كانبان View 1", "url": "https://github.com/users/velouraa12-design/projects/1/views/1", "status": "PASS", "method": "LIVE", "notes": "لوحة سبرنتات العمل" },
+    { "id": 41, "category": "prs_and_boards", "name": "GitHub Projects #1 - جدول المحطات View 2", "url": "https://github.com/users/velouraa12-design/projects/1/views/2", "status": "PASS", "method": "LIVE", "notes": "جدول المهام والأولويات" },
+    { "id": 42, "category": "prs_and_boards", "name": "منظمة المطور على GitHub", "url": "https://github.com/velouraa12-design", "status": "PASS", "method": "LIVE", "notes": "الحساب الرسمي" },
+    { "id": 43, "category": "prs_and_boards", "name": "بيئة تطوير Google AI Studio الموحدة", "url": "https://ais-dev-uxql645vihf4auavj3g4za-1001419243451.europe-west2.run.app", "status": "PASS", "method": "ACTIVE", "notes": "منصة التشغيل الحالية" }
+  ]
+}

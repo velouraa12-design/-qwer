@@ -164,3 +164,88 @@ CREATE INDEX IF NOT EXISTS idx_stores_tenant ON store_instances(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_products_store ON store_products(store_id);
 CREATE INDEX IF NOT EXISTS idx_orders_store ON store_orders(store_id);
 CREATE INDEX IF NOT EXISTS idx_invoices_tenant ON billing_invoices(tenant_id);
+
+-- =====================================================================
+-- 12. Cloudflare D1 & Edge Sync Extensions (from Snapshot Supplements)
+-- =====================================================================
+
+-- Multi-Tenant Customer Support Tickets & Threads
+CREATE TABLE IF NOT EXISTS account_tickets (
+    id VARCHAR(64) PRIMARY KEY,
+    user_id VARCHAR(64) NOT NULL REFERENCES tenants(id),
+    category VARCHAR(32) NOT NULL CHECK(category IN ('technical','question','suggestion','security','account_deletion')),
+    subject VARCHAR(255) NOT NULL,
+    body TEXT NOT NULL,
+    status VARCHAR(32) DEFAULT 'open' CHECK(status IN ('open','closed')),
+    revision INT DEFAULT 1,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS account_ticket_posts (
+    id VARCHAR(64) PRIMARY KEY,
+    ticket_id VARCHAR(64) NOT NULL REFERENCES account_tickets(id) ON DELETE CASCADE,
+    actor_id VARCHAR(64) NOT NULL REFERENCES tenants(id),
+    body TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Two-Factor Authentication & Identity Verification
+CREATE TABLE IF NOT EXISTS account_mfa (
+    user_id VARCHAR(64) PRIMARY KEY REFERENCES tenants(id) ON DELETE CASCADE,
+    enabled SMALLINT DEFAULT 0 CHECK(enabled IN (0, 1)),
+    version INT DEFAULT 0,
+    secret TEXT,
+    iv TEXT,
+    last_step INT DEFAULT -1,
+    last_claim TEXT,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Cloudflare Edge Buyer Cart & Draft Orders
+CREATE TABLE IF NOT EXISTS qs_buyer_cart (
+    user_id VARCHAR(64) NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+    product_id VARCHAR(64) NOT NULL REFERENCES store_products(id) ON DELETE CASCADE,
+    variant_id VARCHAR(64) DEFAULT '',
+    quantity INT NOT NULL CHECK(quantity BETWEEN 1 AND 1000),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(user_id, product_id, variant_id)
+);
+
+CREATE TABLE IF NOT EXISTS qs_buyer_order_drafts (
+    id VARCHAR(64) PRIMARY KEY,
+    buyer_id VARCHAR(64) NOT NULL REFERENCES tenants(id),
+    store_id VARCHAR(64) NOT NULL REFERENCES store_instances(id),
+    quote_fingerprint VARCHAR(128) NOT NULL,
+    snapshot_json JSONB NOT NULL,
+    subtotal_cents BIGINT NOT NULL CHECK(subtotal_cents >= 0),
+    currency VARCHAR(8) DEFAULT 'USD',
+    state VARCHAR(32) DEFAULT 'draft' CHECK(state IN ('draft','cancelled','confirmed')),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+-- Real-time Operational Alerts & Webhook Event Deliveries
+CREATE TABLE IF NOT EXISTS qs_alert_events (
+    id VARCHAR(64) PRIMARY KEY,
+    dedupe_key VARCHAR(128) UNIQUE NOT NULL,
+    kind VARCHAR(64) NOT NULL,
+    resource_type VARCHAR(64) NOT NULL,
+    resource_id VARCHAR(64) NOT NULL,
+    payload_json JSONB DEFAULT '{}',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS qs_alert_deliveries (
+    id VARCHAR(64) PRIMARY KEY,
+    event_id VARCHAR(64) NOT NULL REFERENCES qs_alert_events(id) ON DELETE CASCADE,
+    channel VARCHAR(32) NOT NULL CHECK(channel IN ('email','telegram','webhook')),
+    state VARCHAR(32) DEFAULT 'pending' CHECK(state IN ('pending','sending','accepted','failed')),
+    attempts INT DEFAULT 0,
+    next_attempt_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    accepted_at TIMESTAMP WITH TIME ZONE,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(event_id, channel)
+);
+

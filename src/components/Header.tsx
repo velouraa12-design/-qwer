@@ -122,7 +122,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenFormationModal, onOpenStor
             }`}
           >
             <FileCode2 className="w-3.5 h-3.5 text-[#00A896]" />
-            <span>{isAr ? 'قالب GitHub' : 'GitHub Template'}</span>
+            <span>{isAr ? 'منظومة GitHub والمشاريع' : 'GitHub Hub & Projects'}</span>
           </button>
         </nav>
 
