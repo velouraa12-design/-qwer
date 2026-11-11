@@ -284,114 +284,292 @@ export const LandingView: React.FC<LandingViewProps> = ({
         </div>
       </section>
 
-      {/* 2. QABS INTEGRATED SOVEREIGN SERVICES PILLARS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* 2. QABS 9 SOVEREIGN SERVICES EXECUTIVE GRID (الخدمات السيادية الـ 9) */}
+      <section id="services-grid" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
           <div>
-            <span className="text-xs font-black text-[#00A896] uppercase">
-              {isAr ? 'منظومة قبس الرقمية المتكاملة' : 'QABS Unified Digital Ecosystem'}
-            </span>
-            <h2 className="text-2xl font-black text-[#003445] dark:text-white mt-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#14243e] text-[#d5b46b] border border-[#d5b46b]/40 text-xs font-bold font-mono">
+              <Sparkles className="w-3.5 h-3.5 text-[#d5b46b]" />
+              <span>{isAr ? 'الخدمات السيادية الـ 9 المعتمدة' : 'Official 9 Sovereign Services'}</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-[#14243e] dark:text-white mt-2">
               {isAr
-                ? 'كل ما تحتاجه لتأسيس شركتك وربط مدفوعاتك وإدارة متاجرك الإلكترونية'
-                : 'Everything Needed to Form Companies, Connect Global Payments & Run Online Stores'}
+                ? 'منظومة قبس المتكاملة: كل ما يلزم لتأسيس شركتك، إطلاق متاجرك، وربط مدفوعاتك'
+                : 'Complete Sovereign Ecosystem: Form Entities, Connect Payments & Run Multi-Stores'}
             </h2>
           </div>
+          <span className="text-xs font-bold text-slate-500 font-mono">
+            qabs1.store · Certified Suite
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Pillar 1: US & UK Company Formation */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Service 1: US Company Formation */}
           <div
             onClick={() => onOpenFormationModal('WY')}
-            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border border-slate-200 dark:border-slate-800 hover:border-[#00A896] shadow-sm hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between space-y-4"
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
           >
             <div className="space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-[#004457]/10 dark:bg-teal-950 text-[#004457] dark:text-teal-300 flex items-center justify-center">
-                <Building2 className="w-5 h-5 text-[#00A896]" />
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Building2 className="w-6 h-6 text-[#d5b46b]" />
               </div>
-              <h3 className="text-base font-black text-[#003445] dark:text-white">
-                {isAr ? 'تأسيس الشركات الأمريكية والبريطانية' : 'US & UK Company Formation'}
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                  01 · Formation
+                </span>
+                <span className="text-xs font-mono font-bold text-emerald-600">All 50 States</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '1. تأسيس الشركات الأمريكية (US LLC & C-Corp)' : '1. US LLC & C-Corp Formation'}
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 {isAr
-                  ? 'تأسيس LLC أو C-Corp في كافة الولايات الخمسين (وايومنغ، ديلاوير، نيو مكسيكو...) والشركات البريطانية LTD.'
-                  : 'Register LLC or C-Corp in all 50 US states or UK LTD with full corporate documents.'}
+                  ? 'تأسيس رسمي معتمد في وايومنغ، ديلاوير، ونيو مكسيكو، يشمل النظام الأساسي (Articles) والوكيل المسجل وعقد التشغيل.'
+                  : 'Official state registration in Wyoming, Delaware, and New Mexico with Operating Agreement & Registered Agent.'}
               </p>
             </div>
-            <span className="text-xs font-black text-[#00A896] flex items-center gap-1">
-              <span>{isAr ? 'فتح بوابة التأسيس' : 'Open Formation Wizard'}</span>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'فتح بوابة التأسيس' : 'Start Formation'}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
             </span>
           </div>
 
-          {/* Pillar 2: EIN, Registered Agent & Annual Renewals */}
+          {/* Service 2: UK LTD Formation */}
+          <div
+            onClick={() => onOpenFormationModal('WY')}
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
+          >
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Globe className="w-6 h-6 text-[#d5b46b]" />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                  02 · United Kingdom
+                </span>
+                <span className="text-xs font-mono font-bold text-slate-500">Companies House</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '2. تأسيس الشركات البريطانية (UK LTD)' : '2. UK LTD Incorporation'}
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                {isAr
+                  ? 'تسجيل رسمي وسريع لدى Companies House، شهادة التأسيس الرسمية، وتوفير عنوان قانوني مرموق في قلب لندن.'
+                  : 'Incorporation with Companies House UK, Articles of Association, and prime prestigious London address.'}
+              </p>
+            </div>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'تأسيس شركة بريطانية' : 'Form UK Company'}</span>
+              <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+            </span>
+          </div>
+
+          {/* Service 3: IRS EIN Service */}
+          <div
+            onClick={() => onOpenFormationModal('WY')}
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
+          >
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <FileCheck2 className="w-6 h-6 text-[#d5b46b]" />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  03 · IRS CP575
+                </span>
+                <span className="text-xs font-mono font-bold text-emerald-600">Non-Residents</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '3. استخراج رقم الضريبة الفيدرالي (IRS EIN)' : '3. IRS Employer ID (EIN)'}
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                {isAr
+                  ? 'إصدار شهادة CP575 الرسمية من مصلحة الضرائب الأمريكية لغير حاملي SSN خلال أيام عمل قليلة لتفعيل البنوك وبوابات الدفع.'
+                  : 'Official IRS CP575 confirmation letter issued for global non-residents without SSN requirement.'}
+              </p>
+            </div>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'طلب إصدار الـ EIN' : 'Acquire EIN'}</span>
+              <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+            </span>
+          </div>
+
+          {/* Service 4: Digital Banking Mercury & Wise */}
           <div
             onClick={() => setMode('portal')}
-            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border border-slate-200 dark:border-slate-800 hover:border-[#00A896] shadow-sm hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between space-y-4"
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
           >
             <div className="space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-[#004457]/10 dark:bg-teal-950 text-[#004457] dark:text-teal-300 flex items-center justify-center">
-                <FileCheck2 className="w-5 h-5 text-[#C8A24A]" />
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Landmark className="w-6 h-6 text-[#d5b46b]" />
               </div>
-              <h3 className="text-base font-black text-[#003445] dark:text-white">
-                {isAr ? 'الرقم الضريبي EIN والوكيل المسجل والتجديدات' : 'EIN, Registered Agent & Compliance'}
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                  04 · Banking
+                </span>
+                <span className="text-xs font-mono font-bold text-purple-600">FDIC Insured</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '4. فتح الحسابات البنكية (Mercury & Wise)' : '4. Commercial Banking (Mercury & Wise)'}
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 {isAr
-                  ? 'استخراج خطاب EIN الرسمي من IRS، عنوان أمريكي معتمد، وإدارة التقارير والتجديدات السنوية.'
-                  : 'Official IRS CP575 EIN issuance, registered agent address, and annual state filings.'}
+                  ? 'تجهيز ملف الشركة وقرار مجلس الإدارة البنكي المعتمد لفتح حسابات جارية تجارية بالدولار واليورو والإسترليني.'
+                  : 'Corporate resolution kit & banking dossier for verified Mercury & Wise Business account approvals.'}
               </p>
             </div>
-            <span className="text-xs font-black text-[#00A896] flex items-center gap-1">
-              <span>{isAr ? 'إدارة الوثائق والامتثال' : 'Manage Compliance'}</span>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'تجهيز الملف المصرفي' : 'Banking Dossier'}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
             </span>
           </div>
 
-          {/* Pillar 3: QABS Stores & Studio */}
+          {/* Service 5: Stripe Connect Gateway */}
           <div
             onClick={() => setMode('portal')}
-            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border border-slate-200 dark:border-slate-800 hover:border-[#00A896] shadow-sm hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between space-y-4"
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
           >
             <div className="space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-[#004457]/10 dark:bg-teal-950 text-[#004457] dark:text-teal-300 flex items-center justify-center">
-                <Store className="w-5 h-5 text-[#00A896]" />
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <CreditCard className="w-6 h-6 text-[#d5b46b]" />
               </div>
-              <h3 className="text-base font-black text-[#003445] dark:text-white">
-                {isAr ? 'منصة متاجر قبس (QABS Stores & Studio)' : 'QABS Multi-Tenant Stores & Studio'}
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  05 · Global Payments
+                </span>
+                <span className="text-xs font-mono font-bold text-emerald-600">Stripe Connect</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '5. بوابة الدفع العالمية (Stripe Connect)' : '5. Stripe Connect Multi-Currency'}
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 {isAr
-                  ? 'متجر إلكتروني مستقل لكل عميل مع لوحة تحكم متكاملة واستوديو تصميم مرئي وعزل كامل للبيانات.'
-                  : 'Independent online store per client with 16-section dashboard, visual QABS Studio, and full isolation.'}
+                  ? 'ربط حساب Stripe تجاري موثق بالكيان الأمريكي لاستقبال المدفوعات العالمية والتحويلات المباشرة إلى حسابك المصرفي.'
+                  : 'Fully verified US-entity Stripe merchant account with 135+ currencies and 3D-Secure fraud defense.'}
               </p>
             </div>
-            <span className="text-xs font-black text-[#00A896] flex items-center gap-1">
-              <span>{isAr ? 'إدارة المتاجر الإلكترونية' : 'Open QABS Stores'}</span>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'ربط بوابة Stripe' : 'Connect Stripe'}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
             </span>
           </div>
 
-          {/* Pillar 4: Global Banking & Payment Gateways */}
+          {/* Service 6: Tap Payments GCC */}
           <div
-            onClick={() => setMode('billing')}
-            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border border-slate-200 dark:border-slate-800 hover:border-[#00A896] shadow-sm hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between space-y-4"
+            onClick={() => setMode('portal')}
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
           >
             <div className="space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-[#004457]/10 dark:bg-teal-950 text-[#004457] dark:text-teal-300 flex items-center justify-center">
-                <Landmark className="w-5 h-5 text-[#C8A24A]" />
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Zap className="w-6 h-6 text-[#d5b46b]" />
               </div>
-              <h3 className="text-base font-black text-[#003445] dark:text-white">
-                {isAr ? 'البنوك العالمية وبوابات الدفع والاشتراكات' : 'Global Banking, Gateways & Billing'}
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
+                  06 · GCC Gateway
+                </span>
+                <span className="text-xs font-mono font-bold text-teal-600">مدى · KNET</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '6. بوابات الدفع الخليجية (Tap Payments)' : '6. Tap Payments GCC Regional'}
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                 {isAr
-                  ? 'ربط حسابات Mercury و Wise وبوابات الدفع Stripe و PayPal و Tap و Moyasar بعد اعتماد قبس.'
-                  : 'Connect Mercury, Wise, Stripe, PayPal, Tap & Moyasar with verified governance.'}
+                  ? 'تفعيل الدفع الفوري عبر مدى (السعودية)، KNET (الكويت)، Benefit (البحرين)، و Apple Pay لتحقيق أعلى معدل تحويل خليجي.'
+                  : 'Native GCC payments via Mada, KNET, Benefit & Apple Pay with localized checkout settlement.'}
               </p>
             </div>
-            <span className="text-xs font-black text-[#00A896] flex items-center gap-1">
-              <span>{isAr ? 'عرض الباقات والمدفوعات' : 'View Plans & Banking'}</span>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'تفعيل بوابات الخليج' : 'Activate GCC Gateways'}</span>
+              <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+            </span>
+          </div>
+
+          {/* Service 7: Multi-Store Builder */}
+          <div
+            onClick={() => setMode('store_builder')}
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
+          >
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Store className="w-6 h-6 text-[#d5b46b]" />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                  07 · Commerce Engine
+                </span>
+                <span className="text-xs font-mono font-bold text-amber-600">QABS Studio</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '7. منشئ المتاجر المتعددة (QABS Studio)' : '7. Standalone Storefront Builder'}
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                {isAr
+                  ? 'منشئ متاجر متقدم يتيح تخصيص القوالب والكتالوج والمخزون، مع عزل كامل لقواعد البيانات D1 ودعم النطاقات المخصصة.'
+                  : 'Isolated multi-tenant storefront designer, custom domain routing, catalog CRUD & stock tracking.'}
+              </p>
+            </div>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'فتح استوديو المتاجر' : 'Open Store Builder'}</span>
+              <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+            </span>
+          </div>
+
+          {/* Service 8: Annual Compliance & State Reports */}
+          <div
+            onClick={() => setMode('portal')}
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
+          >
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <ShieldCheck className="w-6 h-6 text-[#d5b46b]" />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  08 · Compliance
+                </span>
+                <span className="text-xs font-mono font-bold text-emerald-600">Auto Calendar</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '8. تقويم الامتثال والتجديدات السنوية' : '8. Annual Compliance & Filings'}
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                {isAr
+                  ? 'متابعة تقارير سكرتير الولاية السنوية، ضريبة الامتياز Franchise Tax، وتجديد خدمة الوكيل المسجل لضمان الوضع الجيد (Good Standing).'
+                  : 'Automated state compliance tracking, annual franchise tax filings, and registered agent renewals.'}
+              </p>
+            </div>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'عرض تقويم الامتثال' : 'Compliance Calendar'}</span>
+              <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+            </span>
+          </div>
+
+          {/* Service 9: Legal Advisory & AI Studio */}
+          <div
+            onClick={onOpenAIModal}
+            className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
+          >
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-xl bg-[#14243e] text-[#d5b46b] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <Sparkles className="w-6 h-6 text-[#d5b46b]" />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
+                  09 · Advisory & AI
+                </span>
+                <span className="text-xs font-mono font-bold text-cyan-600">Gemini Engine</span>
+              </div>
+              <h3 className="text-base font-black text-[#14243e] dark:text-white group-hover:text-[#d5b46b] transition-colors">
+                {isAr ? '9. الاستشارات القانونية وصياغة القرارات' : '9. Legal Advisory & Resolution AI'}
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                {isAr
+                  ? 'استوديو ذكاء اصطناعي متخصص لصياغة قرارات مجلس الإدارة الرسمية، عقود التأسيس، وصياغة الأوصاف التسويقية عالية التحويل.'
+                  : 'AI-assisted drafting for banking resolutions, operating bylaws, corporate memos, and sales copy.'}
+              </p>
+            </div>
+            <span className="text-xs font-black text-[#d5b46b] flex items-center gap-1 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+              <span>{isAr ? 'تشغيل مستشار قبس' : 'Launch AI Advisor'}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
             </span>
           </div>
