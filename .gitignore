@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+# Runtime storage must never be committed.
+data/*.json
+data/*.tmp
