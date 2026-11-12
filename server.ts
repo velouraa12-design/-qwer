@@ -380,6 +380,14 @@ app.get('/api/admin/audit-logs', authenticateSession, requireAdmin, (_req: Reque
   });
 });
 
+app.get('/api/admin/formations', authenticateSession, requireAdmin, (_req: Request, res: Response) => {
+  const allFormations = Array.from(formationsDb.values());
+  res.json({
+    total: allFormations.length,
+    formations: allFormations
+  });
+});
+
 // All other /api/admin/* routes: enforced by requireAdmin
 app.all('/api/admin/*', authenticateSession, requireAdmin, (_req: Request, res: Response) => {
   res.status(503).json({
