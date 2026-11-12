@@ -26,7 +26,7 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
   const [selectedPkgId, setSelectedPkgId] = useState<'starter' | 'complete' | 'premium'>('complete');
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [companyName, setCompanyName] = useState('');
-  const [entityType, setEntityType] = useState<'LLC' | 'C-CORP'>('LLC');
+  const [entityType, setEntityType] = useState<'LLC' | 'C-CORP' | 'LTD'>('LLC');
   const [ownerName, setOwnerName] = useState('');
   const [ownerEmail, setOwnerEmail] = useState('');
   const [ownerCountry, setOwnerCountry] = useState('');
@@ -71,8 +71,8 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
       localStorage.getItem('qabs_token') ||
       'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
 
-    const fullCompanyName =
-      companyName.trim().toUpperCase() + (entityType === 'LLC' ? ' LLC' : ' INC');
+    const suffix = entityType === 'LLC' ? ' LLC' : entityType === 'LTD' ? ' LTD' : ' INC';
+    const fullCompanyName = companyName.trim().toUpperCase() + suffix;
 
     setSubmitting(true);
     try {
@@ -84,7 +84,7 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
         },
         body: JSON.stringify({
           company_name: fullCompanyName,
-          jurisdiction: selectedState.jurisdictionId,
+          jurisdiction: entityType === 'LTD' ? 'UK_LTD' : selectedState.jurisdictionId,
           entity_type: entityType,
           package_id: selectedPkgId,
           addons_fee: addonsTotal,
@@ -144,12 +144,12 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
             </div>
             <div>
               <h2 className="text-base font-black text-[#003445] dark:text-white">
-                {isAr ? 'تأسيس الشركات الأمريكية | قبس QABS' : 'US Company Formation | QABS'}
+                {isAr ? 'تأسيس الشركات الأمريكية والبريطانية | قبس QABS' : 'US & UK Company Formation | QABS'}
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 {isAr
-                  ? 'تسجيل LLC أو C-Corp في أي من الولايات الخمسين، مع EIN واتفاقية تشغيل ووكيل مسجل مجاني'
-                  : 'LLC or C-Corp in any of the 50 states, with EIN, operating agreement, and free registered agent'}
+                  ? 'تسجيل LLC أو C-Corp أو UK LTD، مع EIN واتفاقية تشغيل ووكيل مسجل مجاني'
+                  : 'LLC, C-Corp, or UK LTD formation with EIN, operating agreement, and free registered agent'}
               </p>
             </div>
           </div>
@@ -224,11 +224,12 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
                   </label>
                   <select
                     value={entityType}
-                    onChange={e => setEntityType(e.target.value as 'LLC' | 'C-CORP')}
+                    onChange={e => setEntityType(e.target.value as 'LLC' | 'C-CORP' | 'LTD')}
                     className="w-full p-2.5 rounded-xl border-2 border-[#004457]/30 bg-[#F4FAFA] dark:bg-[#051724] text-xs font-extrabold text-[#003445] dark:text-white focus:outline-none focus:border-[#004457] cursor-pointer"
                   >
-                    <option value="LLC">{isAr ? 'LLC — مسؤولية محدودة' : 'LLC — Limited Liability'}</option>
-                    <option value="C-CORP">{isAr ? 'C-Corp — شركة مساهمة' : 'C-Corp — Corporation'}</option>
+                    <option value="LLC">{isAr ? 'LLC — مسؤولية محدودة (أمريكا)' : 'LLC — US Limited Liability'}</option>
+                    <option value="C-CORP">{isAr ? 'C-Corp — شركة مساهمة (أمريكا)' : 'C-Corp — US Corporation'}</option>
+                    <option value="LTD">{isAr ? 'UK LTD — شركة بريطانية محدودة' : 'UK LTD — Private Limited Company'}</option>
                   </select>
                 </div>
               </div>

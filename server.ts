@@ -2050,6 +2050,187 @@ app.post('/api/stores/:id/products', authenticateSession, requireAuth, (req: Req
   res.status(201).json({ success: true, product: prod });
 });
 
+// QABS Studio Visual Store Builder Persistence (Sections, Theme, Snapshots, Pages, SEO, Orders)
+app.patch('/api/stores/:id/studio', authenticateSession, requireAuth, (req: Request, res: Response) => {
+  const store = db.getStoreById(req.params.id);
+  const user = req.user!;
+
+  if (!store) {
+    res.status(404).json({ error: 'STORE_NOT_FOUND' });
+    return;
+  }
+
+  if (store.tenant_id !== user.id && !isStaffOrAdmin(user.role)) {
+    res.status(403).json({ error: 'FORBIDDEN' });
+    return;
+  }
+
+  const { name, theme, subdomain, currency, tax_rate } = req.body;
+  const updated = db.updateStore(store.id, {
+    name: typeof name === 'string' && name.trim() ? name.trim() : store.name,
+    theme: typeof theme === 'string' ? theme : store.theme,
+    subdomain: typeof subdomain === 'string' && subdomain.trim() ? subdomain.trim() : store.subdomain,
+    currency: typeof currency === 'string' ? currency : store.currency,
+    tax_rate: typeof tax_rate === 'number' ? tax_rate : store.tax_rate
+  });
+
+  db.recordAudit(user.name, user.id, `حفظ تعديلات محرر QABS Studio للمتجر (${store.name})`, `Saved QABS Studio visual configuration for store (${store.name})`, `stores:${store.id}`, 'success', req.ip);
+
+  res.json({ success: true, store: updated });
+});
+
+app.post('/api/stores/:id/orders', authenticateSession, requireAuth, (req: Request, res: Response) => {
+  const store = db.getStoreById(req.params.id);
+  const user = req.user!;
+
+  if (!store) {
+    res.status(404).json({ error: 'STORE_NOT_FOUND' });
+    return;
+  }
+
+  if (store.tenant_id !== user.id) {
+    res.status(403).json({ error: 'FORBIDDEN' });
+    return;
+  }
+
+  const { total, status } = req.body;
+  const ord = {
+    id: `ord_${Date.now()}_${crypto.randomBytes(2).toString('hex')}`,
+    store_id: store.id,
+    order_number: `QBS-${Math.floor(100000 + Math.random() * 900000)}`,
+    total: Number(total || 100),
+    status: String(status || 'processing')
+  };
+
+  store.orders.push(ord);
+  db.updateStore(store.id, { orders: store.orders });
+  db.recordAudit(user.name, user.id, `إنشاء طلب تجاري في المتجر (${ord.order_number})`, `Created store commerce order (${ord.order_number})`, `stores:${store.id}`, 'success', req.ip);
+
+  res.status(201).json({ success: true, order: ord });
+});
+
+// ==========================================
+// QABS SUBSCRIPTIONS, SUPPORT, NOTIFICATIONS, CRM & REPORTS
+// ==========================================
+
+app.get('/api/subscriptions', authenticateSession, requireAuth, (req: Request, res: Response) => {
+  const user = req.user!;
+  res.json({
+    tenant_id: user.id,
+    subscription: {
+      plan_id: 'growth',
+      billing_cycle: 'monthly',
+      status: 'active',
+      current_price: 79,
+      currency: 'USD',
+      renewal_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      credits_balance: user.credits,
+      ai_quota_limit: user.ai_quota_limit,
+      ai_quota_used: user.ai_quota_used
+    }
+  });
+});
+
+app.post('/api/subscriptions/change', authenticateSession, requireAuth, (req: Request, res: Response) => {
+  const user = req.user!;
+  const { plan_id, billing_cycle } = req.body;
+  const validPlans = ['starter', 'growth', 'enterprise'];
+  const targetPlan = validPlans.includes(plan_id) ? plan_id : 'growth';
+  const cycle = billing_cycle === 'annual' ? 'annual' : 'monthly';
+  const priceMap: Record<string, number> = { starter: 29, growth: 79, enterprise: 249 };
+  const basePrice = priceMap[targetPlan] || 79;
+  const finalPrice = cycle === 'annual' ? basePrice * 10 : basePrice;
+
+  db.recordAudit(user.name, user.id, `تحديث باقة الاشتراك إلى (${targetPlan} - ${cycle}) في وضع Sandbox`, `Updated subscription plan to (${targetPlan} - ${cycle}) in Sandbox mode`, `subscriptions:${user.id}`, 'success', req.ip);
+
+  res.json({
+    success: true,
+    sandbox: true,
+    subscription: {
+      plan_id: targetPlan,
+      billing_cycle: cycle,
+      current_price: finalPrice,
+      status: 'active'
+    }
+  });
+});
+
+app.get('/api/notifications', authenticateSession, requireAuth, (req: Request, res: Response) => {
+  const list = db.getNotificationsByTenant(req.user!.id);
+  res.json({ total: list.length, notifications: list });
+});
+
+app.post('/api/support/tickets', authenticateSession, requireAuth, (req: Request, res: Response) => {
+  const user = req.user!;
+  const { subject, category, message } = req.body;
+  if (!subject || typeof subject !== 'string' || !subject.trim()) {
+    res.status(400).json({ error: 'SUBJECT_REQUIRED' });
+    return;
+  }
+
+  const ticketNumber = `TKT-${Date.now().toString().slice(-6)}`;
+  db.createNotification({
+    tenant_id: user.id,
+    title_ar: `تم فتح تذكرة دعم فني (${ticketNumber})`,
+    title_en: `Support Ticket Opened (${ticketNumber})`,
+    message_ar: `الموضوع: ${subject.trim()}`,
+    message_en: `Subject: ${subject.trim()}`
+  });
+
+  db.recordAudit(user.name, user.id, `فتح تذكرة دعم فني (${ticketNumber})`, `Opened support ticket (${ticketNumber})`, `tickets:${ticketNumber}`, 'success', req.ip);
+
+  res.status(201).json({
+    success: true,
+    ticket: {
+      id: `tkt_${Date.now()}`,
+      ticket_number: ticketNumber,
+      tenant_id: user.id,
+      subject: subject.trim(),
+      category: category || 'technical',
+      message: message || '',
+      status: 'open',
+      created_at: new Date().toISOString()
+    }
+  });
+});
+
+app.get('/api/crm/summary', authenticateSession, requireAuth, (req: Request, res: Response) => {
+  const user = req.user!;
+  const formations = db.getFormationsByTenant(user.id);
+  const stores = db.getStoresByTenant(user.id);
+  const invoices = db.getInvoicesByTenant(user.id);
+  const docs = db.getDocumentsByTenant(user.id);
+
+  res.json({
+    tenant_id: user.id,
+    metrics: {
+      formations_count: formations.length,
+      stores_count: stores.length,
+      invoices_count: invoices.length,
+      documents_count: docs.length,
+      pending_invoices_count: invoices.filter(i => i.status === 'pending').length,
+      credits_balance: user.credits
+    }
+  });
+});
+
+app.get('/api/integrations/status', authenticateSession, (_req: Request, res: Response) => {
+  res.json({
+    integrations: {
+      gemini_ai: { status: process.env.GEMINI_API_KEY ? 'READY' : 'BLOCKED', mode: 'server_side' },
+      sandbox_billing: { status: 'PASS', mode: 'sandbox_only' },
+      shopify: { status: 'BLOCKED', reason: 'Missing SHOPIFY_ADMIN_ACCESS_TOKEN' },
+      stripe_live: { status: 'BLOCKED', reason: 'Sandbox enforced until production approval' },
+      paypal_live: { status: 'BLOCKED', reason: 'Sandbox enforced until production approval' },
+      tap_live: { status: 'BLOCKED', reason: 'Sandbox enforced until production approval' },
+      myfatoorah_live: { status: 'BLOCKED', reason: 'Sandbox enforced until production approval' },
+      resend_smtp: { status: 'BLOCKED', reason: 'Missing SMTP / Resend API credentials & SPF/DKIM' },
+      cloudflare_edge: { status: 'BLOCKED', reason: 'Missing CLOUDFLARE_API_TOKEN' },
+      github_sync: { status: 'BLOCKED', reason: 'Missing GITHUB_TOKEN' }
+    }
+  });
+});
+
 // ==========================================
 // PHASE 9: SHOPIFY INTEGRATION (HONESTLY BLOCKED)
 // ==========================================

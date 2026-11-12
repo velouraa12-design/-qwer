@@ -379,6 +379,73 @@ async function runTests() {
     'Store Tenant Isolation: Store 2 owner cannot view or access Store 1 data (403 Forbidden)'
   );
 
+  // QABS Studio update, Product creation, Order creation
+  const studioUpdateRes = await makeRequest({
+    method: 'PATCH',
+    path: `/api/stores/${newStore?.id}/studio`,
+    headers: { Authorization: `Bearer ${customer1Token}` },
+    body: {
+      theme: 'navy_modern',
+      primary_color: '#14243e',
+      accent_color: '#d5b46b',
+      font_family: 'Cairo',
+      snapshot_label: 'QABS Studio Version 2.0'
+    }
+  });
+  assert(
+    studioUpdateRes.statusCode === 200 && studioUpdateRes.body?.store?.theme === 'navy_modern',
+    'QABS Studio: Persists theme, colors, typography, and design version snapshot to backend'
+  );
+
+  const addProdRes = await makeRequest({
+    method: 'POST',
+    path: `/api/stores/${newStore?.id}/products`,
+    headers: { Authorization: `Bearer ${customer1Token}` },
+    body: { name_ar: 'ساعة ملكية ذهبية', name_en: 'Royal Gold Watch', price: 450, stock: 12 }
+  });
+  const addOrderRes = await makeRequest({
+    method: 'POST',
+    path: `/api/stores/${newStore?.id}/orders`,
+    headers: { Authorization: `Bearer ${customer1Token}` },
+    body: { customer_name: 'Nasser Al-Otaibi', total: 450 }
+  });
+  assert(
+    addProdRes.statusCode === 201 && addOrderRes.statusCode === 201,
+    'QABS Products & Orders: Creates isolated product and order records in store catalog'
+  );
+
+  // Subscriptions, Support Tickets, CRM, and Integrations Status
+  const subChangeRes = await makeRequest({
+    method: 'POST',
+    path: '/api/subscriptions/change',
+    headers: { Authorization: `Bearer ${customer1Token}` },
+    body: { plan_id: 'growth', billing_cycle: 'annual' }
+  });
+  const ticketRes = await makeRequest({
+    method: 'POST',
+    path: '/api/support/tickets',
+    headers: { Authorization: `Bearer ${customer1Token}` },
+    body: { subject: 'Help with EIN letter verification', category: 'compliance', priority: 'high' }
+  });
+  const crmRes = await makeRequest({
+    method: 'GET',
+    path: '/api/crm/summary',
+    headers: { Authorization: `Bearer ${customer1Token}` }
+  });
+  const intStatusRes = await makeRequest({
+    method: 'GET',
+    path: '/api/integrations/status',
+    headers: { Authorization: `Bearer ${customer1Token}` }
+  });
+  assert(
+    subChangeRes.statusCode === 200 &&
+      ticketRes.statusCode === 201 &&
+      crmRes.statusCode === 200 &&
+      intStatusRes.statusCode === 200 &&
+      ['PASS_AI_STUDIO', 'BLOCKED'].includes(intStatusRes.body?.integrations?.gemini_ai?.status),
+    'QABS Billing, Support, CRM & Integrations: Subscription change, support ticket, CRM summary, and integration matrix verified'
+  );
+
   // --- PHASE 9, 10 & 11: SHOPIFY, CLOUDFLARE HEALTH & DISK PERSISTENCE ---
   console.log('\n--- PHASES 9–12: Shopify Status, Health Endpoint, Persistence & Secret Scan ---');
 

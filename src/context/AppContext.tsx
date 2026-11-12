@@ -332,6 +332,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStores(prev => [newStore, ...prev]);
     setActiveStoreId(newStore.id);
 
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
+    fetch('/api/stores', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name: storeData.name,
+        subdomain: storeData.subdomain,
+        currency: storeData.currency || 'USD',
+        tax_rate: storeData.taxRate ?? 15,
+        theme: storeData.theme || 'gold_executive',
+        primary_color: storeData.primaryColor || '#004457',
+        accent_color: storeData.accentColor || '#C8A24A'
+      })
+    }).catch(() => {});
+
     // Seed default isolated pages for the new store
     const defaultPages: StorePageItem[] = [
       {
@@ -402,11 +422,39 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStores(prev =>
       prev.map(s => (s.id === id ? { ...s, theme: newTheme, customDomain: customDomain ?? s.customDomain } : s))
     );
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
+    fetch(`/api/stores/${id}/studio`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ theme: newTheme })
+    }).catch(() => {});
     showToast(language === 'ar' ? 'تم تحديث مظهر المتجر بنجاح' : 'Store theme updated successfully');
   };
 
   const updateStoreDetails = (id: string, updates: Partial<StoreInstance>) => {
     setStores(prev => prev.map(s => (s.id === id ? { ...s, ...updates } : s)));
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
+    fetch(`/api/stores/${id}/studio`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        theme: updates.theme,
+        primary_color: updates.primaryColor,
+        accent_color: updates.accentColor,
+        font_family: updates.fontFamily,
+        header_style: updates.headerStyle
+      })
+    }).catch(() => {});
     showToast(language === 'ar' ? 'تم حفظ إعدادات وتصميم المتجر بنجاح' : 'Store settings & design saved');
   };
 
@@ -600,6 +648,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         };
       })
     );
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
+    fetch(`/api/stores/${storeId}/studio`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ snapshot_label: label })
+    }).catch(() => {});
     showToast(
       language === 'ar'
         ? 'تم حفظ نسخة التصميم في سجل استوديو قبس بنجاح'
@@ -645,6 +704,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setStores(prev =>
       prev.map(s => (s.id === targetStoreId ? { ...s, productsCount: s.productsCount + 1 } : s))
     );
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
+    fetch(`/api/stores/${targetStoreId}/products`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name_ar: p.nameAr,
+        name_en: p.nameEn,
+        price: p.price,
+        stock: p.stock,
+        category_ar: p.categoryAr,
+        category_en: p.categoryEn
+      })
+    }).catch(() => {});
     showToast(language === 'ar' ? 'تم إضافة المنتج إلى المتجر بنجاح' : 'Product added to store catalog');
   };
 
@@ -680,6 +757,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           : s
       )
     );
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
+    fetch(`/api/stores/${orderData.storeId}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        customer_name: orderData.customerName,
+        total: orderData.total,
+        currency: orderData.currency || 'USD',
+        items_count: orderData.itemsCount || 1
+      })
+    }).catch(() => {});
     showToast(
       language === 'ar'
         ? `تم إنشاء الطلب ${newOrder.orderNumber} بنجاح!`
@@ -834,6 +927,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       updatedAt: new Date().toISOString().replace('T', ' ').slice(0, 16)
     };
     setTickets(prev => [newTicket, ...prev]);
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
+    fetch('/api/support/tickets', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        subject: t.subject,
+        category: t.category,
+        priority: t.priority
+      })
+    }).catch(() => {});
     showToast(
       language === 'ar'
         ? `تم فتح تذكرة الدعم ${newTicket.ticketNumber} بنجاح`
@@ -882,6 +990,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       clientName: user.companyName || user.name
     };
     setInvoices(prev => [newInv, ...prev]);
+
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
+    fetch('/api/subscriptions/change', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ plan_id: planId, billing_cycle: cycle })
+    }).catch(() => {});
 
     showToast(
       language === 'ar'
