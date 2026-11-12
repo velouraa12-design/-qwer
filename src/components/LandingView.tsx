@@ -106,8 +106,45 @@ export const LandingView: React.FC<LandingViewProps> = ({
 
   return (
     <div className="space-y-16 pb-20">
+      {/* 0. QABS MASTER PLATFORM v1.4.0 — LIVE 19-MODULE STATUS & QUICK-LAUNCH BAR */}
+      <div className="bg-[#0b172a] border-b border-[#d5b46b]/40 text-white py-3 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#d5b46b]/15 border border-[#d5b46b]/50 text-[#d5b46b] text-[11px] font-mono font-black">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#d5b46b]" />
+              <span>QABS MASTER SYSTEM v1.4.0</span>
+            </span>
+            <span className="text-xs font-bold text-slate-200">
+              {isAr
+                ? '19 وحدة تشغيلية نشطة: تأسيس 14 مرحلة • خزنة وثائق AES-256-GCM • فوترة Sandbox • متاجر واستوديو قبس'
+                : '19 Active Modules: 14-Step Formation • AES-256-GCM Vault • Sandbox Billing • Multi-Tenant Stores & Studio'}
+            </span>
+          </div>
+          <div className="flex items-center gap-2 flex-wrap text-[11px] font-bold">
+            <button
+              onClick={() => onOpenFormationModal('WY')}
+              className="px-2.5 py-1 rounded-lg bg-[#00A896]/20 hover:bg-[#00A896]/30 border border-[#00A896]/50 text-teal-300 cursor-pointer transition-colors"
+            >
+              {isAr ? '⚡ معالج التأسيس (LLC / C-Corp / UK LTD)' : '⚡ Formation Wizard (14-Step)'}
+            </button>
+            <button
+              onClick={() => setMode('portal')}
+              className="px-2.5 py-1 rounded-lg bg-[#d5b46b] hover:bg-[#c8a24a] text-[#0b172a] font-black cursor-pointer transition-colors"
+            >
+              {isAr ? '🔐 بوابة العميل الموحدة وخزنة الوثائق' : '🔐 Client Portal & Encrypted Vault'}
+            </button>
+            <button
+              onClick={() => setMode('store_builder')}
+              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 cursor-pointer transition-colors"
+            >
+              {isAr ? '🎨 استوديو المتاجر QABS Studio' : '🎨 QABS Studio'}
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* 1. EXECUTIVE HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#F2F9F9] to-white dark:from-[#03131D] dark:via-[#062030] dark:to-[#03131D] pt-10 pb-16 border-b-2 border-[#00A896]/25">
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#F2F9F9] to-white dark:from-[#03131D] dark:via-[#062030] dark:to-[#03131D] pt-8 pb-16 border-b-2 border-[#00A896]/25">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Hero Text Column */}
