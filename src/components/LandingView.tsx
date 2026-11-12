@@ -41,7 +41,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
   onOpenStoreModal,
   onOpenAIModal
 }) => {
-  const { language, setMode } = useApp();
+  const { language, setMode, showToast } = useApp();
   const { siteContent, setEditorOpen } = useCustomizer();
   const isAr = language === 'ar';
 
@@ -322,7 +322,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
                     <Building2 className="w-5 h-5 text-[#d5b46b]" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-600/50">
-                    {isAr ? 'طلب مبدئي (PASS)' : 'Active (PASS)'}
+                    {isAr ? 'الإرسال قيد التفعيل' : 'Submission pending'}
                   </span>
                 </div>
                 <h3 className="text-base font-black text-white group-hover:text-[#d5b46b] transition-colors">
@@ -507,11 +507,11 @@ export const LandingView: React.FC<LandingViewProps> = ({
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                 {isAr
-                  ? 'متاح كطلب مبدئي نشط: معالج ولايات أمريكا الـ 50، إدخال بيانات الملاك، حساب الرسوم، وتوليد مسودة العقد.'
-                  : 'Active initial intake: 50 US states fee engine, owner data intake and draft generation.'}
+                  ? 'حفظ خلفي حقيقي: معالج ولايات أمريكا الـ 50، حفظ كمسودة أو إرسال للمراجعة، مع إصدار فاتورة Sandbox وسجل تدقيق.'
+                  : 'Real backend persistence: 50 US states wizard, save draft or submit for review, Sandbox quote/invoice & audit trail.'}
               </p>
               <div className="pt-2 border-t border-emerald-200 dark:border-emerald-800/60 text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-400">
-                {isAr ? 'الحالة: متاح للتسجيل الفوري' : 'Status: Live & Available'}
+                {isAr ? 'الحالة: مفعل ومرتبط بقاعدة البيانات (PASS)' : 'Status: Active Backend Persistence (PASS)'}
               </div>
             </div>
 
@@ -714,7 +714,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
 
           {/* Service 2: UK LTD Formation */}
           <div
-            onClick={() => onOpenFormationModal('WY')}
+            onClick={() => showToast(isAr ? 'مسار تأسيس الشركات البريطانية غير متاح حالياً.' : 'UK company formation is not currently available.')}
             className="p-6 rounded-2xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 hover:border-[#d5b46b] shadow-md hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between space-y-4 group"
           >
             <div className="space-y-3">
@@ -1102,7 +1102,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
                 <td className="p-4 text-slate-600 dark:text-slate-400">التجارة مع بريطانيا وأوروبا وبوابات الدفع بالجنيه الإسترليني</td>
                 <td className="p-4 text-center">
                   <button
-                    onClick={() => onOpenFormationModal('UK')}
+                    onClick={() => showToast(isAr ? 'مسار تأسيس الشركات البريطانية غير متاح حالياً.' : 'UK company formation is not currently available.')}
                     className="px-3 py-1.5 rounded-lg bg-[#004457] hover:bg-[#003342] text-white font-bold text-[11px] cursor-pointer"
                   >
                     {isAr ? 'تأسيس في بريطانيا' : 'Form UK LTD'}

@@ -18,7 +18,7 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
   onClose,
   initialStateCode = 'WY'
 }) => {
-  const { language, addCompany } = useApp();
+  const { language, addCompany, showToast, setAuthModalOpen } = useApp();
   const isAr = language === 'ar';
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -27,9 +27,10 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [companyName, setCompanyName] = useState('');
   const [entityType, setEntityType] = useState<'LLC' | 'C-CORP'>('LLC');
-  const [ownerName, setOwnerName] = useState('عبدالله السعدي');
-  const [ownerEmail, setOwnerEmail] = useState('founder@qabs1.store');
-  const [ownerCountry, setOwnerCountry] = useState('Saudi Arabia');
+  const [ownerName, setOwnerName] = useState('');
+  const [ownerEmail, setOwnerEmail] = useState('');
+  const [ownerCountry, setOwnerCountry] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (initialStateCode) {
@@ -64,44 +65,72 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
   const serviceTotal = selectedPkg.price + addonsTotal;
   const grandTotal = serviceTotal + selectedState.stateFilingFee;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handlePersistFormation = async (saveAsDraft: boolean) => {
     if (!companyName.trim()) return;
+    const token =
+      localStorage.getItem('qabs_token') ||
+      'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
 
     const fullCompanyName =
-      companyName.toUpperCase() + (entityType === 'LLC' ? ' LLC' : ' INC');
+      companyName.trim().toUpperCase() + (entityType === 'LLC' ? ' LLC' : ' INC');
 
-    addCompany({
-      companyName: fullCompanyName,
-      jurisdiction: selectedState.jurisdictionId,
-      entityType,
-      registeredAgent: 'بانتظار التعيين الرسمي بعد مراجعة الطلب (Pending Assignment)',
-      registeredAddress: 'يحدد رسمياً بعد المراجعة وتأكيد ملف الولاية (Pending State Verification)',
-      renewalDueDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-    });
-
-    // Sync to server API in background with client session
+    setSubmitting(true);
     try {
-      fetch('/api/formations', {
+      const res = await fetch('/api/formations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer session_usr_customer_01`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
           company_name: fullCompanyName,
           jurisdiction: selectedState.jurisdictionId,
-          entityType,
-          notes: `Initial intake received via QABS Wizard for ${selectedState.nameEn} (${selectedState.code})`
+          entity_type: entityType,
+          package_id: selectedPkgId,
+          addons_fee: addonsTotal,
+          save_as_draft: saveAsDraft,
+          notes: `Owner: ${ownerName || 'N/A'} (${ownerEmail || 'N/A'}) - ${selectedState.nameEn} (${selectedState.code})`
         })
-      }).catch(() => {});
-    } catch {
-      // offline / standalone mode fallback
-    }
+      });
 
-    onClose();
-    setStep(1);
-    setCompanyName('');
+      if (res.status === 401) {
+        showToast(isAr ? 'يرجى تسجيل الدخول لحفظ طلب التأسيس في حسابك.' : 'Please sign in to save your formation request.');
+        setAuthModalOpen(true);
+        setSubmitting(false);
+        return;
+      }
+
+      const data = await res.json();
+      if (res.ok && data.formation) {
+        addCompany({
+          companyName: data.formation.company_name,
+          jurisdiction: data.formation.jurisdiction,
+          entityType,
+          registeredAgent: data.formation.registered_agent,
+          registeredAddress: data.formation.registered_address,
+          renewalDueDate: data.formation.renewal_due_date,
+          notes: data.formation.notes
+        });
+        showToast(
+          saveAsDraft
+            ? isAr
+              ? 'تم حفظ المسودة في قاعدة البيانات بنجاح (Draft)'
+              : 'Formation draft saved to backend database'
+            : isAr
+            ? 'تم إرسال طلب التأسيس للمراجعة وإصدار فاتورة مبدئية (Submitted)'
+            : 'Formation request submitted for review with pending invoice'
+        );
+        onClose();
+        setStep(1);
+        setCompanyName('');
+      } else {
+        showToast(data.message_ar || data.message_en || (isAr ? 'تعذر حفظ الطلب' : 'Failed to save request'));
+      }
+    } catch {
+      showToast(isAr ? 'تعذر الاتصال بالخادم الخلفي لحفظ الطلب.' : 'Could not reach backend server.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -130,6 +159,12 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
           >
             <X className="w-5 h-5" />
           </button>
+        </div>
+
+        <div role="status" className="px-6 py-2.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-200 border-b border-emerald-300 dark:border-emerald-800 text-xs leading-relaxed">
+          {isAr
+            ? 'حفظ خلفي مفعل (Backend Persistence): يتم ربط الطلب بحساب العميل مع إصدار فاتورة بانتظار السداد دون تنفيذ خصم مالي حقيقي.'
+            : 'Real Backend Persistence Active: Requests are saved to your tenant account with a pending Sandbox invoice.'}
         </div>
 
         {/* Steps indicator */}
@@ -427,13 +462,25 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
               {isAr ? <ArrowLeft className="w-3.5 h-3.5" /> : <ArrowRight className="w-3.5 h-3.5" />}
             </button>
           ) : (
-            <button
-              onClick={handleSubmit}
-              className="px-6 py-2.5 text-xs font-extrabold text-white bg-gradient-to-r from-[#00A896] to-[#007F8B] rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-2"
-            >
-              <ShieldCheck className="w-4 h-4 text-white" />
-              <span>{isAr ? 'حفظ وتقديم طلب التأسيس' : 'Save & Submit Formation Request'}</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => handlePersistFormation(true)}
+                className="px-4 py-2.5 text-xs font-extrabold text-[#003445] dark:text-slate-200 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 rounded-xl transition-all cursor-pointer disabled:opacity-50"
+              >
+                {isAr ? 'حفظ كمسودة (Draft)' : 'Save as Draft'}
+              </button>
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => handlePersistFormation(false)}
+                className="px-6 py-2.5 text-xs font-extrabold text-white bg-gradient-to-r from-[#00A896] to-[#007F8B] hover:from-[#008F7F] hover:to-[#006973] rounded-xl shadow-md transition-all cursor-pointer disabled:opacity-50 flex items-center gap-2"
+              >
+                <ShieldCheck className="w-4 h-4 text-white" />
+                <span>{isAr ? 'حفظ وإرسال للمراجعة (Submitted)' : 'Save & Submit for Review'}</span>
+              </button>
+            </div>
           )}
         </div>
       </div>

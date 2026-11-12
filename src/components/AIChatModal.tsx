@@ -58,31 +58,48 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose }) => 
     setLoading(true);
 
     try {
-      // Simulate intelligent domain engine or call server/API
-      await new Promise(resolve => setTimeout(resolve, 1100));
+      const token =
+        localStorage.getItem('qabs_token') ||
+        'qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid';
 
-      let generatedResponse = '';
-      if (textToSend.includes('Mercury') || textToSend.includes('بنك') || textToSend.includes('قرار')) {
-        generatedResponse = isAr
-          ? `### قرار تفويض مصرفي رسمي — RESOLUTION OF THE MEMBERS\n\n**الشركة:** QABS GLOBAL COMMERCE LLC  \n**الولاية:** State of Wyoming, USA  \n\nبموجب هذا القرار المتخذ بالإجماع من أعضاء الشركة في تاريخ اليوم:\n1. يُفوض العضو والمدير التنفيذي لفتح وتشغيل وإدارة الحسابات المصرفية لدى **Mercury Bank (Choice Financial Group / Evolve Bank & Trust)**.\n2. يُمنح المفوض الصلاحية التامة في إجراء الحوالات البنكية، إصدار بطاقات السحب الآلي للشركة، وإيداع الإيرادات.\n3. يُعتبر هذا القرار سارياً وملزماً لكافة الأطراف ومطابقاً للوائح الولاية.\n\n*(جاهز للتصدير والتوقيع الرقمي PDF عبر قبس)*`
-          : `### BANKING AUTHORIZATION RESOLUTION\n\n**Entity:** QABS GLOBAL COMMERCE LLC  \n**Jurisdiction:** State of Wyoming, USA  \n\nBE IT RESOLVED, that the authorized member is hereby empowered on behalf of the Company to establish commercial banking accounts with **Mercury Bank** (Choice Financial Group member FDIC).\n- Authorized to initiate wire transfers, receive client settlements, and issue corporate debit cards.\n- This resolution remains in full effect until formally rescinded.`;
-      } else if (textToSend.includes('عطر') || textToSend.includes('Fragrance') || textToSend.includes('ساعات')) {
-        generatedResponse = isAr
-          ? `### وصف المنتج المقترح (جاهز للنشر على متجرك):\n\n**العنوان:** دهن العود الكمبودي المعتق — لمسة الفخامة الملكية الخالدة\n\n**الوصف:**\nاستخلصنا لك نقاء الطبيعة من أعماق غابات كمبوديا العتيقة. قطرات من العود الطبيعي الصافي، تفيض بعبق خ الشيوخ وتدوم لأكثر من 36 ساعة على الملابس والبشرة.\n\n- **المقدمة:** نفحات بخورية دافئة تمتزج بالعنبر.\n- **قلب العطر:** عبق الخشب المعتق والزعفران.\n- **القاعدة:** استقرار ملكي ثابت يليق بالمناسبات الكبرى.\n\n**الدعوة للشراء (CTA):** اقتنِ زجاجتك الآن مع توصيل مجاني سريع وضمان ذهبي للاسترجاع.`
-          : `### High-Conversion Product Copy:\n\n**Title:** Royal Aged Agarwood Essence — Timeless Executive Elegance\n\n**Description:**\nDistilled from aged wild Cambodian trees, this pure agarwood oil delivers a rich, smoky resin profile tailored for discerning connoisseurs. Endures for over 36 hours with commanding sillage.\n- **Top:** Warm spiced saffron and dark amber.\n- **Heart:** Resinous wild agarwood smoke.\n- **Base:** Velvet leather and earthy accords.\n\n*Included: Complimentary insured global express courier.*`;
+      const response = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          prompt: textToSend,
+          language
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok && data.text) {
+        setMessages([...newMsgs, { role: 'assistant', text: data.text }]);
       } else {
-        generatedResponse = isAr
-          ? `### استشارة قبس الذكية:\nبناءً على طلبك، قمنا بمراجعة وتجهيز الإجابة المخصصة لنموذج عملك:\n\n1. **الخطوة الأولى:** التأكد من سريان السجل التجاري ورقم الـ EIN.\n2. **التكامل الرقمي:** ربط بوابة الدفع Stripe أو Tap مع تفعيل نظام الحماية من الاحتيال 3D-Secure.\n3. **التوسع في المبيعات:** إطلاق متجر فرعي موجه للدول المستهدفة مع تسعير بالعملة المحلية وتكامل شحن آلي مع DHL / Aramex.`
-          : `### QABS Strategic AI Analysis:\nHere is the tailored operational roadmap:\n1. **Corporate Structure:** Maintain Wyoming annual filing compliance.\n2. **Fintech Gateways:** Deploy Stripe Connect multi-currency settlements with Tap Middle East fallbacks.\n3. **Conversion:** Run localized storefront subdomains with native checkout currencies.`;
+        const errMsg =
+          data.message_ar ||
+          data.message_en ||
+          (isAr
+            ? 'تعذر تنفيذ طلب الذكاء الاصطناعي على الخادم (تحقق من مفتاح GEMINI_API_KEY أو الرصيد).'
+            : 'Server-side AI request could not be completed (Verify GEMINI_API_KEY or quota).');
+        setMessages([
+          ...newMsgs,
+          {
+            role: 'assistant',
+            text: `⚠️ ${errMsg}`
+          }
+        ]);
       }
-
-      setMessages([...newMsgs, { role: 'assistant', text: generatedResponse }]);
     } catch {
       setMessages([
         ...newMsgs,
         {
           role: 'assistant',
-          text: isAr ? 'حدث خطأ أثناء الاتصال بنموذج الذكاء الاصطناعي، يرجى المحاولة ثانية.' : 'Failed to reach AI service, please retry.'
+          text: isAr
+            ? 'حدث خطأ أثناء الاتصال بخدمة الذكاء الاصطناعي الخادمية (`/api/ai/generate`).'
+            : 'Failed to reach server-side AI endpoint (`/api/ai/generate`).'
         }
       ]);
     } finally {

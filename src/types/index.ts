@@ -2,7 +2,14 @@ export type Language = 'ar' | 'en';
 
 export type AppMode = 'landing' | 'portal' | 'store_builder' | 'billing' | 'admin' | 'template_hub';
 
-export type UserRole = 'super_admin' | 'merchant' | 'support_agent' | 'compliance_officer';
+export type UserRole =
+  | 'customer'
+  | 'merchant'
+  | 'staff'
+  | 'admin'
+  | 'super_admin'
+  | 'support_agent'
+  | 'compliance_officer';
 
 export interface UserProfile {
   id: string;
@@ -111,7 +118,20 @@ export interface CompanyFormation {
   registeredAddress: string;
   filingDate: string;
   renewalDueDate: string;
-  status: 'draft' | 'submitted' | 'under_review' | 'submitted_to_state' | 'approved' | 'action_required';
+  status:
+    | 'draft'
+    | 'submitted'
+    | 'under_review'
+    | 'needs_information'
+    | 'quote_ready'
+    | 'approved'
+    | 'paid'
+    | 'processing'
+    | 'completed'
+    | 'cancelled'
+    | 'rejected'
+    | 'submitted_to_state'
+    | 'action_required';
   documents: {
     name: string;
     type: 'articles' | 'ein_letter' | 'operating_agreement' | 'certificate_of_inc' | 'resolution';

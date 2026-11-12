@@ -926,7 +926,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password: password || 'QabsSecure2026!' })
+        body: JSON.stringify({ email, password: password || '' })
       });
       const data = await res.json();
       if (res.ok && data.token) {
@@ -949,16 +949,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return false;
       }
     } catch {
-      // Fallback in case of offline dev mode
-      setUser(prev => ({
-        ...prev,
-        email,
-        role: 'merchant',
-        name: 'محمد الخالدي (عميل قبس)'
-      }));
-      setAuthModalOpen(false);
-      showToast(language === 'ar' ? 'مرحباً بك في منصة قبس!' : 'Welcome to QABS!');
-      return true;
+      showToast(language === 'ar' ? 'تعذر الاتصال بخدمة تسجيل الدخول. حاول مجدداً.' : 'Unable to reach the sign-in service. Please try again.');
+      return false;
     }
   };
 
@@ -970,7 +962,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         body: JSON.stringify({
           name,
           email,
-          password: password || 'QabsSecure2026!',
+          password: password || '',
           company_name: companyName || `${name} LLC`
         })
       });
@@ -995,18 +987,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return false;
       }
     } catch {
-      setUser({
-        id: `usr_${Date.now()}`,
-        name,
-        email,
-        role: 'merchant',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-        companyName: companyName || `${name} LLC`,
-        credits: 0
-      });
-      setAuthModalOpen(false);
-      showToast(language === 'ar' ? 'تم إنشاء حساب العميل بنجاح!' : 'Customer account created successfully!');
-      return true;
+      showToast(language === 'ar' ? 'تعذر الاتصال بخدمة إنشاء الحساب. حاول مجدداً.' : 'Unable to reach the registration service. Please try again.');
+      return false;
     }
   };
 

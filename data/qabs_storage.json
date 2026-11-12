@@ -11,7 +11,9 @@
       "credits": 100,
       "email_verified": false,
       "created_at": "2026-01-10T10:00:00Z",
-      "updated_at": "2026-01-10T10:00:00Z"
+      "updated_at": "2026-01-10T10:00:00Z",
+      "ai_quota_limit": 50,
+      "ai_quota_used": 2
     },
     "usr_customer_02": {
       "id": "usr_customer_02",
@@ -23,7 +25,9 @@
       "credits": 50,
       "email_verified": false,
       "created_at": "2026-02-01T12:00:00Z",
-      "updated_at": "2026-02-01T12:00:00Z"
+      "updated_at": "2026-02-01T12:00:00Z",
+      "ai_quota_limit": 25,
+      "ai_quota_used": 0
     },
     "usr_1794445892595_87e355": {
       "id": "usr_1794445892595_87e355",
@@ -47,7 +51,9 @@
       "credits": 1000,
       "email_verified": true,
       "created_at": "2026-01-01T08:00:00Z",
-      "updated_at": "2026-01-01T08:00:00Z"
+      "updated_at": "2026-01-01T08:00:00Z",
+      "ai_quota_limit": 500,
+      "ai_quota_used": 5
     },
     "usr_1794446366786_ab916d": {
       "id": "usr_1794446366786_ab916d",
@@ -84,6 +90,34 @@
       "email_verified": false,
       "created_at": "2026-11-12T01:25:01.615Z",
       "updated_at": "2026-11-12T01:25:01.615Z"
+    },
+    "usr_staff_01": {
+      "id": "usr_staff_01",
+      "name": "كريم عادل (موظف مراجعة وامتثال)",
+      "email": "staff@qabs1.store",
+      "password_hash": "55b21e380cfbf11ba3ee3cd94f907fdf:797ef31f6450d5c20bc9129e0c32aea3b3c17b002b780a9a825a21ddc84748c85436ac19fe495e38bd388ec299f5c5b5589bd38060cb3544a22bf6956c2c9ea7",
+      "company_name": "QABS Compliance Desk",
+      "role": "staff",
+      "credits": 200,
+      "ai_quota_limit": 100,
+      "ai_quota_used": 0,
+      "email_verified": true,
+      "created_at": "2026-01-05T09:00:00Z",
+      "updated_at": "2026-01-05T09:00:00Z"
+    },
+    "usr_1794450368529_ee69ab": {
+      "id": "usr_1794450368529_ee69ab",
+      "name": "Updated Merchant Name",
+      "email": "merchant_1794450368526@example.com",
+      "password_hash": "758ecb48588d2aa44c045b191d127fd6:8efd48f0b6bf13b6ca1500712c6868b4e4c4aab114179656c4ebb26c528af85c2c38daf5a1a81363acafd813d6046e08946eeffb44e6b94d2ff4f04acc8179c3",
+      "company_name": "Updated Ventures LLC",
+      "role": "merchant",
+      "credits": 25,
+      "ai_quota_limit": 20,
+      "ai_quota_used": 0,
+      "email_verified": false,
+      "created_at": "2026-11-12T02:26:08.529Z",
+      "updated_at": "2026-11-12T02:26:08.587Z"
     }
   },
   "sessions": {
@@ -149,6 +183,27 @@
       "role": "super_admin",
       "created_at": "2026-11-12T01:25:01.680Z",
       "expires_at": "2026-11-19T01:25:01.680Z"
+    },
+    "qabs_seed_token_staff_01_secure_64_bytes_entropy_token_valid_00": {
+      "token": "qabs_seed_token_staff_01_secure_64_bytes_entropy_token_valid_00",
+      "user_id": "usr_staff_01",
+      "role": "staff",
+      "created_at": "2026-03-01T10:00:00Z",
+      "expires_at": "2027-03-01T10:00:00Z"
+    },
+    "2bef3a3b8c7ee78915416535760f8a99c65fc96fa57e26c59540f3a0b2f5ce0c": {
+      "token": "2bef3a3b8c7ee78915416535760f8a99c65fc96fa57e26c59540f3a0b2f5ce0c",
+      "user_id": "usr_customer_01",
+      "role": "merchant",
+      "created_at": "2026-11-12T02:26:08.523Z",
+      "expires_at": "2026-11-19T02:26:08.523Z"
+    },
+    "931afe2e7a0a135ba4f321eb73d9b845ba609424786a9d37aef756b8591a2569": {
+      "token": "931afe2e7a0a135ba4f321eb73d9b845ba609424786a9d37aef756b8591a2569",
+      "user_id": "usr_admin_01",
+      "role": "super_admin",
+      "created_at": "2026-11-12T02:26:08.598Z",
+      "expires_at": "2026-11-19T02:26:08.598Z"
     }
   },
   "formations": {
@@ -255,6 +310,102 @@
         }
       ],
       "created_at": "2026-11-12T01:25:01.689Z"
+    },
+    "comp_1794450368606_db3959": {
+      "id": "comp_1794450368606_db3959",
+      "tenant_id": "usr_customer_01",
+      "company_name": "AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "jurisdiction": "US_WYOMING",
+      "entity_type": "LLC",
+      "package_id": "complete",
+      "state_file_number": null,
+      "ein": null,
+      "crn": null,
+      "registered_agent": "بانتظار التعيين الرسمي بعد مراجعة الطلب (Pending Assignment)",
+      "registered_address": "يحدد رسمياً بعد المراجعة وتأكيد ملف الولاية (Pending Verification)",
+      "filing_date": "2026-11-12",
+      "renewal_due_date": "2027-11-12",
+      "status": "completed",
+      "payment_status": "paid",
+      "qabs_fee": 299,
+      "state_fee": 100,
+      "addons_fee": 0,
+      "total_amount": 399,
+      "notes": "طلب مبدئي جديد تم استلامه عبر بوابة قبس",
+      "history": [
+        {
+          "status": "draft",
+          "changed_at": "2026-11-12T02:26:08.606Z",
+          "changed_by": "usr_customer_01",
+          "note": "Saved as draft by client"
+        },
+        {
+          "status": "submitted",
+          "changed_at": "2026-11-12T02:26:08.612Z",
+          "changed_by": "usr_customer_01",
+          "note": "Transition to submitted"
+        },
+        {
+          "status": "under_review",
+          "changed_at": "2026-11-12T02:26:08.617Z",
+          "changed_by": "usr_staff_01",
+          "note": "Transition to under_review"
+        },
+        {
+          "status": "needs_information",
+          "changed_at": "2026-11-12T02:26:08.621Z",
+          "changed_by": "usr_staff_01",
+          "note": "Transition to needs_information"
+        },
+        {
+          "status": "quote_ready",
+          "changed_at": "2026-11-12T02:26:08.630Z",
+          "changed_by": "usr_staff_01",
+          "note": "Transition to quote_ready"
+        },
+        {
+          "status": "approved",
+          "changed_at": "2026-11-12T02:26:08.634Z",
+          "changed_by": "usr_customer_01",
+          "note": "Transition to approved"
+        },
+        {
+          "status": "paid",
+          "changed_at": "2026-11-12T02:26:08.638Z",
+          "changed_by": "usr_staff_01",
+          "note": "Transition to paid"
+        },
+        {
+          "status": "processing",
+          "changed_at": "2026-11-12T02:26:08.642Z",
+          "changed_by": "usr_staff_01",
+          "note": "Transition to processing"
+        },
+        {
+          "status": "completed",
+          "changed_at": "2026-11-12T02:26:08.645Z",
+          "changed_by": "usr_staff_01",
+          "note": "Transition to completed"
+        }
+      ],
+      "created_at": "2026-11-12T02:26:08.606Z"
+    }
+  },
+  "quotes": {
+    "qt_1794450368672_9db77d": {
+      "id": "qt_1794450368672_9db77d",
+      "quote_number": "QABS-QT-368672",
+      "tenant_id": "usr_customer_01",
+      "qabs_fee": 299,
+      "state_fee": 100,
+      "external_fee": 50,
+      "gateway_fee": 13.32,
+      "tax_amount": 0,
+      "total_amount": 462.32,
+      "currency": "USD",
+      "status": "approved",
+      "created_at": "2026-11-12T02:26:08.672Z",
+      "approved_at": "2026-11-12T02:26:08.676Z"
     }
   },
   "invoices": {
@@ -301,9 +452,536 @@
       "description_en": "Formation intake for AL-RAYAN GLOBAL COMMERCE LLC 1794446701687 (Pending Payment)",
       "status": "pending",
       "issued_date": "2026-11-12"
+    },
+    "inv_1794450368607_cd10": {
+      "id": "inv_1794450368607_cd10",
+      "invoice_number": "QABS-INV-368607",
+      "tenant_id": "usr_customer_01",
+      "formation_id": "comp_1794450368606_db3959",
+      "qabs_fee": 299,
+      "state_fee": 100,
+      "external_fee": 0,
+      "gateway_fee": 0,
+      "tax_amount": 0,
+      "amount": 399,
+      "currency": "USD",
+      "description_ar": "طلب تأسيس شركة AL-RAYAN GLOBAL COMMERCE LLC 1794450368604 (بانتظار السداد)",
+      "description_en": "Formation intake for AL-RAYAN GLOBAL COMMERCE LLC 1794450368604 (Pending Payment)",
+      "status": "pending",
+      "issued_date": "2026-11-12"
+    },
+    "inv_1794450368677_ad3476": {
+      "id": "inv_1794450368677_ad3476",
+      "invoice_number": "QABS-INV-368677",
+      "tenant_id": "usr_customer_01",
+      "quote_id": "qt_1794450368672_9db77d",
+      "qabs_fee": 299,
+      "state_fee": 100,
+      "external_fee": 50,
+      "gateway_fee": 13.32,
+      "tax_amount": 0,
+      "amount": 462.32,
+      "currency": "USD",
+      "description_ar": "فاتورة معتمدة لعرض السعر QABS-QT-368672",
+      "description_en": "Approved Invoice for Quote QABS-QT-368672",
+      "status": "refunded",
+      "issued_date": "2026-11-12",
+      "paid_at": "2026-11-12T02:26:08.681Z",
+      "refunded_at": "2026-11-12T02:26:08.685Z"
     }
   },
+  "documents": {
+    "doc_1794450368654_d1648a67": {
+      "id": "doc_1794450368654_d1648a67",
+      "tenant_id": "usr_customer_01",
+      "formation_id": "comp_1794450368606_db3959",
+      "filename": "Articles_of_Organization.pdf",
+      "mime_type": "application/pdf",
+      "size_bytes": 46,
+      "encrypted_payload": "34c4b382a6ebd770657d354b:e966f807c43fdf6df32c840bc562950b:464d227d8555928201146f905d316df57b350a8ffec7759a4b6a0e8380d4f0165aead5ef14218885de0cbccfa0188115e76acc447eb139444cb8a58e66cc7915",
+      "checksum_sha256": "57e1544ddec415abf2a1a91c0e7c19533ccf42142f4c35820413cbf94739e892",
+      "signed_tokens": [
+        {
+          "token": "48c009d18dcd010870f2cce999adc03b6872c8110355d191",
+          "expires_at": "2026-11-12T02:41:08.666Z"
+        }
+      ],
+      "access_log": [
+        {
+          "actor_id": "usr_customer_01",
+          "action": "upload",
+          "timestamp": "2026-11-12T02:26:08.654Z"
+        },
+        {
+          "actor_id": "usr_customer_02",
+          "action": "unauthorized_attempt",
+          "timestamp": "2026-11-12T02:26:08.658Z"
+        },
+        {
+          "actor_id": "usr_customer_01",
+          "action": "read",
+          "timestamp": "2026-11-12T02:26:08.662Z"
+        },
+        {
+          "actor_id": "usr_customer_01",
+          "action": "sign_url",
+          "timestamp": "2026-11-12T02:26:08.666Z"
+        }
+      ],
+      "created_at": "2026-11-12T02:26:08.654Z",
+      "updated_at": "2026-11-12T02:26:08.666Z"
+    }
+  },
+  "stores": {
+    "store_seed_01": {
+      "id": "store_seed_01",
+      "tenant_id": "usr_customer_01",
+      "name": "متجر الخالدي للعطور الفاخرة",
+      "subdomain": "khaledi-oud.qabs1.store",
+      "currency": "SAR",
+      "theme": "gold_executive",
+      "status": "draft",
+      "approval_status": "draft",
+      "payment_connected": false,
+      "domain_verified": false,
+      "tax_rate": 15,
+      "products": [
+        {
+          "id": "prod_seed_01",
+          "store_id": "store_seed_01",
+          "title": "دهن عود كمبودي ملكي",
+          "sku": "KHL-OUD-01",
+          "price": 450,
+          "stock": 25,
+          "category": "Perfumes"
+        }
+      ],
+      "orders": [],
+      "created_at": "2026-03-01T10:00:00Z"
+    },
+    "store_seed_02": {
+      "id": "store_seed_02",
+      "tenant_id": "usr_customer_02",
+      "name": "أطلس للتقنية الحديثة",
+      "subdomain": "atlas-tech.qabs1.store",
+      "currency": "USD",
+      "theme": "luxury_dark",
+      "status": "draft",
+      "approval_status": "draft",
+      "payment_connected": false,
+      "domain_verified": false,
+      "tax_rate": 0,
+      "products": [
+        {
+          "id": "prod_seed_02",
+          "store_id": "store_seed_02",
+          "title": "Atlas Smart Hub Pro",
+          "sku": "ATL-HUB-99",
+          "price": 199,
+          "stock": 50,
+          "category": "Electronics"
+        }
+      ],
+      "orders": [],
+      "created_at": "2026-03-02T11:00:00Z"
+    },
+    "store_1794450368689_c5b0e0": {
+      "id": "store_1794450368689_c5b0e0",
+      "tenant_id": "usr_customer_01",
+      "name": "Khaledi Royal Watches",
+      "subdomain": "khaledi-royal-watches.qabs1.store",
+      "currency": "SAR",
+      "theme": "gold_executive",
+      "status": "draft",
+      "approval_status": "draft",
+      "payment_connected": false,
+      "domain_verified": false,
+      "tax_rate": 15,
+      "products": [],
+      "orders": [],
+      "created_at": "2026-11-12T02:26:08.689Z"
+    }
+  },
+  "notifications": [
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تحديث حالة طلب التأسيس: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "title_en": "Formation Status Updated: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "message_ar": "تم تحديث حالة الطلب إلى (completed). Transition to completed",
+      "message_en": "Request status transitioned to (completed). Transition to completed",
+      "id": "notif_1794450368646_ed2729",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.646Z"
+    },
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تحديث حالة طلب التأسيس: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "title_en": "Formation Status Updated: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "message_ar": "تم تحديث حالة الطلب إلى (processing). Transition to processing",
+      "message_en": "Request status transitioned to (processing). Transition to processing",
+      "id": "notif_1794450368642_e28ad7",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.642Z"
+    },
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تحديث حالة طلب التأسيس: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "title_en": "Formation Status Updated: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "message_ar": "تم تحديث حالة الطلب إلى (paid). Transition to paid",
+      "message_en": "Request status transitioned to (paid). Transition to paid",
+      "id": "notif_1794450368638_ee6831",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.638Z"
+    },
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تحديث حالة طلب التأسيس: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "title_en": "Formation Status Updated: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "message_ar": "تم تحديث حالة الطلب إلى (approved). Transition to approved",
+      "message_en": "Request status transitioned to (approved). Transition to approved",
+      "id": "notif_1794450368634_27e103",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.634Z"
+    },
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تحديث حالة طلب التأسيس: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "title_en": "Formation Status Updated: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "message_ar": "تم تحديث حالة الطلب إلى (quote_ready). Transition to quote_ready",
+      "message_en": "Request status transitioned to (quote_ready). Transition to quote_ready",
+      "id": "notif_1794450368630_8e5b7e",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.630Z"
+    },
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تحديث حالة طلب التأسيس: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "title_en": "Formation Status Updated: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "message_ar": "تم تحديث حالة الطلب إلى (needs_information). Transition to needs_information",
+      "message_en": "Request status transitioned to (needs_information). Transition to needs_information",
+      "id": "notif_1794450368622_8e8343",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.622Z"
+    },
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تحديث حالة طلب التأسيس: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "title_en": "Formation Status Updated: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "message_ar": "تم تحديث حالة الطلب إلى (under_review). Transition to under_review",
+      "message_en": "Request status transitioned to (under_review). Transition to under_review",
+      "id": "notif_1794450368617_2d33d2",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.617Z"
+    },
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تحديث حالة طلب التأسيس: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "title_en": "Formation Status Updated: AL-RAYAN GLOBAL COMMERCE LLC 1794450368604",
+      "message_ar": "تم تحديث حالة الطلب إلى (submitted). Transition to submitted",
+      "message_en": "Request status transitioned to (submitted). Transition to submitted",
+      "id": "notif_1794450368613_db76f5",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.613Z"
+    },
+    {
+      "tenant_id": "usr_customer_01",
+      "title_ar": "تم حفظ مسودة طلب التأسيس",
+      "title_en": "Formation Draft Saved",
+      "message_ar": "تم تسجيل طلب AL-RAYAN GLOBAL COMMERCE LLC 1794450368604 بحالة (draft).",
+      "message_en": "Formation request for AL-RAYAN GLOBAL COMMERCE LLC 1794450368604 recorded with status (draft).",
+      "id": "notif_1794450368608_5e85b2",
+      "read": false,
+      "created_at": "2026-11-12T02:26:08.608Z"
+    }
+  ],
+  "ai_usage": [],
   "audit_logs": [
+    {
+      "id": "log_1794450368692_14941d74",
+      "actor_name": "سارة المنصوري (عميلة قبس)",
+      "actor_id": "usr_customer_02",
+      "action_ar": "محاولة غير مصرح بها للوصول إلى متجر مستأجر آخر (store_1794450368689_c5b0e0)",
+      "action_en": "Cross-tenant store access blocked (store_1794450368689_c5b0e0)",
+      "target_entity": "stores:store_1794450368689_c5b0e0",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.692Z"
+    },
+    {
+      "id": "log_1794450368690_ea8a7d97",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "إنشاء متجر جديد كمسودة (Khaledi Royal Watches)",
+      "action_en": "Created new multi-tenant store in draft mode (Khaledi Royal Watches)",
+      "target_entity": "stores:store_1794450368689_c5b0e0",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.690Z"
+    },
+    {
+      "id": "log_1794450368685_c0e5056c",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "استرداد Sandbox للفاتورة (QABS-INV-368677)",
+      "action_en": "Sandbox refund processed for (QABS-INV-368677)",
+      "target_entity": "invoices:inv_1794450368677_ad3476",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.685Z"
+    },
+    {
+      "id": "log_1794450368682_0d961021",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "تسجيل دفعة Sandbox للفاتورة (QABS-INV-368677)",
+      "action_en": "Sandbox webhook payment settled for (QABS-INV-368677)",
+      "target_entity": "invoices:inv_1794450368677_ad3476",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.682Z"
+    },
+    {
+      "id": "log_1794450368678_05e54612",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "اعتماد عرض السعر (QABS-QT-368672) وإصدار فاتورة",
+      "action_en": "Approved quote (QABS-QT-368672) and generated pending invoice",
+      "target_entity": "invoices:inv_1794450368677_ad3476",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.678Z"
+    },
+    {
+      "id": "log_1794450368673_f0280d7e",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "إنشاء عرض سعر مالي (QABS-QT-368672)",
+      "action_en": "Created sandbox financial quote (QABS-QT-368672)",
+      "target_entity": "quotes:qt_1794450368672_9db77d",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.673Z"
+    },
+    {
+      "id": "log_1794450368658_63bcf7a0",
+      "actor_name": "سارة المنصوري (عميلة قبس)",
+      "actor_id": "usr_customer_02",
+      "action_ar": "محاولة غير مصرح بها لقراءة مستند خاص لعميل آخر (doc_1794450368654_d1648a67)",
+      "action_en": "Blocked cross-tenant attempt to read private document (doc_1794450368654_d1648a67)",
+      "target_entity": "documents:doc_1794450368654_d1648a67",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.659Z"
+    },
+    {
+      "id": "log_1794450368655_90da3290",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "رفع وتشفير مستند خاص (Articles_of_Organization.pdf)",
+      "action_en": "Uploaded and AES-256-GCM encrypted private document (Articles_of_Organization.pdf)",
+      "target_entity": "documents:doc_1794450368654_d1648a67",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.655Z"
+    },
+    {
+      "id": "log_1794450368650_f7ecf00c",
+      "actor_name": "سارة المنصوري (عميلة قبس)",
+      "actor_id": "usr_customer_02",
+      "action_ar": "محاولة غير مصرح بها للوصول لطلب تأسيس عميل آخر (comp_1794450368606_db3959)",
+      "action_en": "Cross-tenant formation access attempt blocked (comp_1794450368606_db3959)",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.650Z"
+    },
+    {
+      "id": "log_1794450368647_c188dd06",
+      "actor_name": "كريم عادل (موظف مراجعة وامتثال)",
+      "actor_id": "usr_staff_01",
+      "action_ar": "تحديث حالة طلب التأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) إلى completed",
+      "action_en": "Updated formation (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) status to completed",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.647Z"
+    },
+    {
+      "id": "log_1794450368643_4704040c",
+      "actor_name": "كريم عادل (موظف مراجعة وامتثال)",
+      "actor_id": "usr_staff_01",
+      "action_ar": "تحديث حالة طلب التأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) إلى processing",
+      "action_en": "Updated formation (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) status to processing",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.643Z"
+    },
+    {
+      "id": "log_1794450368639_9685224d",
+      "actor_name": "كريم عادل (موظف مراجعة وامتثال)",
+      "actor_id": "usr_staff_01",
+      "action_ar": "تحديث حالة طلب التأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) إلى paid",
+      "action_en": "Updated formation (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) status to paid",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.639Z"
+    },
+    {
+      "id": "log_1794450368635_657ee468",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "تحديث حالة طلب التأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) إلى approved",
+      "action_en": "Updated formation (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) status to approved",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.635Z"
+    },
+    {
+      "id": "log_1794450368631_641133b1",
+      "actor_name": "كريم عادل (موظف مراجعة وامتثال)",
+      "actor_id": "usr_staff_01",
+      "action_ar": "تحديث حالة طلب التأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) إلى quote_ready",
+      "action_en": "Updated formation (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) status to quote_ready",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.631Z"
+    },
+    {
+      "id": "log_1794450368622_81439934",
+      "actor_name": "كريم عادل (موظف مراجعة وامتثال)",
+      "actor_id": "usr_staff_01",
+      "action_ar": "تحديث حالة طلب التأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) إلى needs_information",
+      "action_en": "Updated formation (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) status to needs_information",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.622Z"
+    },
+    {
+      "id": "log_1794450368618_df3cfcf1",
+      "actor_name": "كريم عادل (موظف مراجعة وامتثال)",
+      "actor_id": "usr_staff_01",
+      "action_ar": "تحديث حالة طلب التأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) إلى under_review",
+      "action_en": "Updated formation (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) status to under_review",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.618Z"
+    },
+    {
+      "id": "log_1794450368614_28692bb3",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "تحديث حالة طلب التأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) إلى submitted",
+      "action_en": "Updated formation (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) status to submitted",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.614Z"
+    },
+    {
+      "id": "log_1794450368608_c9d951a8",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "إنشاء طلب تأسيس (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) بحالة draft",
+      "action_en": "Created formation intake (AL-RAYAN GLOBAL COMMERCE LLC 1794450368604) with status draft and Pending Payment",
+      "target_entity": "company_formations:comp_1794450368606_db3959",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.608Z"
+    },
+    {
+      "id": "log_1794450368602_c121d8c0",
+      "actor_name": "مدير عمليات قبس (System Administrator)",
+      "actor_id": "usr_admin_01",
+      "action_ar": "عملية إدارية مباشرة معطلة: بانتظار ربط مزود الهوية الخارجي المعتمد",
+      "action_en": "Direct admin write disabled: Awaiting certified production IdP integration",
+      "target_entity": "/api/admin/settings",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.602Z"
+    },
+    {
+      "id": "log_1794450368588_4d970ab5",
+      "actor_name": "New Test Merchant",
+      "actor_id": "usr_1794450368529_ee69ab",
+      "action_ar": "تحديث بيانات الملف الشخصي",
+      "action_en": "Updated account profile settings",
+      "target_entity": "users:usr_1794450368529_ee69ab",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.588Z"
+    },
+    {
+      "id": "log_1794450368583_f9950c11",
+      "actor_name": "New Test Merchant",
+      "actor_id": "usr_1794450368529_ee69ab",
+      "action_ar": "تسجيل حساب عميل جديد بنجاح",
+      "action_en": "Customer registration successful with hashed credentials",
+      "target_entity": "users:usr_1794450368529_ee69ab",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.583Z"
+    },
+    {
+      "id": "log_1794450368528_05027765",
+      "actor_name": "New Test Merchant",
+      "actor_id": "anonymous_registration",
+      "action_ar": "محاولة محظورة لإنشاء حساب إداري عبر التسجيل العام",
+      "action_en": "Privilege escalation attempt during public registration blocked",
+      "target_entity": "AUTH_REGISTER",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.528Z"
+    },
+    {
+      "id": "log_1794450368524_ba564348",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "تسجيل دخول ناجح وإنشاء جلسة مشفرة",
+      "action_en": "Successful customer login with secure session token",
+      "target_entity": "users:usr_customer_01",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.524Z"
+    },
+    {
+      "id": "log_1794450368466_eeabee4b",
+      "actor_name": "customer@qabs1.store",
+      "actor_id": "unknown",
+      "action_ar": "فشل تسجيل الدخول: كلمة المرور أو البريد غير متطابقين",
+      "action_en": "Login failed: Invalid credentials or incorrect password",
+      "target_entity": "AUTH_LOGIN",
+      "status": "failed",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.466Z"
+    },
+    {
+      "id": "log_1794450368386_cfb51ea6",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "محاولة تصعيد صلاحيات غير مصرح بها إلى Super Admin",
+      "action_en": "Privilege escalation attempt to Super Admin rejected",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.386Z"
+    },
+    {
+      "id": "log_1794450368373_1f83aca4",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة غير مصرح بها للوصول إلى مسار الإدارة",
+      "action_en": "Unauthenticated attempt to access administrative endpoint",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:26:08.373Z"
+    },
     {
       "id": "log_1794446701701_0df82ac2",
       "actor_name": "سارة المنصوري (عميلة قبس)",
