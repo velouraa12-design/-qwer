@@ -2,9 +2,13 @@ import React from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import { useCustomizer } from '../context/CustomizerContext.tsx';
 import { QabsLogo } from './QabsLogo.tsx';
-import { Phone, Globe } from 'lucide-react';
+import { Phone, Globe, Lock } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenAdminGuard?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenAdminGuard }) => {
   const { language, setMode } = useApp();
   const { siteContent, setEditorOpen } = useCustomizer();
   const isAr = language === 'ar';
@@ -34,18 +38,21 @@ export const Footer: React.FC = () => {
               <button onClick={() => setMode('store_builder')} className="block hover:text-[#00A896] cursor-pointer">
                 {isAr ? 'منشئ المتاجر QABS Studio' : 'Store Builder'}
               </button>
-            </div>
-
-            <div className="space-y-2">
-              <span className="font-extrabold text-[#003445] dark:text-white block">{isAr ? 'الحوكمة والمطورين' : 'Governance'}</span>
-              <button onClick={() => setMode('admin')} className="block hover:text-[#00A896] cursor-pointer">
-                {isAr ? 'لوحة Super Admin' : 'Super Admin'}
-              </button>
               <button onClick={() => setMode('billing')} className="block hover:text-[#00A896] cursor-pointer">
                 {isAr ? 'الاشتراكات والفوترة' : 'Billing & Plans'}
               </button>
-              <button onClick={() => setMode('template_hub')} className="block hover:text-[#00A896] cursor-pointer">
-                {isAr ? 'مستودع GitHub Template' : 'GitHub Template'}
+            </div>
+
+            <div className="space-y-2">
+              <span className="font-extrabold text-[#003445] dark:text-white block">{isAr ? 'الحوكمة والامتثال' : 'Governance & Compliance'}</span>
+              <button onClick={() => setMode('landing')} className="block hover:text-[#00A896] cursor-pointer">
+                {isAr ? 'دليل تأسيس الشركات (LLC / LTD)' : 'Company Formation Guide'}
+              </button>
+              <button onClick={() => setMode('landing')} className="block hover:text-[#00A896] cursor-pointer">
+                {isAr ? 'سياسة الوكيل المسجل والخصوصية' : 'Registered Agent Policy'}
+              </button>
+              <button onClick={() => setMode('landing')} className="block hover:text-[#00A896] cursor-pointer">
+                {isAr ? 'شروط الخدمة والاتفاقيات' : 'Terms of Service'}
               </button>
             </div>
 
@@ -76,13 +83,23 @@ export const Footer: React.FC = () => {
 
         {/* Disclaimer & Copyright */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[11px] text-slate-500">
-          <p>
+          <p className="max-w-3xl leading-relaxed">
             {isAr
-              ? 'الرسوم الحكومية ورسوم الجهات الخارجية منفصلة. قبول Stripe و PayPal يخضع للأهلية وموافقة المزود.'
-              : 'Government statutory and third-party fees separate. Stripe & PayPal approvals are subject to provider compliance.'}
+              ? 'تنبيه تجاري وقانوني معتمد: الرسوم الحكومية للولاية منفصلة تماماً عن رسوم منصة قبس. قبول وتفعيل بوابات الدفع (Stripe, PayPal, Tap Payments) والخدمات المصرفية التجارية يخضع كلياً للأهلية القانونية وموافقة المزود الرسمي للخدمة.'
+              : 'Official statutory notice: State filing fees are separate from QABS platform fees. Third-party payment gateways (Stripe, PayPal, Tap) and commercial banking approvals are subject to individual eligibility and provider compliance.'}
           </p>
           <div className="flex items-center gap-4 font-semibold text-[#004457] dark:text-slate-400">
             <span>© 2026 QABS | قبس — متاجر إلكترونية | خدمات رقمية.</span>
+            {onOpenAdminGuard && (
+              <button
+                onClick={onOpenAdminGuard}
+                className="hover:text-[#00A896] dark:hover:text-[#d5b46b] transition-colors cursor-pointer flex items-center gap-1 font-mono text-[10px] text-slate-400 hover:text-slate-600"
+                title={isAr ? 'بوابة دخول الإدارة والتحكم (Admin Guard)' : 'Admin Guard Access'}
+              >
+                <Lock className="w-3 h-3 text-slate-400" />
+                <span>{isAr ? 'دخول الإدارة' : 'Staff Access'}</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

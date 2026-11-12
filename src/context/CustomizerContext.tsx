@@ -46,7 +46,7 @@ const DEFAULT_SITE_CONTENT: SiteContent = {
   heroCtaLink: 'https://qabs1.store',
   heroImageUrl: '/src/assets/images/qabs_global_hero_1794351468325.jpg',
   cardImageUrl: '/src/assets/images/qabs_banking_card_1794351469053.jpg',
-  whatsappNumber: '+159 710 784 967',
+  whatsappNumber: '+159710784967',
   storeDomain: 'qabs1.store',
   showcasePackageTitleAr: 'باقة انطلاقة الدفع العالمي المتكاملة',
   showcasePackageTitleEn: 'Turnkey Global Payment & Formation Package',
@@ -102,7 +102,10 @@ export const CustomizerProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [siteContent, setSiteContent] = useState<SiteContent>(() => {
     try {
       const saved = localStorage.getItem('qabs_site_content');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return { ...parsed, whatsappNumber: '+159710784967' };
+      }
     } catch {}
     return DEFAULT_SITE_CONTENT;
   });

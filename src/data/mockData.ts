@@ -18,13 +18,13 @@ import {
 } from '../types/index.ts';
 
 export const INITIAL_USER: UserProfile = {
-  id: 'usr_qabs_99',
-  name: 'عبدالله السعدي',
-  email: 'founder@qabs1.store',
-  role: 'super_admin',
+  id: 'usr_customer_01',
+  name: 'محمد الخالدي (عميل قبس)',
+  email: 'customer1@qabs1.store',
+  role: 'merchant',
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-  companyName: 'Qabs Global Ventures LLC',
-  credits: 4850
+  companyName: 'Khaledi Retail LLC',
+  credits: 100
 };
 
 export const DEFAULT_STORE_SECTIONS: StoreSectionBlock[] = [
@@ -901,6 +901,7 @@ export const INITIAL_STORE_APPS: StoreAppAddon[] = [
 export const INITIAL_COMPANIES: CompanyFormation[] = [
   {
     id: 'comp_01',
+    tenant_id: 'usr_customer_01',
     companyName: 'QABS GLOBAL COMMERCE LLC',
     jurisdiction: 'US_WYOMING',
     entityType: 'LLC',
@@ -921,6 +922,7 @@ export const INITIAL_COMPANIES: CompanyFormation[] = [
   },
   {
     id: 'comp_02',
+    tenant_id: 'usr_enterprise_tenant',
     companyName: 'ANDALUS COMMERCE GROUP LTD',
     jurisdiction: 'UK_LTD',
     entityType: 'LTD',
@@ -939,21 +941,18 @@ export const INITIAL_COMPANIES: CompanyFormation[] = [
   },
   {
     id: 'comp_03',
+    tenant_id: 'usr_other_tenant',
     companyName: 'TECHVOLT VENTURES INC',
     jurisdiction: 'US_DELAWARE',
     entityType: 'C-CORP',
-    stateFileNumber: 'DE-2026-7839102',
-    registeredAgent: 'The Corporation Trust Company (Wilmington, DE)',
-    registeredAddress: '1209 N Orange St, Wilmington, DE 19801, USA',
+    stateFileNumber: null,
+    registeredAgent: 'Pending formal state appointment upon review',
+    registeredAddress: 'Pending verification with Delaware Division of Corporations',
     filingDate: '2026-02-10',
     renewalDueDate: '2027-03-01',
-    status: 'submitted_to_state',
-    documents: [
-      { name: 'Certificate of Incorporation (Filed)', type: 'certificate_of_inc', status: 'ready', date: '2026-02-10' },
-      { name: 'Federal EIN (IRS Review Pending)', type: 'ein_letter', status: 'generating', date: '2026-02-12' },
-      { name: 'Bylaws & Initial Shareholder Agreement', type: 'operating_agreement', status: 'ready', date: '2026-02-11' }
-    ],
-    notes: 'Delaware Division of Corporations submission approved. Awaiting IRS CP575 letter.'
+    status: 'submitted',
+    documents: [],
+    notes: 'Initial intake received. Under pre-screening review.'
   }
 ];
 

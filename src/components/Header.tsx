@@ -14,16 +14,20 @@ import {
   UserCheck,
   CreditCard,
   Edit3,
-  User
+  User,
+  Building2,
+  MessageSquare,
+  Phone
 } from 'lucide-react';
 import { UserRole } from '../types/index.ts';
 
 interface HeaderProps {
   onOpenFormationModal: () => void;
   onOpenStoreModal: () => void;
+  onOpenAdminGuard?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenFormationModal, onOpenStoreModal }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenFormationModal, onOpenStoreModal, onOpenAdminGuard }) => {
   const { language, setLanguage, theme, toggleTheme, mode, setMode, user, switchRole, setAuthModalOpen } = useApp();
   const { setEditorOpen } = useCustomizer();
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
@@ -32,10 +36,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenFormationModal, onOpenStor
   const isAr = language === 'ar';
 
   const roles: { role: UserRole; labelAr: string; labelEn: string }[] = [
-    { role: 'super_admin', labelAr: 'مدير النظام (Super Admin)', labelEn: 'Super Admin' },
     { role: 'merchant', labelAr: 'تاجر / صاحب متجر', labelEn: 'Merchant / Founder' },
-    { role: 'compliance_officer', labelAr: 'ضابط الامتثال والتأسيس', labelEn: 'Compliance Officer' },
-    { role: 'support_agent', labelAr: 'أخصائي دعم العملاء', labelEn: 'Support Specialist' }
+    { role: 'compliance_officer', labelAr: 'منظور مراجعة الامتثال', labelEn: 'Compliance Review' },
+    { role: 'support_agent', labelAr: 'منظور دعم العملاء', labelEn: 'Customer Support' }
   ];
 
   return (
@@ -52,78 +55,100 @@ export const Header: React.FC<HeaderProps> = ({ onOpenFormationModal, onOpenStor
           </button>
         </div>
 
-        {/* Zone 2: Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-5 text-xs font-bold">
+        {/* Zone 2: Simplified 4-Path Customer Navigation */}
+        <nav className="hidden xl:flex items-center gap-4 text-xs font-bold">
+          {/* Path 1: أريد تأسيس شركة */}
           <button
-            onClick={() => setMode('landing')}
-            className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer ${
-              mode === 'landing'
-                ? 'border-[#00A896] text-[#004457] dark:text-[#00B8A9]'
-                : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-[#004457] dark:hover:text-white'
-            }`}
+            onClick={() => {
+              setMode('landing');
+              onOpenFormationModal();
+            }}
+            className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:text-[#004457] dark:hover:text-[#d5b46b] hover:bg-teal-50 dark:hover:bg-slate-800/60 transition-all cursor-pointer flex items-center gap-1.5"
           >
-            {isAr ? 'الموقع التعريفي' : 'Showcase Website'}
+            <Building2 className="w-3.5 h-3.5 text-[#00A896]" />
+            <span>{isAr ? '1. تأسيس شركة' : '1. Form Company'}</span>
           </button>
 
+          {/* Path 2: أريد تجهيز الدفع */}
           <button
-            onClick={() => setMode('portal')}
-            className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
-              mode === 'portal'
-                ? 'border-[#00A896] text-[#004457] dark:text-[#00B8A9]'
-                : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-[#004457] dark:hover:text-white'
-            }`}
+            onClick={() => {
+              setMode('landing');
+              const el = document.getElementById('customer-journeys');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:text-[#004457] dark:hover:text-[#d5b46b] hover:bg-teal-50 dark:hover:bg-slate-800/60 transition-all cursor-pointer flex items-center gap-1.5"
+          >
+            <CreditCard className="w-3.5 h-3.5 text-[#d5b46b]" />
+            <span>{isAr ? '2. تجهيز الدفع' : '2. Setup Payments'}</span>
+          </button>
+
+          {/* Path 3: أريد إنشاء متجر */}
+          <button
+            onClick={() => {
+              setMode('landing');
+              onOpenStoreModal();
+            }}
+            className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:text-[#004457] dark:hover:text-[#d5b46b] hover:bg-teal-50 dark:hover:bg-slate-800/60 transition-all cursor-pointer flex items-center gap-1.5"
           >
             <Store className="w-3.5 h-3.5 text-[#00A896]" />
-            <span>{isAr ? 'البوابة الموحدة (المتاجر والشركات)' : 'Unified Portal (Stores & Formation)'}</span>
+            <span>{isAr ? '3. إنشاء متجر' : '3. Launch Store'}</span>
           </button>
 
+          {/* Path 4: متابعة طلب قائم عبر WhatsApp الموثق */}
+          <a
+            href="https://wa.me/159710784967?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%81%D8%B1%D9%8A%D9%82%20%D9%82%D8%A8%D8%B3%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D9%85%D8%AA%D8%A7%D8%A8%D8%B9%D8%A9%20%D8%B7%D9%84%D8%A8%D9%8A%20%D8%A7%D9%84%D9%82%D8%A7%D8%A6%D9%85."
+            target="_blank"
+            rel="noreferrer"
+            className="whitespace-nowrap px-2.5 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 transition-all cursor-pointer flex items-center gap-1.5 font-bold"
+            title="متابعة طلب قائم عبر WhatsApp الموثق (+159710784967)"
+          >
+            <MessageSquare className="w-3.5 h-3.5 text-emerald-500" />
+            <span>{isAr ? '4. متابعة طلب (+159710784967)' : '4. Track Order (+159710784967)'}</span>
+          </a>
+
+          {/* Unified Customer Portal */}
           <button
-            onClick={() => setMode('store_builder')}
-            className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
-              mode === 'store_builder'
+            onClick={() => setMode('portal')}
+            className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 text-xs ${
+              mode === 'portal'
                 ? 'border-[#00A896] text-[#004457] dark:text-[#00B8A9]'
-                : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-[#004457] dark:hover:text-white'
+                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-[#004457] dark:hover:text-white'
             }`}
           >
-            <Layers className="w-3.5 h-3.5 text-[#00A896]" />
-            <span>{isAr ? 'منشئ المتاجر QABS Studio' : 'Store Builder'}</span>
+            <Globe className="w-3.5 h-3.5 text-[#00A896]" />
+            <span>{isAr ? 'البوابة الموحدة' : 'Portal'}</span>
           </button>
 
-          <button
-            onClick={() => setMode('billing')}
-            className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
-              mode === 'billing'
-                ? 'border-[#C8A24A] text-[#004457] dark:text-[#D4AF37]'
-                : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-[#004457] dark:hover:text-white'
-            }`}
-          >
-            <CreditCard className="w-3.5 h-3.5 text-[#C8A24A]" />
-            <span>{isAr ? 'الاشتراكات والفوترة' : 'Billing & Plans'}</span>
-          </button>
+          {/* Super Admin & Internal Hub — Protected and visible only to authenticated Super Admin */}
+          {user.role === 'super_admin' && (
+            <>
+              <button
+                onClick={() => setMode('admin')}
+                className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+                  mode === 'admin'
+                    ? 'border-[#004457] dark:border-[#D4AF37] text-[#004457] dark:text-[#D4AF37]'
+                    : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-[#004457] dark:hover:text-white'
+                }`}
+              >
+                <Shield className="w-3.5 h-3.5 text-[#007F8B]" />
+                <span>Super Admin</span>
+              </button>
 
-          <button
-            onClick={() => setMode('admin')}
-            className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
-              mode === 'admin'
-                ? 'border-[#004457] dark:border-[#D4AF37] text-[#004457] dark:text-[#D4AF37]'
-                : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-[#004457] dark:hover:text-white'
-            }`}
-          >
-            <Shield className="w-3.5 h-3.5 text-[#007F8B]" />
-            <span>Super Admin</span>
-          </button>
-
-          <button
-            onClick={() => setMode('template_hub')}
-            className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
-              mode === 'template_hub'
-                ? 'border-[#00A896] text-[#004457] dark:text-cyan-300'
-                : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-[#004457] dark:hover:text-white'
-            }`}
-          >
-            <FileCode2 className="w-3.5 h-3.5 text-[#00A896]" />
-            <span>{isAr ? 'منظومة GitHub والمشاريع' : 'GitHub Hub & Projects'}</span>
-          </button>
+              <button
+                onClick={() => setMode('template_hub')}
+                className={`whitespace-nowrap pb-1 border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
+                  mode === 'template_hub'
+                    ? 'border-[#00A896] text-[#004457] dark:text-cyan-300'
+                    : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-[#004457] dark:hover:text-white'
+                }`}
+              >
+                <FileCode2 className="w-3.5 h-3.5 text-[#00A896]" />
+                <span>{isAr ? 'غرفة العمليات المركزية' : 'Operations Hub'}</span>
+              </button>
+            </>
+          )}
         </nav>
 
         {/* Zone 3: Actions (Customizer, Auth, Lang, Theme, Quick CTA) */}
@@ -196,8 +221,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenFormationModal, onOpenStor
                   <button
                     key={r.role}
                     onClick={() => {
-                      switchRole(r.role);
-                      setRoleMenuOpen(false);
+                      if (r.role === 'super_admin' && user.role !== 'super_admin') {
+                        setRoleMenuOpen(false);
+                        if (onOpenAdminGuard) {
+                          onOpenAdminGuard();
+                        } else {
+                          switchRole(r.role);
+                        }
+                      } else {
+                        switchRole(r.role);
+                        setRoleMenuOpen(false);
+                      }
                     }}
                     className={`w-full text-left px-3 py-2 flex items-center justify-between hover:bg-teal-50 dark:hover:bg-cyan-900/30 transition-colors cursor-pointer ${
                       user.role === r.role

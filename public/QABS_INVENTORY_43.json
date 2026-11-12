@@ -3,10 +3,10 @@
   "generated_at": "2026-11-11T15:13:31Z",
   "total_routes": 43,
   "summary": {
-    "pass": 34,
-    "partial": 3,
-    "blocked": 5,
-    "not_tested": 1
+    "pass": 29,
+    "partial": 6,
+    "blocked": 8,
+    "operational_status": "Step 02 Real-World Functionality Alignment"
   },
   "security_alerts": [
     {
@@ -21,23 +21,23 @@
     },
     {
       "severity": "HIGH",
-      "target": "GitHub Repositories: QABS-UNIFIED & qabs-unified-dashboard-template",
-      "recommendation": "Resolve HTTP 404 by confirming repository visibility (Public vs Organization Private) and unblocking branch sync."
+      "target": "Payment Gateways & Commercial Approvals",
+      "recommendation": "Third-party payment gateways (Stripe, PayPal, Tap, Mercury) are BLOCKED / in setup and subject to independent provider approval and eligibility."
     }
   ],
   "routes": [
     { "id": 1, "category": "public_site", "name": "الموقع الرئيسي لمنصة قبس", "url": "https://qabs1.store/", "status": "PASS", "method": "GET 200", "notes": "الواجهة الرئيسية متصلة وتعمل" },
-    { "id": 2, "category": "public_site", "name": "تأسيس الشركات في الولايات المتحدة", "url": "https://qabs1.store/pages/company-formation-us", "status": "PASS", "method": "GET 200", "notes": "صفحة تفاصيل وايومنغ وديلاوير" },
-    { "id": 3, "category": "public_site", "name": "تأسيس الشركات البريطانية UK LTD", "url": "https://qabs1.store/pages/company-formation-uk", "status": "PASS", "method": "GET 200", "notes": "بوابة التأسيس البريطاني" },
-    { "id": 4, "category": "public_site", "name": "استخراج رقم الضريبة IRS EIN", "url": "https://qabs1.store/pages/ein-tax-service", "status": "PASS", "method": "GET 200", "notes": "خدمة إصدار الـ EIN" },
-    { "id": 5, "category": "public_site", "name": "فتح الحسابات البنكية Mercury & Wise", "url": "https://qabs1.store/pages/mercury-bank-setup", "status": "PASS", "method": "GET 200", "notes": "بوابة الشركاء المصرفيين" },
-    { "id": 6, "category": "public_site", "name": "بوابة الدفع Stripe Connect", "url": "https://qabs1.store/pages/stripe-connect-gateway", "status": "PASS", "method": "GET 200", "notes": "بوابة الدفع العالمية" },
-    { "id": 7, "category": "public_site", "name": "بوابات الدفع الخليجية Tap Payments", "url": "https://qabs1.store/pages/tap-payments-gcc", "status": "PASS", "method": "GET 200", "notes": "الدفع بمدى و KNET" },
-    { "id": 8, "category": "public_site", "name": "منشئ المتاجر المتعددة QABS Studio", "url": "https://qabs1.store/pages/multi-store-builder", "status": "PASS", "method": "GET 200", "notes": "استوديو تصميم المتاجر" },
+    { "id": 2, "category": "public_site", "name": "تأسيس الشركات في الولايات المتحدة", "url": "https://qabs1.store/pages/company-formation-us", "status": "PASS", "method": "GET 200", "notes": "طلب مبدئي نشط: وايومنغ وديلاوير" },
+    { "id": 3, "category": "public_site", "name": "تأسيس الشركات البريطانية UK LTD", "url": "https://qabs1.store/pages/company-formation-uk", "status": "PASS", "method": "GET 200", "notes": "طلب مبدئي نشط: Companies House" },
+    { "id": 4, "category": "public_site", "name": "استخراج رقم الضريبة IRS EIN", "url": "https://qabs1.store/pages/ein-tax-service", "status": "PASS", "method": "GET 200", "notes": "طلب مبدئي نشط لإصدار الـ EIN" },
+    { "id": 5, "category": "public_site", "name": "فتح الحسابات البنكية Mercury & Wise", "url": "https://qabs1.store/pages/mercury-bank-setup", "status": "BLOCKED", "method": "BLOCKED", "notes": "بوابات الدفع والمصارف: BLOCKED / قيد التفعيل بانتظار موافقة المزود" },
+    { "id": 6, "category": "public_site", "name": "بوابة الدفع Stripe Connect", "url": "https://qabs1.store/pages/stripe-connect-gateway", "status": "BLOCKED", "method": "BLOCKED", "notes": "بوابات الدفع: BLOCKED / قيد التفعيل بانتظار موافقة المزود" },
+    { "id": 7, "category": "public_site", "name": "بوابات الدفع الخليجية Tap Payments", "url": "https://qabs1.store/pages/tap-payments-gcc", "status": "BLOCKED", "method": "BLOCKED", "notes": "بوابات الدفع: BLOCKED / قيد التفعيل بانتظار موافقة المزود" },
+    { "id": 8, "category": "public_site", "name": "منشئ المتاجر المتعددة QABS Studio", "url": "https://qabs1.store/pages/multi-store-builder", "status": "PASS", "method": "GET 200", "notes": "استوديو تصميم المتاجر متاح" },
     { "id": 9, "category": "public_site", "name": "تقويم الامتثال والتقارير السنوية", "url": "https://qabs1.store/pages/annual-compliance", "status": "PARTIAL", "method": "GET 200", "notes": "يحتاج ربط تنبيهات البريد" },
-    { "id": 10, "category": "public_site", "name": "مركز الاستشارات القانونية", "url": "https://qabs1.store/pages/legal-advisory", "status": "PASS", "method": "GET 200", "notes": "حجز الاستشارات" },
+    { "id": 10, "category": "public_site", "name": "مركز الاستشارات والذكاء الاصطناعي", "url": "https://qabs1.store/pages/legal-advisory", "status": "PARTIAL", "method": "IN PLANNING", "notes": "الذكاء الاصطناعي: قيد التخطيط والمراجعة" },
 
-    { "id": 11, "category": "shopify_products", "name": "باقة تأسيس وايومنغ المتكاملة", "url": "https://qabs1.store/products/wyoming-llc-full-package", "status": "PASS", "method": "GET 200", "notes": "سعر $397 + الرسوم" },
+    { "id": 11, "category": "shopify_products", "name": "باقة تأسيس وايومنغ المتكاملة", "url": "https://qabs1.store/products/wyoming-llc-full-package", "status": "PASS", "method": "GET 200", "notes": "سعر $397 + الرسوم الحكومية" },
     { "id": 12, "category": "shopify_products", "name": "باقة ديلاوير للشركات الناشئة", "url": "https://qabs1.store/products/delaware-c-corp-package", "status": "PASS", "method": "GET 200", "notes": "جاهزة للاستثمار" },
     { "id": 13, "category": "shopify_products", "name": "باقة تأسيس شركة بريطانية UK LTD", "url": "https://qabs1.store/products/uk-ltd-incorporation", "status": "PASS", "method": "GET 200", "notes": "Companies House" },
     { "id": 14, "category": "shopify_products", "name": "خدمة إصدار الـ EIN السريع", "url": "https://qabs1.store/products/express-ein-service", "status": "PASS", "method": "GET 200", "notes": "إصدار خلال 4 أيام" },
@@ -46,10 +46,10 @@
     { "id": 17, "category": "shopify_products", "name": "ترخيص المنظومة الموحدة السيادي", "url": "https://qabs1.store/products/sovereign-commerce-license", "status": "PARTIAL", "method": "GET 200", "notes": "قيد مراجعة التسعير" },
 
     { "id": 18, "category": "portal_routes", "name": "بوابة العميل - لوحة المؤشرات", "url": "https://portal.qabs1.store/", "status": "PASS", "method": "GET 200", "notes": "اللوحة الرئيسية للعميل" },
-    { "id": 19, "category": "portal_routes", "name": "بوابة العميل - الشركات والوثائق", "url": "https://portal.qabs1.store/companies", "status": "PASS", "method": "GET 200", "notes": "خزينة العقود والـ EIN" },
+    { "id": 19, "category": "portal_routes", "name": "بوابة العميل - رفع الوثائق و KYC", "url": "https://portal.qabs1.store/companies", "status": "PARTIAL", "method": "INACTIVE CLOUD", "notes": "رفع المستندات: PARTIAL / التخزين السحابي غير مفعّل" },
     { "id": 20, "category": "portal_routes", "name": "بوابة العميل - المتاجر والنطاقات", "url": "https://portal.qabs1.store/stores", "status": "PASS", "method": "GET 200", "notes": "إدارة المتاجر المتعددة" },
-    { "id": 21, "category": "portal_routes", "name": "بوابة العميل - بوابات الدفع والمعاملات", "url": "https://portal.qabs1.store/payments", "status": "PASS", "method": "GET 200", "notes": "سجل المبيعات والحوالات" },
-    { "id": 22, "category": "portal_routes", "name": "بوابة العميل - المحفظة والاشتراكات", "url": "https://portal.qabs1.store/billing", "status": "PASS", "method": "GET 200", "notes": "رصيد المحفظة والفواتير" },
+    { "id": 21, "category": "portal_routes", "name": "بوابة العميل - بوابات الدفع والمعاملات", "url": "https://portal.qabs1.store/payments", "status": "BLOCKED", "method": "BLOCKED", "notes": "بوابات الدفع: BLOCKED / قيد التفعيل بانتظار موافقة المزود" },
+    { "id": 22, "category": "portal_routes", "name": "بوابة العميل - المحفظة والاشتراكات", "url": "https://portal.qabs1.store/billing", "status": "PARTIAL", "method": "IN PLANNING", "notes": "الاشتراكات: قيد التخطيط والمراجعة" },
     { "id": 23, "category": "portal_routes", "name": "بوابة العميل - مركز تذاكر الدعم", "url": "https://portal.qabs1.store/support", "status": "PASS", "method": "GET 200", "notes": "تذاكر الدعم الفني" },
     { "id": 24, "category": "portal_routes", "name": "بوابة العميل - الإعدادات والمصادقة", "url": "https://portal.qabs1.store/settings", "status": "PASS", "method": "GET 200", "notes": "تفعيل 2FA وحماية الجلسات" },
 

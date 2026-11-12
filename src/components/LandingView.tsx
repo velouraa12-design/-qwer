@@ -24,7 +24,10 @@ import {
   HelpCircle,
   Zap,
   Award,
-  ArrowRight
+  ArrowRight,
+  MessageSquare,
+  Archive,
+  ShieldAlert
 } from 'lucide-react';
 
 interface LandingViewProps {
@@ -50,6 +53,8 @@ export const LandingView: React.FC<LandingViewProps> = ({
 
   // FAQ Accordion state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  // Order tracking input for customer journey #4
+  const [trackOrderNumber, setTrackOrderNumber] = useState('');
 
   const selectedPkg =
     QABS_FORMATION_PKGS.find(p => p.id === selectedPkgId) || QABS_FORMATION_PKGS[1];
@@ -284,7 +289,380 @@ export const LandingView: React.FC<LandingViewProps> = ({
         </div>
       </section>
 
-      {/* 2. QABS 9 SOVEREIGN SERVICES EXECUTIVE GRID (الخدمات السيادية الـ 9) */}
+      {/* 2. SIMPLIFIED CUSTOMER JOURNEY (المسارات الأربعة الأساسية لخدمة العميل) */}
+      <section id="customer-journeys" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="bg-gradient-to-r from-[#14243e] to-[#0b172a] rounded-3xl p-6 sm:p-8 border-2 border-[#d5b46b]/40 text-white shadow-xl space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700/80 pb-5">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d5b46b]/15 text-[#d5b46b] border border-[#d5b46b]/40 text-xs font-bold font-mono">
+                <Sparkles className="w-3.5 h-3.5 text-[#d5b46b]" />
+                <span>{isAr ? 'مسارات العميل الأربعة الأساسية' : 'Simplified 4-Path Customer Journey'}</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white mt-2">
+                {isAr ? 'كيف ترغب في بدء أعمالك مع قبس اليوم؟' : 'How would you like to start with QABS today?'}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
+                {isAr
+                  ? 'تم تبسيط رحلة العميل بالكامل في 4 مسارات مباشرة: التأسيس، بوابات الدفع، إنشاء المتاجر، أو متابعة طلباتك السابقة.'
+                  : 'Customer journey simplified into 4 primary paths: formation, payments, store setup, or verified tracking.'}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 shrink-0">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>{isAr ? 'قنوات خدمة معتمدة ومباشرة' : 'Direct Verified Channels'}</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Journey 1: أريد تأسيس شركة */}
+            <div className="bg-[#0b172a]/90 rounded-2xl p-5 border border-slate-700/80 hover:border-[#d5b46b] transition-all flex flex-col justify-between space-y-4 shadow-lg group">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-[#14243e] border border-[#d5b46b]/40 text-[#d5b46b] flex items-center justify-center font-bold">
+                    <Building2 className="w-5 h-5 text-[#d5b46b]" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-600/50">
+                    {isAr ? 'طلب مبدئي (PASS)' : 'Active (PASS)'}
+                  </span>
+                </div>
+                <h3 className="text-base font-black text-white group-hover:text-[#d5b46b] transition-colors">
+                  {isAr ? '1. أريد تأسيس شركة' : '1. Form a Company'}
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  {isAr
+                    ? 'تأسيس رسمي معتمد في أمريكا (وايومنغ أو ديلاوير) أو بريطانيا، يشمل عقد التشغيل والوكيل المسجل.'
+                    : 'US LLC (Wyoming / Delaware) or UK LTD incorporation with Articles & Registered Agent.'}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => onOpenFormationModal('WY')}
+                className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#d5b46b] to-[#b3934d] hover:brightness-110 text-[#14243e] font-black text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+              >
+                <span>{isAr ? 'ابدأ طلب التأسيس' : 'Start Formation'}</span>
+                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+              </button>
+            </div>
+
+            {/* Journey 2: أريد تجهيز الدفع */}
+            <div className="bg-[#0b172a]/90 rounded-2xl p-5 border border-slate-700/80 hover:border-amber-400 transition-all flex flex-col justify-between space-y-4 shadow-lg group">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-[#14243e] border border-amber-500/40 text-amber-400 flex items-center justify-center font-bold">
+                    <CreditCard className="w-5 h-5 text-amber-400" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-rose-950/80 text-rose-300 border border-rose-600/50">
+                    {isAr ? 'BLOCKED / قيد التفعيل' : 'BLOCKED / In Setup'}
+                  </span>
+                </div>
+                <h3 className="text-base font-black text-white group-hover:text-amber-300 transition-colors">
+                  {isAr ? '2. أريد تجهيز الدفع' : '2. Setup Payments'}
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  {isAr
+                    ? 'إصدار رقم الضريبة EIN، وتجهيز الملف المصرفي لبوابات الدفع (Stripe/Tap/Mercury). ملاحظة: القبول يخضع كلياً للأهلية وموافقة المزود الرسمي.'
+                    : 'EIN tax issuance & banking dossier for Stripe, Tap & Mercury. Note: Approvals subject to provider eligibility.'}
+                </p>
+              </div>
+
+              <a
+                href={`https://wa.me/159710784967?text=${encodeURIComponent(
+                  isAr
+                    ? 'مرحباً فريق قبس، أرغب في الاستفسار عن تجهيز بوابات الدفع (Stripe / Tap) والحساب البنكي لشركتي.'
+                    : 'Hello QABS team, I want to inquire about payment gateways (Stripe / Tap) and banking setup.'
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-2.5 px-3 rounded-xl bg-[#14243e] hover:bg-[#1a2f50] text-amber-300 border border-amber-500/50 font-black text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+              >
+                <span>{isAr ? 'استشارة تجهيز الدفع' : 'Inquire Payment Setup'}</span>
+                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+              </a>
+            </div>
+
+            {/* Journey 3: أريد إنشاء متجر */}
+            <div className="bg-[#0b172a]/90 rounded-2xl p-5 border border-slate-700/80 hover:border-[#d5b46b] transition-all flex flex-col justify-between space-y-4 shadow-lg group">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-[#14243e] border border-[#d5b46b]/40 text-[#d5b46b] flex items-center justify-center font-bold">
+                    <Store className="w-5 h-5 text-[#d5b46b]" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-950/80 text-blue-300 border border-blue-600/50">
+                    {isAr ? 'إطلاق فوري' : 'Turnkey Ready'}
+                  </span>
+                </div>
+                <h3 className="text-base font-black text-white group-hover:text-[#d5b46b] transition-colors">
+                  {isAr ? '3. أريد إنشاء متجر' : '3. Launch a Store'}
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  {isAr
+                    ? 'إطلاق متجر إلكتروني مستقل بقالب قبس العربي v14 أو Shopify، مع ربط الكتالوج وبوابات الدفع.'
+                    : 'Launch independent storefront with QABS Arabic v14 template or Shopify integration.'}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={onOpenStoreModal}
+                className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#00A896] to-[#007F8B] hover:brightness-110 text-white font-black text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+              >
+                <span>{isAr ? 'إنشاء متجر جديد' : 'Launch New Store'}</span>
+                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
+              </button>
+            </div>
+
+            {/* Journey 4: أريد متابعة طلب قائم عبر WhatsApp */}
+            <div className="bg-[#0b172a]/90 rounded-2xl p-5 border border-slate-700/80 hover:border-emerald-400 transition-all flex flex-col justify-between space-y-4 shadow-lg group">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 flex items-center justify-center font-bold">
+                    <MessageSquare className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-600/50 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                    <span>WhatsApp: +159710784967</span>
+                  </span>
+                </div>
+                <h3 className="text-base font-black text-white group-hover:text-emerald-300 transition-colors">
+                  {isAr ? '4. أريد متابعة طلب قائم' : '4. Track Order'}
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  {isAr
+                    ? 'متابعة مباشرة وموثقة مع فريق الامتثال والتأسيس للاستفسار عن مستجدات ملفك عبر WhatsApp الموثق (+159710784967).'
+                    : 'Direct verified tracking via WhatsApp (+159710784967) with compliance officers for your active filing.'}
+                </p>
+
+                {/* Tracking input */}
+                <div className="pt-1">
+                  <input
+                    type="text"
+                    value={trackOrderNumber}
+                    onChange={e => setTrackOrderNumber(e.target.value)}
+                    placeholder={isAr ? 'أدخل رقم الطلب (مثال: QABS-101)' : 'Order # (e.g. QABS-101)'}
+                    className="w-full bg-[#14243e] border border-slate-700 focus:border-emerald-400 rounded-lg py-1.5 px-3 text-xs text-white placeholder-slate-500 outline-none font-mono"
+                  />
+                </div>
+              </div>
+
+              <a
+                href={`https://wa.me/159710784967?text=${encodeURIComponent(
+                  trackOrderNumber.trim()
+                    ? (isAr
+                        ? `مرحباً فريق قبس، أرغب في متابعة طلبي القائم رقم: ${trackOrderNumber.trim()}`
+                        : `Hello QABS team, I want to track my active order #${trackOrderNumber.trim()}`)
+                    : (isAr
+                        ? 'مرحباً فريق قبس، أرغب في الاستفسار ومتابعة طلبي القائم لديكم عبر الخط الموثق (+159710784967).'
+                        : 'Hello QABS team, I would like to inquire about my active order.')
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+              >
+                <Phone className="w-3.5 h-3.5 text-white" />
+                <span>{isAr ? 'متابعة عبر WhatsApp الموثق' : 'Track via WhatsApp'}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. TRANSPARENT FUNCTIONALITY & OPERATIONAL READINESS MATRIX (مصفوفة الوظائف الحقيقية للعملاء) */}
+      <section id="functionality-matrix" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="p-6 rounded-3xl bg-white dark:bg-[#071D2B] border-2 border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[#003445] dark:text-[#d5b46b] border border-slate-300 dark:border-slate-700 text-xs font-bold font-mono">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                <span>{isAr ? 'مصفوفة الشفافية والجاهزية التشغيلية' : 'Service Transparency & Readiness Matrix'}</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-[#14243e] dark:text-white mt-2">
+                {isAr
+                  ? 'حالة الخدمات والأنظمة التشغيلية الفعلية'
+                  : 'Current Real-World Operational Status of Services'}
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                {isAr
+                  ? 'نلتزم بأعلى درجات الشفافية مع عملائنا: توضيح دقيق للخدمات المتاحة فوراً مقابل الخدمات قيد التفعيل المصرفي والمراجعة.'
+                  : 'Full transparency: clear distinction between active initial intake and pending external integrations.'}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-mono font-bold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>{isAr ? 'تقرير الحالة التشغيلية (الخطوة 02)' : 'Operational Audit Matrix'}</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Module 1: طلب التأسيس */}
+            <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-[#051e17] border border-emerald-500/40 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black text-emerald-950 dark:text-emerald-300 flex items-center gap-1.5">
+                  <Building2 className="w-4 h-4 text-emerald-600" />
+                  <span>{isAr ? '1. طلب التأسيس' : '1. Formation Intake'}</span>
+                </span>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-600 text-white">
+                  PASS ✅
+                </span>
+              </div>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                {isAr
+                  ? 'متاح كطلب مبدئي نشط: معالج ولايات أمريكا الـ 50، إدخال بيانات الملاك، حساب الرسوم، وتوليد مسودة العقد.'
+                  : 'Active initial intake: 50 US states fee engine, owner data intake and draft generation.'}
+              </p>
+              <div className="pt-2 border-t border-emerald-200 dark:border-emerald-800/60 text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-400">
+                {isAr ? 'الحالة: متاح للتسجيل الفوري' : 'Status: Live & Available'}
+              </div>
+            </div>
+
+            {/* Module 2: رفع المستندات / السحابة */}
+            <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-[#1f1707] border border-amber-500/40 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black text-amber-950 dark:text-amber-300 flex items-center gap-1.5">
+                  <Archive className="w-4 h-4 text-amber-600" />
+                  <span>{isAr ? '2. رفع المستندات / السحابة' : '2. KYC / Cloud Uploads'}</span>
+                </span>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-600 text-white">
+                  PARTIAL ⚠️
+                </span>
+              </div>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                {isAr
+                  ? 'غير مفعّل للعموم: واجهة الرفع مبرمجة، وقيد استكمال التشفير AES-256 وربط مخزن Cloudflare R2 المعزول.'
+                  : 'Inactive public cloud: Upload UI programmed, pending AES-256 Cloudflare R2 storage link.'}
+              </p>
+              <div className="pt-2 border-t border-amber-200 dark:border-amber-800/60 text-[10px] font-mono font-bold text-amber-700 dark:text-amber-400">
+                {isAr ? 'الحالة: قيد التجهيز السحابي' : 'Status: In Setup Pipeline'}
+              </div>
+            </div>
+
+            {/* Module 3: بوابات الدفع (Stripe / Tap / Mercury) */}
+            <div className="p-4 rounded-2xl bg-rose-50/60 dark:bg-[#20090e] border border-rose-500/40 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black text-rose-950 dark:text-rose-300 flex items-center gap-1.5">
+                  <CreditCard className="w-4 h-4 text-rose-600" />
+                  <span>{isAr ? '3. بوابات الدفع والمصارف' : '3. Payment Gateways'}</span>
+                </span>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-rose-600 text-white">
+                  BLOCKED 🔒
+                </span>
+              </div>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                {isAr
+                  ? 'قيد التفعيل والتجهيز: ربط Stripe و Tap و Mercury بانتظار استكمال السجلات والحسابات والموافقة المشروطة من المزود.'
+                  : 'In activation: Stripe, Tap & Mercury pending entity completion & formal provider approval.'}
+              </p>
+              <div className="pt-2 border-t border-rose-200 dark:border-rose-800/60 text-[10px] font-mono font-bold text-rose-700 dark:text-rose-400">
+                {isAr ? 'الحالة: قيد التفعيل التجاري' : 'Status: Pending Approval'}
+              </div>
+            </div>
+
+            {/* Module 4: الاشتراكات والفوترة والذكاء الاصطناعي */}
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#0b172a] border border-slate-300 dark:border-slate-700 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black text-slate-900 dark:text-slate-200 flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-[#d5b46b]" />
+                  <span>{isAr ? '4. الفوترة والذكاء الاصطناعي' : '4. Billing & AI'}</span>
+                </span>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-700 text-slate-200">
+                  {isAr ? 'قيد التخطيط والمراجعة' : 'In Review'}
+                </span>
+              </div>
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                {isAr
+                  ? 'استعراض الباقات نشط، بينما الخصم التلقائي الدوري ونماذج الذكاء الاصطناعي قيد التخطيط والمراجعة القانونية.'
+                  : 'Package tiers active; automated billing cron and legal AI models in planning and compliance review.'}
+              </p>
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 text-[10px] font-mono font-bold text-slate-600 dark:text-slate-400">
+                {isAr ? 'الحالة: قيد التخطيط والتطوير' : 'Status: In Planning'}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. COMMERCIAL DISCLAIMERS & FEE BREAKDOWN TRANSPARENCY (التنبيهات والتحفظات التجارية وهيكل الرسوم) */}
+      <section id="commercial-disclaimers" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="bg-[#14243e] text-white rounded-3xl p-6 sm:p-8 border-2 border-[#d5b46b]/60 shadow-2xl space-y-6">
+          <div className="flex items-center gap-3 border-b border-slate-700/80 pb-4">
+            <div className="w-10 h-10 rounded-xl bg-[#0b172a] border border-[#d5b46b]/60 text-[#d5b46b] flex items-center justify-center shrink-0">
+              <ShieldAlert className="w-5 h-5 text-[#d5b46b]" />
+            </div>
+            <div>
+              <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-600">
+                {isAr ? 'التحفظات والشفافية القانونية المعتمدة' : 'Official Statutory Disclaimers'}
+              </span>
+              <h3 className="text-lg sm:text-xl font-black text-white mt-1">
+                {isAr
+                  ? 'التنبيهات التجارية الرسمية وهيكل فصل الرسوم'
+                  : 'Official Commercial Disclaimers & Fee Structure Breakdown'}
+              </h3>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Disclaimer 1: Third-Party Payment Gateway & Banking Approvals */}
+            <div className="bg-[#0b172a] p-5 rounded-2xl border border-slate-700/80 space-y-3">
+              <div className="flex items-center gap-2 text-[#d5b46b] font-bold text-sm">
+                <CreditCard className="w-4 h-4 text-[#d5b46b]" />
+                <h4>
+                  {isAr
+                    ? 'إخلاء مسؤولية قبول بوابات الدفع والمصارف الخارجية'
+                    : 'Third-Party Payment & Banking Approval Disclaimer'}
+                </h4>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                {isAr
+                  ? 'تنبيه قانوني وتجاري هام: قبول وتفعيل الحسابات لدى بوابات الدفع العالمية والمحلية (بما في ذلك Stripe, PayPal, Tap Payments) والخدمات المصرفية التجارية (مثل Mercury Bank و Wise) يخضع كلياً للأهلية القانونية، فحص ومطابقة الامتثال المصرفي (KYC / AML)، وموافقة المزود الرسمي للخدمة دون أدنى ضمان مطلق من منصة قبس، حيث ينحصر دورنا في إعداد الملف القانوني وتجهيز المتاجر وتوفير وثائق التأسيس المعتمدة.'
+                  : 'Important notice: Approvals for external merchant payment processors (Stripe, PayPal, Tap) and commercial banks (Mercury, Wise) are strictly subject to individual applicant eligibility, KYC/AML review, and sole discretion of the respective provider. QABS facilitates filing documentation and technical integration but does not guarantee third-party approvals.'}
+              </p>
+            </div>
+
+            {/* Disclaimer 2: Clear Separation of Fees */}
+            <div className="bg-[#0b172a] p-5 rounded-2xl border border-slate-700/80 space-y-3">
+              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                <Layers className="w-4 h-4 text-emerald-400" />
+                <h4>
+                  {isAr
+                    ? 'الفصل الواضح والشفاف بين هيكل الرسوم'
+                    : 'Transparent Separation of Fee Structure'}
+                </h4>
+              </div>
+              <ul className="space-y-2 text-xs text-slate-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#d5b46b] font-black shrink-0">1.</span>
+                  <span>
+                    <strong className="text-white">{isAr ? 'رسوم منصة قبس (QABS Service Fee):' : 'QABS Platform Fees:'}</strong>{' '}
+                    {isAr
+                      ? 'تشمل خدمات التأسيس، إعداد عقد التشغيل، وتوفير الوكيل المسجل والعنوان الرسمي للسنة الأولى.'
+                      : 'Covers preparation, Operating Agreement, and 1st year registered agent.'}
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 font-black shrink-0">2.</span>
+                  <span>
+                    <strong className="text-white">{isAr ? 'الرسوم الحكومية للولاية (State Statutory Fees):' : 'State Filing Fees:'}</strong>{' '}
+                    {isAr
+                      ? 'رسوم حكومية إلزامية تُدفع مباشرة لمكتب سكرتير الولاية (مثل $102 لوايومنغ) وهي منفصلة ومستقلة تماماً.'
+                      : 'Mandatory statutory fees paid directly to Secretary of State offices without markup.'}
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-cyan-400 font-black shrink-0">3.</span>
+                  <span>
+                    <strong className="text-white">{isAr ? 'رسوم معالجة المدفوعات الخارجية (Processor Fees):' : 'Third-Party Processor Fees:'}</strong>{' '}
+                    {isAr
+                      ? 'تقتطعها بوابات الدفع (مثل 2.9% + 30¢ لـ Stripe) على كل معاملة بيع، وتخضع لسياسات المزود المباشر.'
+                      : 'Deducted directly by payment processors per transaction according to their published terms.'}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. QABS 9 SOVEREIGN SERVICES EXECUTIVE GRID (الخدمات السيادية الـ 9) */}
       <section id="services-grid" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
           <div>

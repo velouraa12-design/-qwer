@@ -2136,6 +2136,10 @@ export const PortalView: React.FC<PortalViewProps> = ({ onOpenStoreModal, onOpen
               <div className="space-y-5">
                 {companies
                   .filter(comp => {
+                    // Strict client isolation: only display formations authorized for this user
+                    if (comp.tenant_id && comp.tenant_id !== user.id && user.role !== 'super_admin') {
+                      return false;
+                    }
                     if (companyFilter === 'approved') return comp.status === 'approved';
                     if (companyFilter === 'in_progress') return comp.status !== 'approved';
                     return true;
@@ -2164,7 +2168,7 @@ export const PortalView: React.FC<PortalViewProps> = ({ onOpenStoreModal, onOpen
                               </span>
                             </div>
                             <div className="text-xs text-slate-500 mt-0.5">
-                              {isAr ? 'تاريخ التأسيس والإيداع:' : 'Filing Date:'} <span className="font-mono">{comp.filingDate}</span>
+                              {isAr ? 'تاريخ استلام الطلب:' : 'Intake Date:'} <span className="font-mono">{comp.filingDate}</span>
                             </div>
                           </div>
                         </div>
@@ -2173,6 +2177,8 @@ export const PortalView: React.FC<PortalViewProps> = ({ onOpenStoreModal, onOpen
                           className={`px-3 py-1 rounded-full text-xs font-black self-start sm:self-center ${
                             comp.status === 'approved'
                               ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
+                              : comp.status === 'submitted'
+                              ? 'bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300'
                               : 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'
                           }`}
                         >
@@ -2180,8 +2186,12 @@ export const PortalView: React.FC<PortalViewProps> = ({ onOpenStoreModal, onOpen
                             ? isAr
                               ? 'معتمدة ومسجلة رسمياً ✓'
                               : 'Approved & Active ✓'
+                            : comp.status === 'submitted'
+                            ? isAr
+                              ? 'طلب مبدئي مستلم (قيد المراجعة والتحقق)'
+                              : 'Initial Intake Submitted (Under Review)'
                             : isAr
-                            ? 'قيد الإيداع والمراجعة الحكومية'
+                            ? 'قيد الإيداع الحكومي'
                             : 'Submitted to State'}
                         </span>
                       </div>
@@ -2271,8 +2281,8 @@ export const PortalView: React.FC<PortalViewProps> = ({ onOpenStoreModal, onOpen
                                     type: doc.type,
                                     date: doc.date,
                                     jurisdiction: comp.jurisdiction,
-                                    ein: comp.ein,
-                                    fileNumber: comp.stateFileNumber || comp.crn
+                                    ein: comp.ein || undefined,
+                                    fileNumber: (comp.stateFileNumber || comp.crn) || undefined
                                   })
                                 }
                                 className="px-2.5 py-1.5 rounded-lg bg-teal-50 dark:bg-teal-950 text-[#004457] dark:text-teal-300 hover:bg-teal-100 text-[11px] font-bold shrink-0 cursor-pointer flex items-center gap-1"

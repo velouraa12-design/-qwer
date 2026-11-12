@@ -68,22 +68,36 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
     e.preventDefault();
     if (!companyName.trim()) return;
 
+    const fullCompanyName =
+      companyName.toUpperCase() + (entityType === 'LLC' ? ' LLC' : ' INC');
+
     addCompany({
-      companyName:
-        companyName.toUpperCase() + (entityType === 'LLC' ? ' LLC' : ' INC'),
+      companyName: fullCompanyName,
       jurisdiction: selectedState.jurisdictionId,
       entityType,
-      registeredAgent: `QABS ${selectedState.nameEn} Registered Agent Services LLC`,
-      registeredAddress:
-        selectedState.code === 'WY'
-          ? '30 N Gould St, Sheridan, WY 82801, USA'
-          : selectedState.code === 'DE'
-          ? '1201 N Orange St, Wilmington, DE 19801, USA'
-          : selectedState.code === 'NM'
-          ? '1209 Mountain Road Pl NE, Albuquerque, NM 87110, USA'
-          : `Suite 400, Corporate Plaza, ${selectedState.nameEn} (${selectedState.code}), USA`,
+      registeredAgent: 'بانتظار التعيين الرسمي بعد مراجعة الطلب (Pending Assignment)',
+      registeredAddress: 'يحدد رسمياً بعد المراجعة وتأكيد ملف الولاية (Pending State Verification)',
       renewalDueDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     });
+
+    // Sync to server API in background with client session
+    try {
+      fetch('/api/formations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer session_usr_customer_01`
+        },
+        body: JSON.stringify({
+          company_name: fullCompanyName,
+          jurisdiction: selectedState.jurisdictionId,
+          entityType,
+          notes: `Initial intake received via QABS Wizard for ${selectedState.nameEn} (${selectedState.code})`
+        })
+      }).catch(() => {});
+    } catch {
+      // offline / standalone mode fallback
+    }
 
     onClose();
     setStep(1);
@@ -371,6 +385,19 @@ export const FormationWizardModal: React.FC<FormationWizardModalProps> = ({
                   </p>
                 </div>
                 <span className="text-3xl font-black text-white tabular-nums">${grandTotal}</span>
+              </div>
+
+              {/* Statutory & Third-Party Gateways Notice */}
+              <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700/60 text-[11px] text-amber-900 dark:text-amber-200 leading-relaxed space-y-1">
+                <span className="font-bold flex items-center gap-1">
+                  <span>⚠️</span>
+                  <span>{isAr ? 'تنبيه تجاري وقانوني هام بخصوص الرسوم وبوابات الدفع:' : 'Important Statutory & Gateway Disclaimer:'}</span>
+                </span>
+                <p>
+                  {isAr
+                    ? 'الرسوم الحكومية للولاية منفصلة تماماً وتُدفع لمكتب سكرتير الولاية. تفعيل بوابات الدفع (Stripe / PayPal) والمصارف التجارية يخضع كلياً للأهلية وموافقة المزود الرسمي للخدمة.'
+                    : 'State statutory fees are separate and paid directly to the state. Third-party gateways (Stripe/PayPal) and commercial banking approvals are subject to provider compliance.'}
+                </p>
               </div>
             </div>
           )}

@@ -218,13 +218,26 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const switchRole = (newRole: UserRole) => {
+    if (newRole === 'super_admin') {
+      appendAudit(
+        'محاولة تصعيد محلي إلى Super Admin محظورة',
+        'Local Super Admin escalation blocked by security guard',
+        'RBAC_KERNEL',
+        'blocked'
+      );
+      showToast(
+        language === 'ar'
+          ? 'تم حظر الصلاحية (BLOCKED): لا يمكن تفعيل Super Admin محلياً دون جلسة خادمية موثقة.'
+          : 'Privilege blocked: Super Admin cannot be activated locally without a verified server session.'
+      );
+      return;
+    }
+
     setUser(prev => ({
       ...prev,
       role: newRole,
       name:
-        newRole === 'super_admin'
-          ? 'عبدالله السعدي (إدارة قبس المركزية)'
-          : newRole === 'merchant'
+        newRole === 'merchant'
           ? 'محمد الخالدي (مالك متجر قبس)'
           : newRole === 'compliance_officer'
           ? 'سارة المنصوري (مراجعة واعتماد المتاجر)'
@@ -232,7 +245,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
     showToast(
       language === 'ar'
-        ? `تم التبديل إلى صلاحيات: ${newRole === 'super_admin' ? 'إدارة قبس المركزية' : 'مالك المتجر'}`
+        ? `تم التبديل إلى منظور: ${newRole === 'merchant' ? 'مالك المتجر' : newRole}`
         : `Switched perspective to: ${newRole}`
     );
   };
@@ -241,12 +254,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const newComp: CompanyFormation = {
       ...comp,
       id: `comp_${Date.now()}`,
+      tenant_id: user.id, // Strictly linked to customer's account
       filingDate: new Date().toISOString().split('T')[0],
-      status: 'submitted_to_state',
+      status: 'submitted', // Strictly 'submitted' initial intake (never submitted_to_state without verified filing)
       renewalDueDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      documents: []
+      documents: [],
+      registeredAgent: 'بانتظار التعيين الرسمي بعد مراجعة الطلب (Pending Assignment)',
+      registeredAddress: 'يحدد رسمياً بعد المراجعة وتأكيد ملف الولاية (Pending Verification)'
     };
     setCompanies(prev => [newComp, ...prev]);
+
+    appendAudit(
+      `إنشاء طلب تأسيس مبدئي (${newComp.companyName}) بحالة Submitted`,
+      `Created initial formation intake (${newComp.companyName}) with status Submitted`,
+      `company_formations:${newComp.id}`,
+      'success'
+    );
+
+    showToast(
+      language === 'ar'
+        ? 'تم حفظ طلب التأسيس المبدئي بنجاح بحالة (مستلم) بانتظار المراجعة ✅'
+        : 'Initial company formation intake saved as (Submitted) pending review ✅'
+    );
   };
 
   const updateCompanyStatus = (id: string, status: CompanyFormation['status']) => {
@@ -892,34 +921,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
   };
 
-  const login = (email: string, role: UserRole) => {
+  const login = (email: string, _role?: UserRole) => {
+    // Role escalation prevention: Client cannot select super_admin
+    const safeRole: UserRole = 'merchant';
     setUser(prev => ({
       ...prev,
       email,
-      role,
-      name:
-        role === 'super_admin'
-          ? 'عبدالله السعدي (إدارة قبس المركزية)'
-          : role === 'merchant'
-          ? 'محمد الخالدي (مالك متجر قبس)'
-          : 'سارة المنصوري (فريق قبس)'
+      role: safeRole,
+      name: 'محمد الخالدي (عميل قبس)'
     }));
     setAuthModalOpen(false);
-    showToast(language === 'ar' ? `مرحباً بك في منصة متاجر قبس!` : `Welcome to QABS Stores!`);
+    showToast(language === 'ar' ? `مرحباً بك في منصة قبس!` : `Welcome to QABS!`);
   };
 
-  const register = (name: string, email: string, companyName: string, role: UserRole) => {
+  const register = (name: string, email: string, companyName: string, _role?: UserRole) => {
+    // New accounts are strictly registered as standard merchant / customer
     setUser({
       id: `usr_${Date.now()}`,
       name,
       email,
-      role,
+      role: 'merchant',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
       companyName,
-      credits: 200
+      credits: 100
     });
     setAuthModalOpen(false);
-    showToast(language === 'ar' ? 'تم إنشاء حساب التاجر بنجاح!' : 'Merchant account created successfully!');
+    showToast(language === 'ar' ? 'تم إنشاء حساب العميل بنجاح!' : 'Customer account created successfully!');
   };
 
   const logout = () => {

@@ -100,17 +100,18 @@ export interface StatePricingItem {
 
 export interface CompanyFormation {
   id: string;
+  tenant_id?: string;
   companyName: string;
   jurisdiction: Jurisdiction;
   entityType: 'LLC' | 'C-CORP' | 'LTD';
-  stateFileNumber?: string;
-  ein?: string;
-  crn?: string;
+  stateFileNumber?: string | null;
+  ein?: string | null;
+  crn?: string | null;
   registeredAgent: string;
   registeredAddress: string;
   filingDate: string;
   renewalDueDate: string;
-  status: 'draft' | 'under_review' | 'submitted_to_state' | 'approved' | 'action_required';
+  status: 'draft' | 'submitted' | 'under_review' | 'submitted_to_state' | 'approved' | 'action_required';
   documents: {
     name: string;
     type: 'articles' | 'ein_letter' | 'operating_agreement' | 'certificate_of_inc' | 'resolution';
@@ -399,5 +400,5 @@ export interface AuditLogItem {
   actionAr: string;
   actionEn: string;
   target: string;
-  status: 'success' | 'warning' | 'info';
+  status: 'success' | 'warning' | 'info' | 'blocked';
 }

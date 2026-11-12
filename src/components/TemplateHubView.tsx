@@ -34,7 +34,9 @@ import {
   Key,
   Shield,
   Zap,
-  CheckCircle
+  CheckCircle,
+  Building2,
+  CreditCard
 } from 'lucide-react';
 
 interface ProjectTask {
@@ -126,10 +128,10 @@ const INITIAL_INVENTORY_43_ROUTES: InventoryRoute[] = [
     nameAr: 'الحسابات البنكية الرقمية Mercury & Wise',
     nameEn: 'Mercury & Wise Commercial Accounts',
     url: 'https://qabs1.store/pages/mercury-bank-setup',
-    status: 'PASS',
-    responseMethod: 'GET 200',
-    notesAr: 'بوابة الشركاء المصرفيين المعتمدين FDIC',
-    notesEn: 'FDIC-insured digital commercial checking'
+    status: 'BLOCKED',
+    responseMethod: 'BLOCKED / PENDING APPROVAL',
+    notesAr: 'بوابات الدفع والمصارف: BLOCKED / قيد التفعيل بانتظار موافقة المزود',
+    notesEn: 'Banking Gateways: BLOCKED / in setup pending external provider KYC approval'
   },
   {
     id: 6,
@@ -139,10 +141,10 @@ const INITIAL_INVENTORY_43_ROUTES: InventoryRoute[] = [
     nameAr: 'بوابة الدفع العالمية Stripe Connect',
     nameEn: 'Stripe Connect Multi-Currency Gateway',
     url: 'https://qabs1.store/pages/stripe-connect-gateway',
-    status: 'PASS',
-    responseMethod: 'GET 200',
-    notesAr: 'تسويات متعددة العملات مع حماية 3DS',
-    notesEn: 'Global payment gateway with 3DS protection'
+    status: 'BLOCKED',
+    responseMethod: 'BLOCKED / PENDING APPROVAL',
+    notesAr: 'بوابات الدفع: BLOCKED / قيد التفعيل بانتظار موافقة المزود والسجل التجاري',
+    notesEn: 'Payment Gateways: BLOCKED / in setup pending Stripe provider underwriting'
   },
   {
     id: 7,
@@ -152,10 +154,10 @@ const INITIAL_INVENTORY_43_ROUTES: InventoryRoute[] = [
     nameAr: 'بوابات الدفع الخليجية Tap Payments',
     nameEn: 'Tap Payments GCC Regional Gateway',
     url: 'https://qabs1.store/pages/tap-payments-gcc',
-    status: 'PASS',
-    responseMethod: 'GET 200',
-    notesAr: 'دعم مدى، KNET، Apple Pay، والبطاقات الخليجية',
-    notesEn: 'Mada, KNET, Benefit & Apple Pay integration'
+    status: 'BLOCKED',
+    responseMethod: 'BLOCKED / PENDING APPROVAL',
+    notesAr: 'بوابات الدفع: BLOCKED / قيد التفعيل بانتظار موافقة المزود الإقليمي',
+    notesEn: 'Payment Gateways: BLOCKED / in setup pending regional GCC provider approval'
   },
   {
     id: 8,
@@ -188,13 +190,13 @@ const INITIAL_INVENTORY_43_ROUTES: InventoryRoute[] = [
     category: 'public_site',
     categoryAr: 'الموقع العام',
     categoryEn: 'Public Site',
-    nameAr: 'مركز الاستشارات القانونية والتراخيص',
-    nameEn: 'Corporate Legal Advisory Desk',
+    nameAr: 'مركز الاستشارات القانونية والذكاء الاصطناعي',
+    nameEn: 'Corporate Legal Advisory & AI Desk',
     url: 'https://qabs1.store/pages/legal-advisory',
-    status: 'PASS',
-    responseMethod: 'GET 200',
-    notesAr: 'صياغة القرارات والعقود والاستشارات',
-    notesEn: 'Statutory drafting & counsel booking'
+    status: 'PARTIAL',
+    responseMethod: 'DEV / PROMPT TUNING',
+    notesAr: 'الذكاء الاصطناعي: قيد التطوير والتكامل وضبط النماذج القانونية',
+    notesEn: 'AI & Legal: Model fine-tuning & server proxy in progress'
   },
 
   // 11-17: 7 Shopify Products
@@ -309,13 +311,13 @@ const INITIAL_INVENTORY_43_ROUTES: InventoryRoute[] = [
     category: 'portal_routes',
     categoryAr: 'بوابة العملاء',
     categoryEn: 'Customer Portal',
-    nameAr: 'إدارة ملفات التأسيس والوثائق القانونية',
-    nameEn: 'Corporate Documents Vault',
+    nameAr: 'إدارة ملفات التأسيس ورفع الوثائق (KYC)',
+    nameEn: 'Corporate Documents & KYC Vault',
     url: 'https://portal.qabs1.store/companies',
-    status: 'PASS',
-    responseMethod: 'GET 200',
-    notesAr: 'تحميل عقود التأسيس، شهادات EIN، والقرارات',
-    notesEn: 'Articles of Org, Operating Agreement & EIN'
+    status: 'PARTIAL',
+    responseMethod: 'DEV / R2 CLOUD STORAGE',
+    notesAr: 'رفع المستندات: قيد التجهيز والتخزين السحابي المشفر R2',
+    notesEn: 'KYC & Uploads: In progress with AES-256 Cloudflare R2 storage'
   },
   {
     id: 20,
@@ -335,26 +337,26 @@ const INITIAL_INVENTORY_43_ROUTES: InventoryRoute[] = [
     category: 'portal_routes',
     categoryAr: 'بوابة العملاء',
     categoryEn: 'Customer Portal',
-    nameAr: 'السجلات المالية وبوابات الدفع',
+    nameAr: 'السجلات المالية وبوابات الدفع المباشرة',
     nameEn: 'Settlements & Payment Processors',
     url: 'https://portal.qabs1.store/payments',
-    status: 'PASS',
-    responseMethod: 'GET 200',
-    notesAr: 'متابعة مبيعات Stripe و Tap والعمولات',
-    notesEn: 'Stripe, Tap & Moyasar transaction ledger'
+    status: 'BLOCKED',
+    responseMethod: 'BLOCKED / PENDING APPROVAL',
+    notesAr: 'بوابات الدفع: BLOCKED / قيد التفعيل بانتظار استكمال الحسابات البنكية وموافقة المزود',
+    notesEn: 'Payment Gateway: BLOCKED / pending commercial underwriting and provider approval'
   },
   {
     id: 22,
     category: 'portal_routes',
     categoryAr: 'بوابة العملاء',
     categoryEn: 'Customer Portal',
-    nameAr: 'الاشتراكات والمحفظة الرقمية مسبقة الدفع',
+    nameAr: 'الاشتراكات والمحفظة الرقمية والفوترة',
     nameEn: 'Subscriptions & Prepaid Wallet',
     url: 'https://portal.qabs1.store/billing',
-    status: 'PASS',
-    responseMethod: 'GET 200',
-    notesAr: 'إدارة الباقات، شحن الرصيد، والفواتير الضريبية',
-    notesEn: 'Tier plans, wallet top-up & VAT invoices'
+    status: 'PARTIAL',
+    responseMethod: 'DEV / CONTRACTS PENDING',
+    notesAr: 'الاشتراكات والفوترة: قيد التطوير وإتمام عقود التجارة',
+    notesEn: 'Billing & Subscriptions: Tier display active, automated billing pending contracts'
   },
   {
     id: 23,
@@ -1262,16 +1264,16 @@ Authorized Signature: QABS Sovereign Cryptographic Key #9d487acb`;
               <div className="flex items-center gap-3">
                 <FolderGit2 className="w-8 h-8 text-[#d5b46b]" />
                 <h1 className="text-xl sm:text-2xl font-black text-white tracking-wide">
-                  QABS DIGITAL — غرفة العمليات والجاهزية السيادية
+                  QABS DIGITAL — غرفة العمليات ومصفوفة الجاهزية التشغيلية
                 </h1>
-                <span className="text-[11px] px-3 py-0.5 rounded-full bg-emerald-950 text-emerald-300 font-mono border border-emerald-700 font-bold">
-                  {isAllPass ? '100% READY · 43/43 PASS ✅' : 'velouraa12-design & YELLOWSTORL12'}
+                <span className="text-[11px] px-3 py-0.5 rounded-full bg-blue-950 text-blue-300 font-mono border border-blue-700 font-bold">
+                  {isAr ? 'التقرير التشغيلي وتصحيح المسار (الخطوة 01)' : 'Operational Alignment (Step 01)'}
                 </span>
               </div>
               <p className="text-xs text-slate-300 max-w-3xl leading-relaxed">
                 {isAr
-                  ? 'غرفة العمليات المركزية لإدارة الـ 43 مساراً، فك حظر GitHub، تطبيق درع حماية بيئة Staging، وفحص التكامل الشامل لتحقيق نسبة جاهزية 100% مع تصدير حزمة الإطلاق السيادية الموحدة.'
-                  : 'Master operations command center for 43 routes, GitHub unblocking, Staging security activation, and full sovereign release bundle generator.'}
+                  ? 'لوحة إدارة العمليات الداخلية المعزولة: استعراض مصفوفة الوظائف الحقيقية، جرد الـ 43 مساراً، فك حظر المستودعات، وتأمين بيئة Staging مع مركز تصدير الملفات البرمجية.'
+                  : 'Isolated internal operations dashboard: real-world functionality matrix, 43-route audit, repo unblocking, Staging hardening, and file exporter.'}
               </p>
             </div>
 
@@ -1619,6 +1621,147 @@ Authorized Signature: QABS Sovereign Cryptographic Key #9d487acb`;
                 </button>
               </div>
             )}
+
+            {/* REAL-WORLD FUNCTIONALITY MATRIX (مصفوفة الوظائف الحقيقية والجاهزية التشغيلية) */}
+            <div className="p-5 rounded-2xl bg-[#0a1826] border-2 border-[#d5b46b]/40 shadow-xl space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700/80 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#14243e] border border-[#d5b46b]/50 text-[#d5b46b] flex items-center justify-center font-bold">
+                    <Layers className="w-4 h-4 text-[#d5b46b]" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-black text-white">
+                      {isAr ? 'مصفوفة الوظائف الحقيقية (Real-World Functionality Matrix)' : 'Real-World Functionality Matrix'}
+                    </h4>
+                    <p className="text-[11px] text-slate-300">
+                      {isAr
+                        ? 'تحديث دقيق يعكس الواقع الفعلي للخدمات: تمييز المسارات المكتملة (PASS) عن الخدمات قيد التطوير والربط (PARTIAL).'
+                        : 'Accurate classification of services: distinguishing completed routes (PASS) from in-progress modules (PARTIAL).'}
+                    </p>
+                  </div>
+                </div>
+                <span className="text-[10px] px-2.5 py-1 rounded bg-[#0b172a] border border-[#d5b46b]/40 text-[#d5b46b] font-mono font-bold self-start sm:self-auto">
+                  Step 01 · Corrective Action
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5">
+                {/* 1. طلب التأسيس */}
+                <div className="p-3.5 rounded-xl bg-[#07131e] border border-emerald-600/50 space-y-2 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{isAr ? 'طلب التأسيس' : 'Formation Intake'}</span>
+                      </span>
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600">
+                        PASS ✅
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      {isAr
+                        ? 'طلب مبدئي نشط ومتكامل: معالج الـ 50 ولاية وحساب الرسوم الفيدرالية والمحلية وتوليد مسودة العقد.'
+                        : 'Active intake wizard: 50 states fee engine, owner data intake & draft generation.'}
+                    </p>
+                  </div>
+                  <div className="text-[10px] font-mono text-emerald-400/90 pt-1 border-t border-slate-800">
+                    {isAr ? 'الحالة: متاح للعملاء الآن' : 'Status: Live Intake'}
+                  </div>
+                </div>
+
+                {/* 2. رفع المستندات */}
+                <div className="p-3.5 rounded-xl bg-[#07131e] border border-amber-600/50 space-y-2 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                        <Archive className="w-3.5 h-3.5 text-amber-400" />
+                        <span>{isAr ? 'رفع المستندات (KYC)' : 'KYC Uploads'}</span>
+                      </span>
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-600">
+                        PARTIAL ⚠️
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      {isAr
+                        ? 'واجهة الرفع جاهزة، وقيد استكمال التشفير AES-256 وربط مخزن Cloudflare R2 للوثائق وجوازات السفر.'
+                        : 'Upload UI active, pending AES-256 Cloudflare R2 encrypted vault integration.'}
+                    </p>
+                  </div>
+                  <div className="text-[10px] font-mono text-amber-400/90 pt-1 border-t border-slate-800">
+                    {isAr ? 'الحالة: قيد التجهيز السحابي' : 'Status: In Progress'}
+                  </div>
+                </div>
+
+                {/* 3. بوابات الدفع */}
+                <div className="p-3.5 rounded-xl bg-[#07131e] border border-rose-600/50 space-y-2 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                        <CreditCard className="w-3.5 h-3.5 text-rose-400" />
+                        <span>{isAr ? 'بوابات الدفع' : 'Payment Gateways'}</span>
+                      </span>
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-600">
+                        BLOCKED 🔒
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      {isAr
+                        ? 'Stripe Connect، Tap Payments، و Mercury: قيد التفعيل بانتظار استكمال السجلات والموافقة المشروطة من المزود الرسمي.'
+                        : 'Stripe, Tap & Mercury: In setup pipeline, pending formal commercial provider underwriting and approval.'}
+                    </p>
+                  </div>
+                  <div className="text-[10px] font-mono text-rose-400/90 pt-1 border-t border-slate-800">
+                    {isAr ? 'الحالة: BLOCKED / قيد التفعيل' : 'Status: BLOCKED / In Setup'}
+                  </div>
+                </div>
+
+                {/* 4. الاشتراكات والفوترة */}
+                <div className="p-3.5 rounded-xl bg-[#07131e] border border-slate-700/60 space-y-2 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                        <RefreshCw className="w-3.5 h-3.5 text-slate-300" />
+                        <span>{isAr ? 'الاشتراكات والفوترة' : 'Subscriptions'}</span>
+                      </span>
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-700">
+                        {isAr ? 'قيد التخطيط' : 'Planning'}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      {isAr
+                        ? 'استعراض الخطط متاح، وقيد إتمام عقود التجارة وتفعيل الخصم التلقائي الدوري للمحافظ الرقمية.'
+                        : 'Plan tiers live, pending commercial recurring charge contract execution.'}
+                    </p>
+                  </div>
+                  <div className="text-[10px] font-mono text-slate-400 pt-1 border-t border-slate-800">
+                    {isAr ? 'الحالة: قيد التخطيط والمراجعة' : 'Status: In Planning'}
+                  </div>
+                </div>
+
+                {/* 5. الذكاء الاصطناعي */}
+                <div className="p-3.5 rounded-xl bg-[#07131e] border border-slate-700/60 space-y-2 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-[#d5b46b]" />
+                        <span>{isAr ? 'الذكاء الاصطناعي' : 'AI Assistant'}</span>
+                      </span>
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-700">
+                        {isAr ? 'قيد المراجعة' : 'In Review'}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      {isAr
+                        ? 'الواجهة مدمجة بـ Google GenAI SDK، وقيد إعداد النماذج القانونية وتأمين مفاتيح الاستدعاء عبر السيرفر.'
+                        : 'Integrated with Google GenAI SDK, fine-tuning legal models & server proxy.'}
+                    </p>
+                  </div>
+                  <div className="text-[10px] font-mono text-slate-400 pt-1 border-t border-slate-800">
+                    {isAr ? 'الحالة: قيد التخطيط والمراجعة' : 'Status: In Review'}
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Status Summary Counter Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
