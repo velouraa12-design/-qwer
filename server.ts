@@ -1,9 +1,9 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
-import { createServer as createViteServer } from 'vite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -974,16 +974,25 @@ export { app, hashPassword, verifyPassword };
 // ==========================================
 
 async function start() {
-  if (process.env.NODE_ENV !== 'production') {
+  const distPath = path.resolve(__dirname, 'dist');
+  const indexHtmlPath = path.resolve(distPath, 'index.html');
+  const isProd = process.env.NODE_ENV === 'production';
+
+  if (!isProd) {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa'
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.resolve(__dirname, 'dist')));
+    app.use(express.static(distPath));
     app.get('*', (_req: Request, res: Response) => {
-      res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+      if (fs.existsSync(indexHtmlPath)) {
+        res.sendFile(indexHtmlPath);
+      } else {
+        res.status(200).send('QABS Unified Server Running');
+      }
     });
   }
 
@@ -992,8 +1001,12 @@ async function start() {
   });
 }
 
-const isDirectEntry = process.argv[1] && (process.argv[1].endsWith('server.ts') || process.argv[1].endsWith('server.js'));
-if (isDirectEntry && process.env.NODE_ENV !== 'test' && !process.env.VITEST) {
+const isDirectEntry =
+  !process.env.VITEST &&
+  process.env.NODE_ENV !== 'test' &&
+  (!process.argv[1] || !process.argv[1].includes('.test.'));
+
+if (isDirectEntry) {
   start().catch(err => {
     console.error('Fatal error starting server:', err);
     process.exit(1);
