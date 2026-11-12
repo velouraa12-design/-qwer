@@ -281,7 +281,7 @@ async function runTests() {
     'Document Isolation Test: User 2 attempting to read User 1 private document FAILS with 403 Forbidden'
   );
 
-  // Owner reads and generates temporary signed URL
+  // Owner reads metadata, generates a single-use signed URL, and downloads the bytes.
   const ownerDocRead = await makeRequest({
     method: 'GET',
     path: `/api/documents/${uploadedDoc?.id}`,
@@ -292,12 +292,27 @@ async function runTests() {
     path: `/api/documents/${uploadedDoc?.id}/signed-url`,
     headers: { Authorization: `Bearer ${customer1Token}` }
   });
+  const signedDownloadRes = await makeRequest({
+    method: 'GET',
+    path: signedUrlRes.body?.signed_url,
+    headers: { Authorization: `Bearer ${customer1Token}` }
+  });
+  const reusedDownloadRes = await makeRequest({
+    method: 'GET',
+    path: signedUrlRes.body?.signed_url,
+    headers: { Authorization: `Bearer ${customer1Token}` }
+  });
   assert(
     ownerDocRead.statusCode === 200 &&
-      ownerDocRead.body?.document?.content_base64 === samplePdfBase64 &&
+      ownerDocRead.body?.document?.content_base64 === undefined &&
       signedUrlRes.statusCode === 200 &&
-      signedUrlRes.body?.signed_url.includes('token='),
-    'Document Owner: Decrypts content accurately and generates temporary 15-min signed URL'
+      signedUrlRes.body?.signed_url.includes('token=') &&
+      signedDownloadRes.statusCode === 200 &&
+      signedDownloadRes.headers['content-type']?.startsWith('application/pdf') === true &&
+      typeof signedDownloadRes.body === 'string' &&
+      signedDownloadRes.body.includes('%PDF-1.4') &&
+      reusedDownloadRes.statusCode === 403,
+    'Document Owner: Metadata omits plaintext, signed URL downloads once, and reuse is blocked'
   );
 
   // --- PHASE 6: UNIFIED PRICING & SANDBOX BILLING ---

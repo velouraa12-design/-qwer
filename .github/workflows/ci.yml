@@ -9,6 +9,9 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+      VAULT_ENCRYPTION_SECRET: qabs-ci-only-vault-secret-do-not-use-in-production
 
     steps:
     - name: Checkout Repository
@@ -26,14 +29,17 @@ jobs:
     - name: Run TypeScript & Lint Checks
       run: npm run lint
 
+    - name: Run Test Suite
+      run: npm test
+
     - name: Build Application Bundle
       run: npm run build
 
     - name: Security & Secret Scan
       run: |
         echo "Running zero-leak secrets audit..."
-        if grep -rn "sk_live_" src/ || grep -rn "AKIA[0-9A-Z]" src/; then
+        if grep -RInE "sk_live_|rk_live_|shpat_|AKIA[0-9A-Z]" --exclude-dir=node_modules --exclude-dir=.git .; then
           echo "ERROR: Discovered live secret in codebase!"
           exit 1
         fi
-        echo "Security check passed: 100% clean."
+        echo "Security check passed: no known live-key patterns found."
