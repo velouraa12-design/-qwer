@@ -4,8 +4,8 @@
     "usr_customer_01": {
       "id": "usr_customer_01",
       "name": "محمد الخالدي (عميل قبس)",
-      "email": "customer1@qabs1.store",
-      "password_hash": "0ae6c82036110775658e7c02fb7e12f8:60da0fa7fca4ecf97e249d25e30583b2fe2707376d17fdcf02ae0e72790ef1a0cb683ea93c25f137b4b8be8866e103abaa35dfb8a980b54fd7c5d922f32f887e",
+      "email": "customer@qabs1.store",
+      "password_hash": "cc2baf472977a40abce650d3fe3c3cb1:b19bca5e9dbbbb50049d42dacab0ed2ee5ecaf0f24fef434dd5fc88635f41cab01f43d009cac88c7c568a52051e7dc57b0239b917a41ade554360fab4b8dbf6e",
       "company_name": "Khaledi Retail LLC",
       "role": "merchant",
       "credits": 100,
@@ -16,8 +16,8 @@
     "usr_customer_02": {
       "id": "usr_customer_02",
       "name": "سارة المنصوري (عميلة قبس)",
-      "email": "customer2@qabs1.store",
-      "password_hash": "ad26426a0c0df6475b730b9c63c864ca:d4014fd5cd77dfeceb4bee9226598fc980c776ee9de631d61a3530871c637439419e2d6c7e2b5677c8f2a25ee077739f7d411ef7c9c77ceab81e6f7ebd9574c6",
+      "email": "founder@atlasventures.com",
+      "password_hash": "cb544fc62ccea7527734e3e5aac59441:bb6aa4b9d0e318c8bbf5db2b8f1d86f4c536f5f281e11cd1e40de74ac9399170a6cad78396eccf040423d72c9fed951b00c09f1b9023d3d842b21632a72caf59",
       "company_name": "Al-Mansouri Modern Ventures",
       "role": "merchant",
       "credits": 50,
@@ -36,6 +36,42 @@
       "email_verified": false,
       "created_at": "2026-11-12T01:11:32.595Z",
       "updated_at": "2026-11-12T01:11:32.595Z"
+    },
+    "usr_admin_01": {
+      "id": "usr_admin_01",
+      "name": "مدير عمليات قبس (System Administrator)",
+      "email": "admin@qabs1.store",
+      "password_hash": "1f32f3476df705f725ea46921fc580ec:0bbf8edacedc93d04d5a6514223fb624773373afdfb399001a25c6c9773a6c0fdb9eaa743eed77a58cfc336b00bf9854ee401f1072ade2fba7b9bfc6ee4e0e47",
+      "company_name": "QABS Operations HQ",
+      "role": "super_admin",
+      "credits": 1000,
+      "email_verified": true,
+      "created_at": "2026-01-01T08:00:00Z",
+      "updated_at": "2026-01-01T08:00:00Z"
+    },
+    "usr_1794446366786_ab916d": {
+      "id": "usr_1794446366786_ab916d",
+      "name": "New Test Merchant",
+      "email": "merchant_1794446366783@example.com",
+      "password_hash": "e5cfe7172d5545f9e0972aceca121feb:f2f4ac1c66034b412ddb67b53c9f6e157eae94c70d2c420c1870f85b6a166294b6eb869f38366c4f6721696010a4c48d4b1f149614721dfb697e4aa41ed3c6e7",
+      "company_name": "New Test Merchant LLC",
+      "role": "merchant",
+      "credits": 0,
+      "email_verified": false,
+      "created_at": "2026-11-12T01:19:26.786Z",
+      "updated_at": "2026-11-12T01:19:26.786Z"
+    },
+    "usr_1794446454437_4ddc54": {
+      "id": "usr_1794446454437_4ddc54",
+      "name": "New Test Merchant",
+      "email": "merchant_1794446454434@example.com",
+      "password_hash": "540f4bf6678e458d41319dc5fc0e868c:e4ad333652910458661338eb61d686f674078642eceb9c5a4f3c9eaea870fb1b1c5b0aed0ac6d089142d869c5dd0fff7634496c104f860e75d1d9e48e7aa34db",
+      "company_name": "New Test Merchant LLC",
+      "role": "merchant",
+      "credits": 0,
+      "email_verified": false,
+      "created_at": "2026-11-12T01:20:54.437Z",
+      "updated_at": "2026-11-12T01:20:54.437Z"
     }
   },
   "sessions": {
@@ -45,6 +81,48 @@
       "role": "super_admin",
       "created_at": "2026-11-12T01:11:32.675Z",
       "expires_at": "2026-11-19T01:11:32.675Z"
+    },
+    "qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid": {
+      "token": "qabs_seed_token_customer_01_secure_64_bytes_entropy_token_valid",
+      "user_id": "usr_customer_01",
+      "role": "merchant",
+      "created_at": "2026-03-01T10:00:00Z",
+      "expires_at": "2027-03-01T10:00:00Z"
+    },
+    "qabs_seed_token_customer_02_secure_64_bytes_entropy_token_valid": {
+      "token": "qabs_seed_token_customer_02_secure_64_bytes_entropy_token_valid",
+      "user_id": "usr_customer_02",
+      "role": "merchant",
+      "created_at": "2026-03-01T10:00:00Z",
+      "expires_at": "2027-03-01T10:00:00Z"
+    },
+    "9d37f0e0a4027a14818807a9a4ef110138007406c09782ddb5c7fd1a8e89289e": {
+      "token": "9d37f0e0a4027a14818807a9a4ef110138007406c09782ddb5c7fd1a8e89289e",
+      "user_id": "usr_customer_01",
+      "role": "merchant",
+      "created_at": "2026-11-12T01:19:26.781Z",
+      "expires_at": "2026-11-19T01:19:26.781Z"
+    },
+    "b410c0ba62177d44f8aed037c449bfd2000df0209f7577db5b3c5ba321b61a3a": {
+      "token": "b410c0ba62177d44f8aed037c449bfd2000df0209f7577db5b3c5ba321b61a3a",
+      "user_id": "usr_admin_01",
+      "role": "super_admin",
+      "created_at": "2026-11-12T01:19:26.859Z",
+      "expires_at": "2026-11-19T01:19:26.859Z"
+    },
+    "612d3444b784a5426518c63a1d82e5c8f3ea4420e142e42be34c798933672307": {
+      "token": "612d3444b784a5426518c63a1d82e5c8f3ea4420e142e42be34c798933672307",
+      "user_id": "usr_customer_01",
+      "role": "merchant",
+      "created_at": "2026-11-12T01:20:54.432Z",
+      "expires_at": "2026-11-19T01:20:54.432Z"
+    },
+    "1f0cd6ebce092b9d401d943095cbf2649f241bde4d4c635ba53e79b312e4c441": {
+      "token": "1f0cd6ebce092b9d401d943095cbf2649f241bde4d4c635ba53e79b312e4c441",
+      "user_id": "usr_admin_01",
+      "role": "super_admin",
+      "created_at": "2026-11-12T01:20:54.503Z",
+      "expires_at": "2026-11-19T01:20:54.503Z"
     }
   },
   "formations": {
@@ -73,6 +151,58 @@
         }
       ],
       "created_at": "2026-03-01T09:30:00Z"
+    },
+    "comp_1794446366870_77961f": {
+      "id": "comp_1794446366870_77961f",
+      "tenant_id": "usr_customer_01",
+      "company_name": "AL-RAYAN GLOBAL COMMERCE LLC 1794446366868",
+      "jurisdiction": "US_WYOMING",
+      "entity_type": "LLC",
+      "state_file_number": null,
+      "ein": null,
+      "crn": null,
+      "registered_agent": "بانتظار التعيين الرسمي بعد مراجعة الطلب (Pending Assignment)",
+      "registered_address": "يحدد رسمياً بعد المراجعة وتأكيد ملف الولاية (Pending Verification)",
+      "filing_date": "2026-11-12",
+      "renewal_due_date": "2027-11-12",
+      "status": "submitted",
+      "payment_status": "pending_payment",
+      "notes": "Initial intake test",
+      "history": [
+        {
+          "status": "submitted",
+          "changed_at": "2026-11-12T01:19:26.870Z",
+          "changed_by": "usr_customer_01",
+          "note": "Initial intake submitted by client"
+        }
+      ],
+      "created_at": "2026-11-12T01:19:26.870Z"
+    },
+    "comp_1794446454513_277807": {
+      "id": "comp_1794446454513_277807",
+      "tenant_id": "usr_customer_01",
+      "company_name": "AL-RAYAN GLOBAL COMMERCE LLC 1794446454511",
+      "jurisdiction": "US_WYOMING",
+      "entity_type": "LLC",
+      "state_file_number": null,
+      "ein": null,
+      "crn": null,
+      "registered_agent": "بانتظار التعيين الرسمي بعد مراجعة الطلب (Pending Assignment)",
+      "registered_address": "يحدد رسمياً بعد المراجعة وتأكيد ملف الولاية (Pending Verification)",
+      "filing_date": "2026-11-12",
+      "renewal_due_date": "2027-11-12",
+      "status": "submitted",
+      "payment_status": "pending_payment",
+      "notes": "Initial intake test",
+      "history": [
+        {
+          "status": "submitted",
+          "changed_at": "2026-11-12T01:20:54.513Z",
+          "changed_by": "usr_customer_01",
+          "note": "Initial intake submitted by client"
+        }
+      ],
+      "created_at": "2026-11-12T01:20:54.513Z"
     }
   },
   "invoices": {
@@ -86,9 +216,251 @@
       "description_en": "Wyoming LLC Initial Formation Intake (Pending Payment)",
       "status": "pending",
       "issued_date": "2026-03-01"
+    },
+    "inv_1794446366870": {
+      "id": "inv_1794446366870",
+      "invoice_number": "QABS-INV-366871",
+      "tenant_id": "usr_customer_01",
+      "amount": 397,
+      "currency": "USD",
+      "description_ar": "طلب تأسيس شركة AL-RAYAN GLOBAL COMMERCE LLC 1794446366868 (بانتظار السداد)",
+      "description_en": "Formation intake for AL-RAYAN GLOBAL COMMERCE LLC 1794446366868 (Pending Payment)",
+      "status": "pending",
+      "issued_date": "2026-11-12"
+    },
+    "inv_1794446454513": {
+      "id": "inv_1794446454513",
+      "invoice_number": "QABS-INV-454513",
+      "tenant_id": "usr_customer_01",
+      "amount": 397,
+      "currency": "USD",
+      "description_ar": "طلب تأسيس شركة AL-RAYAN GLOBAL COMMERCE LLC 1794446454511 (بانتظار السداد)",
+      "description_en": "Formation intake for AL-RAYAN GLOBAL COMMERCE LLC 1794446454511 (Pending Payment)",
+      "status": "pending",
+      "issued_date": "2026-11-12"
     }
   },
   "audit_logs": [
+    {
+      "id": "log_1794446454524_3bf3f262",
+      "actor_name": "سارة المنصوري (عميلة قبس)",
+      "actor_id": "usr_customer_02",
+      "action_ar": "محاولة غير مصرح بها للوصول لطلب تأسيس عميل آخر (comp_1794446454513_277807)",
+      "action_en": "Cross-tenant formation access attempt blocked (comp_1794446454513_277807)",
+      "target_entity": "company_formations:comp_1794446454513_277807",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.524Z"
+    },
+    {
+      "id": "log_1794446454514_244c0e56",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "إنشاء طلب تأسيس مبدئي (AL-RAYAN GLOBAL COMMERCE LLC 1794446454511) بحالة Submitted وبانتظار السداد",
+      "action_en": "Created initial formation intake (AL-RAYAN GLOBAL COMMERCE LLC 1794446454511) with status Submitted and Pending Payment",
+      "target_entity": "company_formations:comp_1794446454513_277807",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.514Z"
+    },
+    {
+      "id": "log_1794446454509_181173d3",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة وصول غير مصرح بها لمسار محمي",
+      "action_en": "Unauthorized access attempt to protected route",
+      "target_entity": "/api/formations",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.509Z"
+    },
+    {
+      "id": "log_1794446454506_0a589a49",
+      "actor_name": "مدير عمليات قبس (System Administrator)",
+      "actor_id": "usr_admin_01",
+      "action_ar": "عملية إدارية مباشرة معطلة: بانتظار ربط مزود الهوية الخارجي المعتمد",
+      "action_en": "Direct admin write disabled: Awaiting certified production IdP integration",
+      "target_entity": "/api/admin/settings",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.506Z"
+    },
+    {
+      "id": "log_1794446454489_3453df98",
+      "actor_name": "New Test Merchant",
+      "actor_id": "usr_1794446454437_4ddc54",
+      "action_ar": "تسجيل حساب عميل جديد بنجاح",
+      "action_en": "Customer registration successful with hashed credentials",
+      "target_entity": "users:usr_1794446454437_4ddc54",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.489Z"
+    },
+    {
+      "id": "log_1794446454437_6b4c986c",
+      "actor_name": "New Test Merchant",
+      "actor_id": "anonymous_registration",
+      "action_ar": "محاولة محظورة لإنشاء حساب Super Admin عبر التسجيل العام",
+      "action_en": "Privilege escalation attempt during public registration blocked",
+      "target_entity": "AUTH_REGISTER",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.437Z"
+    },
+    {
+      "id": "log_1794446454432_7b43e3bb",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "تسجيل دخول ناجح وإنشاء جلسة مشفرة",
+      "action_en": "Successful customer login with secure session token",
+      "target_entity": "users:usr_customer_01",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.432Z"
+    },
+    {
+      "id": "log_1794446454375_075e3b1e",
+      "actor_name": "customer@qabs1.store",
+      "actor_id": "unknown",
+      "action_ar": "فشل تسجيل الدخول: كلمة المرور أو البريد غير متطابقين",
+      "action_en": "Login failed: Invalid credentials or incorrect password",
+      "target_entity": "AUTH_LOGIN",
+      "status": "failed",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.375Z"
+    },
+    {
+      "id": "log_1794446454299_444db21a",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "محاولة تصعيد صلاحيات غير مصرح بها إلى Super Admin",
+      "action_en": "Privilege escalation attempt to Super Admin rejected",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.299Z"
+    },
+    {
+      "id": "log_1794446454287_a776d779",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة غير مصرح بها للوصول إلى مسار الإدارة",
+      "action_en": "Unauthenticated attempt to access administrative endpoint",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:20:54.287Z"
+    },
+    {
+      "id": "log_1794446366882_3bab9a73",
+      "actor_name": "سارة المنصوري (عميلة قبس)",
+      "actor_id": "usr_customer_02",
+      "action_ar": "محاولة غير مصرح بها للوصول لطلب تأسيس عميل آخر (comp_1794446366870_77961f)",
+      "action_en": "Cross-tenant formation access attempt blocked (comp_1794446366870_77961f)",
+      "target_entity": "company_formations:comp_1794446366870_77961f",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.882Z"
+    },
+    {
+      "id": "log_1794446366871_d84d8375",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "إنشاء طلب تأسيس مبدئي (AL-RAYAN GLOBAL COMMERCE LLC 1794446366868) بحالة Submitted وبانتظار السداد",
+      "action_en": "Created initial formation intake (AL-RAYAN GLOBAL COMMERCE LLC 1794446366868) with status Submitted and Pending Payment",
+      "target_entity": "company_formations:comp_1794446366870_77961f",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.871Z"
+    },
+    {
+      "id": "log_1794446366867_39563f85",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة وصول غير مصرح بها لمسار محمي",
+      "action_en": "Unauthorized access attempt to protected route",
+      "target_entity": "/api/formations",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.867Z"
+    },
+    {
+      "id": "log_1794446366863_c0b0c5f6",
+      "actor_name": "مدير عمليات قبس (System Administrator)",
+      "actor_id": "usr_admin_01",
+      "action_ar": "عملية إدارية مباشرة معطلة: بانتظار ربط مزود الهوية الخارجي المعتمد",
+      "action_en": "Direct admin write disabled: Awaiting certified production IdP integration",
+      "target_entity": "/api/admin/settings",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.863Z"
+    },
+    {
+      "id": "log_1794446366845_0c8dbb1a",
+      "actor_name": "New Test Merchant",
+      "actor_id": "usr_1794446366786_ab916d",
+      "action_ar": "تسجيل حساب عميل جديد بنجاح",
+      "action_en": "Customer registration successful with hashed credentials",
+      "target_entity": "users:usr_1794446366786_ab916d",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.845Z"
+    },
+    {
+      "id": "log_1794446366786_b1a4f281",
+      "actor_name": "New Test Merchant",
+      "actor_id": "anonymous_registration",
+      "action_ar": "محاولة محظورة لإنشاء حساب Super Admin عبر التسجيل العام",
+      "action_en": "Privilege escalation attempt during public registration blocked",
+      "target_entity": "AUTH_REGISTER",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.786Z"
+    },
+    {
+      "id": "log_1794446366781_58306450",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "تسجيل دخول ناجح وإنشاء جلسة مشفرة",
+      "action_en": "Successful customer login with secure session token",
+      "target_entity": "users:usr_customer_01",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.781Z"
+    },
+    {
+      "id": "log_1794446366706_42943780",
+      "actor_name": "customer@qabs1.store",
+      "actor_id": "unknown",
+      "action_ar": "فشل تسجيل الدخول: كلمة المرور أو البريد غير متطابقين",
+      "action_en": "Login failed: Invalid credentials or incorrect password",
+      "target_entity": "AUTH_LOGIN",
+      "status": "failed",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.706Z"
+    },
+    {
+      "id": "log_1794446366613_66902955",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "محاولة تصعيد صلاحيات غير مصرح بها إلى Super Admin",
+      "action_en": "Privilege escalation attempt to Super Admin rejected",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.613Z"
+    },
+    {
+      "id": "log_1794446366598_ee4fc654",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة غير مصرح بها للوصول إلى مسار الإدارة",
+      "action_en": "Unauthenticated attempt to access administrative endpoint",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:19:26.598Z"
+    },
     {
       "id": "log_1794445892694_4144e497",
       "actor_name": "ANONYMOUS_VISITOR",

@@ -124,6 +124,7 @@ class PersistentDatabase {
 
   constructor() {
     this.data = this.load();
+    this.ensureSeedDefaults();
   }
 
   private load(): PersistentStorage {
@@ -140,10 +141,10 @@ class PersistentDatabase {
       console.warn('Could not read existing storage file, initializing seed defaults:', err);
     }
 
-    return this.initSeedDefaults();
+    return this.initSeedDefaults(true);
   }
 
-  private initSeedDefaults(): PersistentStorage {
+  private initSeedDefaults(saveToDisk = false): PersistentStorage {
     const seedCustomer1Password = hashPassword('QabsSecure2026!');
     const seedCustomer2Password = hashPassword('QabsSecure2026!');
     const seedAdminPassword = hashPassword('QabsAdminRoot2026!');
@@ -259,7 +260,9 @@ class PersistentDatabase {
       ]
     };
 
-    this.saveData(seed);
+    if (saveToDisk) {
+      this.saveData(seed);
+    }
     return seed;
   }
 
@@ -280,6 +283,32 @@ class PersistentDatabase {
 
   public reloadFromDisk(): void {
     this.data = this.load();
+  }
+
+  public ensureSeedDefaults(): void {
+    const defaults = this.initSeedDefaults();
+    let changed = false;
+    for (const [uid, u] of Object.entries(defaults.users)) {
+      if (!this.data.users[uid] || this.data.users[uid].email !== u.email) {
+        this.data.users[uid] = u;
+        changed = true;
+      }
+    }
+    for (const [tok, sess] of Object.entries(defaults.sessions)) {
+      if (!this.data.sessions[tok]) {
+        this.data.sessions[tok] = sess;
+        changed = true;
+      }
+    }
+    for (const [fid, form] of Object.entries(defaults.formations)) {
+      if (!this.data.formations[fid]) {
+        this.data.formations[fid] = form;
+        changed = true;
+      }
+    }
+    if (changed) {
+      this.flush();
+    }
   }
 
   // User queries
@@ -358,6 +387,10 @@ class PersistentDatabase {
   public createInvoice(invoice: InvoiceRecord): void {
     this.data.invoices[invoice.id] = invoice;
     this.flush();
+  }
+
+  public getInvoicesByTenant(tenantId: string): InvoiceRecord[] {
+    return Object.values(this.data.invoices || {}).filter(inv => inv.tenant_id === tenantId);
   }
 
   public recordAudit(
@@ -706,6 +739,7 @@ app.post('/api/auth/logout', authenticateSession, (req: Request, res: Response) 
 app.post('/api/auth/verify-email', (_req: Request, res: Response) => {
   res.status(503).json({
     error: 'BLOCKED_PENDING_SMTP',
+    status_code: 'BLOCKED_PENDING_SMTP',
     status: 'BLOCKED',
     message_ar: 'خدمة التحقق من البريد الإلكتروني معطلة أمنياً لحين ربط مزود SMTP معتمد وسجلات SPF/DKIM مفعلة.',
     message_en: 'Email verification is BLOCKED pending certified SMTP integration with active SPF/DKIM.'
@@ -715,6 +749,7 @@ app.post('/api/auth/verify-email', (_req: Request, res: Response) => {
 app.post('/api/auth/recover-password', (_req: Request, res: Response) => {
   res.status(503).json({
     error: 'BLOCKED_PENDING_SMTP',
+    status_code: 'BLOCKED_PENDING_SMTP',
     status: 'BLOCKED',
     message_ar: 'إرسال روابط الاستعادة آلياً معلق حالياً لعدم توفر خادم بريد رسمي. يرجى التواصل مع الدعم عبر WhatsApp: +159710784967.',
     message_en: 'Automated password recovery is BLOCKED pending verified SMTP. Please contact WhatsApp support (+159710784967).'
@@ -857,6 +892,17 @@ app.get('/api/formations/:id', authenticateSession, requireAuth, (req: Request, 
   }
 
   res.json({ formation });
+});
+
+// 8b. Invoices: GET (Strictly Tenant Isolated)
+app.get('/api/invoices', authenticateSession, requireAuth, (req: Request, res: Response) => {
+  const currentTenantId = req.user!.id;
+  const tenantInvoices = db.getInvoicesByTenant(currentTenantId);
+  res.json({
+    tenant_id: currentTenantId,
+    total: tenantInvoices.length,
+    invoices: tenantInvoices
+  });
 });
 
 // ==========================================
