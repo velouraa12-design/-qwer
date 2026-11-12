@@ -1,0 +1,235 @@
+{
+  "version": "1.0",
+  "users": {
+    "usr_customer_01": {
+      "id": "usr_customer_01",
+      "name": "محمد الخالدي (عميل قبس)",
+      "email": "customer1@qabs1.store",
+      "password_hash": "0ae6c82036110775658e7c02fb7e12f8:60da0fa7fca4ecf97e249d25e30583b2fe2707376d17fdcf02ae0e72790ef1a0cb683ea93c25f137b4b8be8866e103abaa35dfb8a980b54fd7c5d922f32f887e",
+      "company_name": "Khaledi Retail LLC",
+      "role": "merchant",
+      "credits": 100,
+      "email_verified": false,
+      "created_at": "2026-01-10T10:00:00Z",
+      "updated_at": "2026-01-10T10:00:00Z"
+    },
+    "usr_customer_02": {
+      "id": "usr_customer_02",
+      "name": "سارة المنصوري (عميلة قبس)",
+      "email": "customer2@qabs1.store",
+      "password_hash": "ad26426a0c0df6475b730b9c63c864ca:d4014fd5cd77dfeceb4bee9226598fc980c776ee9de631d61a3530871c637439419e2d6c7e2b5677c8f2a25ee077739f7d411ef7c9c77ceab81e6f7ebd9574c6",
+      "company_name": "Al-Mansouri Modern Ventures",
+      "role": "merchant",
+      "credits": 50,
+      "email_verified": false,
+      "created_at": "2026-02-01T12:00:00Z",
+      "updated_at": "2026-02-01T12:00:00Z"
+    },
+    "usr_1794445892595_87e355": {
+      "id": "usr_1794445892595_87e355",
+      "name": "New Test Merchant",
+      "email": "merchant_1794445892592@example.com",
+      "password_hash": "86aab6b328f2c7fe004617bbf84d2d69:70d861fe46444136210f53433afd8df6185f2637efc774b8c7b1721d47b379c83ecce5ccb2977e803b0bad9042c1a31a61a59b005374886818150fb3610c203f",
+      "company_name": "New Test Merchant LLC",
+      "role": "merchant",
+      "credits": 0,
+      "email_verified": false,
+      "created_at": "2026-11-12T01:11:32.595Z",
+      "updated_at": "2026-11-12T01:11:32.595Z"
+    }
+  },
+  "sessions": {
+    "8e7ac0d25ec7e07f358778d6ced46473daaed3f747c9a769f343d249273a86e1": {
+      "token": "8e7ac0d25ec7e07f358778d6ced46473daaed3f747c9a769f343d249273a86e1",
+      "user_id": "usr_admin_01",
+      "role": "super_admin",
+      "created_at": "2026-11-12T01:11:32.675Z",
+      "expires_at": "2026-11-19T01:11:32.675Z"
+    }
+  },
+  "formations": {
+    "comp_seed_01": {
+      "id": "comp_seed_01",
+      "tenant_id": "usr_customer_01",
+      "company_name": "KHALEDI COMMERCE LLC",
+      "jurisdiction": "US_WYOMING",
+      "entity_type": "LLC",
+      "state_file_number": null,
+      "ein": null,
+      "crn": null,
+      "registered_agent": "بانتظار التعيين الرسمي بعد مراجعة الطلب (Pending Assignment)",
+      "registered_address": "يحدد رسمياً بعد المراجعة وتأكيد ملف الولاية (Pending Verification)",
+      "filing_date": "2026-03-01",
+      "renewal_due_date": "2027-03-01",
+      "status": "submitted",
+      "payment_status": "pending_payment",
+      "notes": "طلب مبدئي مستلم. بانتظار استكمال التدقيق وسداد الرسوم.",
+      "history": [
+        {
+          "status": "submitted",
+          "changed_at": "2026-03-01T09:30:00Z",
+          "changed_by": "usr_customer_01",
+          "note": "Initial intake intake received"
+        }
+      ],
+      "created_at": "2026-03-01T09:30:00Z"
+    }
+  },
+  "invoices": {
+    "inv_seed_01": {
+      "id": "inv_seed_01",
+      "invoice_number": "QABS-INV-2026-001",
+      "tenant_id": "usr_customer_01",
+      "amount": 397,
+      "currency": "USD",
+      "description_ar": "فاتورة تأسيس شركة وايومنغ (طلب مبدئي بانتظار السداد)",
+      "description_en": "Wyoming LLC Initial Formation Intake (Pending Payment)",
+      "status": "pending",
+      "issued_date": "2026-03-01"
+    }
+  },
+  "audit_logs": [
+    {
+      "id": "log_1794445892694_4144e497",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة وصول غير مصرح بها لمسار محمي",
+      "action_en": "Unauthorized access attempt to protected route",
+      "target_entity": "/api/formations/undefined",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.694Z"
+    },
+    {
+      "id": "log_1794445892691_2567237d",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة وصول غير مصرح بها لمسار محمي",
+      "action_en": "Unauthorized access attempt to protected route",
+      "target_entity": "/api/formations",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.691Z"
+    },
+    {
+      "id": "log_1794445892689_12b33f63",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة وصول غير مصرح بها لمسار محمي",
+      "action_en": "Unauthorized access attempt to protected route",
+      "target_entity": "/api/formations",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.689Z"
+    },
+    {
+      "id": "log_1794445892683_4a21f92b",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة وصول غير مصرح بها لمسار محمي",
+      "action_en": "Unauthorized access attempt to protected route",
+      "target_entity": "/api/formations",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.683Z"
+    },
+    {
+      "id": "log_1794445892680_833be4f8",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة وصول غير مصرح بها لمسار محمي",
+      "action_en": "Unauthorized access attempt to protected route",
+      "target_entity": "/api/formations",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.680Z"
+    },
+    {
+      "id": "log_1794445892677_42f0e7b2",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة غير مصرح بها للوصول إلى مسار الإدارة",
+      "action_en": "Unauthenticated attempt to access administrative endpoint",
+      "target_entity": "/api/admin/settings",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.677Z"
+    },
+    {
+      "id": "log_1794445892662_8cacd287",
+      "actor_name": "New Test Merchant",
+      "actor_id": "usr_1794445892595_87e355",
+      "action_ar": "تسجيل حساب عميل جديد بنجاح",
+      "action_en": "Customer registration successful with hashed credentials",
+      "target_entity": "users:usr_1794445892595_87e355",
+      "status": "success",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.662Z"
+    },
+    {
+      "id": "log_1794445892594_06b82d2c",
+      "actor_name": "New Test Merchant",
+      "actor_id": "anonymous_registration",
+      "action_ar": "محاولة محظورة لإنشاء حساب Super Admin عبر التسجيل العام",
+      "action_en": "Privilege escalation attempt during public registration blocked",
+      "target_entity": "AUTH_REGISTER",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.594Z"
+    },
+    {
+      "id": "log_1794445892590_853735ec",
+      "actor_name": "customer@qabs1.store",
+      "actor_id": "unknown",
+      "action_ar": "فشل تسجيل الدخول: كلمة المرور أو البريد غير متطابقين",
+      "action_en": "Login failed: Invalid credentials or incorrect password",
+      "target_entity": "AUTH_LOGIN",
+      "status": "failed",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.590Z"
+    },
+    {
+      "id": "log_1794445892586_06bf912a",
+      "actor_name": "customer@qabs1.store",
+      "actor_id": "unknown",
+      "action_ar": "فشل تسجيل الدخول: كلمة المرور أو البريد غير متطابقين",
+      "action_en": "Login failed: Invalid credentials or incorrect password",
+      "target_entity": "AUTH_LOGIN",
+      "status": "failed",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.586Z"
+    },
+    {
+      "id": "log_1794445892559_07a34198",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة غير مصرح بها للوصول إلى مسار الإدارة",
+      "action_en": "Unauthenticated attempt to access administrative endpoint",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.559Z"
+    },
+    {
+      "id": "log_1794445892545_5ff15ea9",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة غير مصرح بها للوصول إلى مسار الإدارة",
+      "action_en": "Unauthenticated attempt to access administrative endpoint",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T01:11:32.545Z"
+    },
+    {
+      "id": "log_boot_01",
+      "actor_name": "SYSTEM",
+      "actor_id": "sys",
+      "action_ar": "تهيئة خادم قبس الرقمية وقاعدة البيانات التخزينية الدائمة",
+      "action_en": "System kernel & persistent storage initialized",
+      "target_entity": "STORAGE_KERNEL",
+      "status": "success",
+      "timestamp": "2026-11-12T01:11:32.508Z"
+    }
+  ]
+}

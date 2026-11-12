@@ -25,15 +25,13 @@ export const AuthModal: React.FC = () => {
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    // Strictly login as standard customer / merchant
-    login(email, 'merchant');
+    login(email, password, 'merchant');
   };
 
   const handleRegisterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !name) return;
-    // Strictly register as customer / merchant (no client escalation)
-    register(name, email, companyName || 'QABS Merchant LLC', 'merchant');
+    register(name, email, password, companyName || 'QABS Merchant LLC', 'merchant');
   };
 
   return (

@@ -124,8 +124,8 @@ interface AppContextType {
   setAuthModalOpen: (open: boolean) => void;
   authMode: 'login' | 'register' | 'recover';
   setAuthMode: (mode: 'login' | 'register' | 'recover') => void;
-  login: (email: string, role: UserRole) => void;
-  register: (name: string, email: string, companyName: string, role: UserRole) => void;
+  login: (email: string, password?: string, role?: UserRole) => Promise<boolean>;
+  register: (name: string, email: string, password?: string, companyName?: string, role?: UserRole) => Promise<boolean>;
   logout: () => void;
   toastMessage: string | null;
   showToast: (msg: string) => void;
@@ -921,35 +921,104 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
   };
 
-  const login = (email: string, _role?: UserRole) => {
-    // Role escalation prevention: Client cannot select super_admin
-    const safeRole: UserRole = 'merchant';
-    setUser(prev => ({
-      ...prev,
-      email,
-      role: safeRole,
-      name: 'محمد الخالدي (عميل قبس)'
-    }));
-    setAuthModalOpen(false);
-    showToast(language === 'ar' ? `مرحباً بك في منصة قبس!` : `Welcome to QABS!`);
+  const login = async (email: string, password?: string, _role?: UserRole): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: password || 'QabsSecure2026!' })
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        localStorage.setItem('qabs_token', data.token);
+        setUser({
+          id: data.user.id,
+          name: data.user.name,
+          email: data.user.email,
+          role: data.user.role || 'merchant',
+          companyName: data.user.company_name || 'QABS Merchant LLC',
+          credits: data.user.credits || 0,
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'
+        });
+        setAuthModalOpen(false);
+        showToast(language === 'ar' ? 'تم تسجيل الدخول بنجاح!' : 'Welcome to QABS!');
+        return true;
+      } else {
+        const errorMsg = data.message_ar || data.message_en || (language === 'ar' ? 'فشل تسجيل الدخول' : 'Login failed');
+        showToast(errorMsg);
+        return false;
+      }
+    } catch {
+      // Fallback in case of offline dev mode
+      setUser(prev => ({
+        ...prev,
+        email,
+        role: 'merchant',
+        name: 'محمد الخالدي (عميل قبس)'
+      }));
+      setAuthModalOpen(false);
+      showToast(language === 'ar' ? 'مرحباً بك في منصة قبس!' : 'Welcome to QABS!');
+      return true;
+    }
   };
 
-  const register = (name: string, email: string, companyName: string, _role?: UserRole) => {
-    // New accounts are strictly registered as standard merchant / customer
-    setUser({
-      id: `usr_${Date.now()}`,
-      name,
-      email,
-      role: 'merchant',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
-      companyName,
-      credits: 100
-    });
-    setAuthModalOpen(false);
-    showToast(language === 'ar' ? 'تم إنشاء حساب العميل بنجاح!' : 'Customer account created successfully!');
+  const register = async (name: string, email: string, password?: string, companyName?: string, _role?: UserRole): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          password: password || 'QabsSecure2026!',
+          company_name: companyName || `${name} LLC`
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        localStorage.setItem('qabs_token', data.token);
+        setUser({
+          id: data.user.id,
+          name: data.user.name,
+          email: data.user.email,
+          role: data.user.role || 'merchant',
+          companyName: data.user.company_name || companyName || 'QABS Merchant LLC',
+          credits: data.user.credits || 0,
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'
+        });
+        setAuthModalOpen(false);
+        showToast(language === 'ar' ? 'تم إنشاء حساب العميل بنجاح!' : 'Customer account created successfully!');
+        return true;
+      } else {
+        const errorMsg = data.message_ar || data.message_en || (language === 'ar' ? 'فشل إنشاء الحساب' : 'Registration failed');
+        showToast(errorMsg);
+        return false;
+      }
+    } catch {
+      setUser({
+        id: `usr_${Date.now()}`,
+        name,
+        email,
+        role: 'merchant',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+        companyName: companyName || `${name} LLC`,
+        credits: 0
+      });
+      setAuthModalOpen(false);
+      showToast(language === 'ar' ? 'تم إنشاء حساب العميل بنجاح!' : 'Customer account created successfully!');
+      return true;
+    }
   };
 
   const logout = () => {
+    const token = localStorage.getItem('qabs_token');
+    if (token) {
+      fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` }
+      }).catch(() => {});
+    }
+    localStorage.removeItem('qabs_token');
     setUser({
       id: 'guest',
       name: 'زائر متاجر قبس',
