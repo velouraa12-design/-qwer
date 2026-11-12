@@ -697,6 +697,39 @@
   "ai_usage": [],
   "audit_logs": [
     {
+      "id": "log_1794451640067_cb455883",
+      "actor_name": "سارة المنصوري (عميلة قبس)",
+      "actor_id": "usr_customer_02",
+      "action_ar": "محاولة غير مصرح بها للوصول لطلب تأسيس عميل آخر (comp_seed_01)",
+      "action_en": "Cross-tenant formation access attempt blocked (comp_seed_01)",
+      "target_entity": "company_formations:comp_seed_01",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:47:20.067Z"
+    },
+    {
+      "id": "log_1794451640049_2fb29199",
+      "actor_name": "محمد الخالدي (عميل قبس)",
+      "actor_id": "usr_customer_01",
+      "action_ar": "محاولة تصعيد صلاحيات غير مصرح بها إلى Super Admin",
+      "action_en": "Privilege escalation attempt to Super Admin rejected",
+      "target_entity": "/api/admin/audit-logs",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:47:20.049Z"
+    },
+    {
+      "id": "log_1794451640031_f7e5b780",
+      "actor_name": "ANONYMOUS_VISITOR",
+      "actor_id": "anonymous",
+      "action_ar": "محاولة وصول غير مصرح بها لمسار محمي",
+      "action_en": "Unauthorized access attempt to protected route",
+      "target_entity": "/api/formations",
+      "status": "blocked",
+      "ip_address": "127.0.0.1",
+      "timestamp": "2026-11-12T02:47:20.031Z"
+    },
+    {
       "id": "log_1794450368692_14941d74",
       "actor_name": "سارة المنصوري (عميلة قبس)",
       "actor_id": "usr_customer_02",
